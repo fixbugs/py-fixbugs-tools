@@ -1,7 +1,6 @@
 #!/usr/bin/env python2.6
 #-*- coding: utf-8 -*-
 
-
 import requests
 import time
 import string
