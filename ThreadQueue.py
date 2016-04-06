@@ -164,3 +164,6 @@ class ThreadQueue(object):
                 self.queue.put(self.tasks_list[self._tasks_list_num])
                 self._tasks_list_num += 1
         return True
+
+    def getWorkingQueue(self):
+        print dir(self.queue)
