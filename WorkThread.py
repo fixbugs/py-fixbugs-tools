@@ -1,10 +1,7 @@
 #!/usr/bin/env python2.6
 #-*- coding: utf-8 -*-
 
-import os
-import time
-import thread
-import threading
+iimport threading
 
 
 '''
