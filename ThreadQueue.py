@@ -164,5 +164,7 @@ class ThreadQueue(object):
                 self._tasks_list_num += 1
         return True
 
+    #获取当前队列
     def getWorkingQueue(self):
-        print dir(self.queue)
+        #return self;
+        return self.queue

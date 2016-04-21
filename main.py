@@ -78,6 +78,7 @@ class testClass(object):
         return False
 
     def errorLogWrite(self,line_data):
+        print self.error_file_path
         try:
             f = open(self.error_file_path,'a')
             f.write(str(line_data))
@@ -92,8 +93,8 @@ def testThreadQueue():
     tq = ThreadQueue(work_function=create_task,thread_work_function=tc.test)
     print tq.add_tasks()
     print tq.getWorkingQueue()
-    print 'end'
-    exit(0)
+    #print 'end'
+    #exit(0)
     print 'end+1'
     while True:
         if tq.do_work():

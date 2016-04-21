@@ -70,11 +70,16 @@ class WorkThread(threading.Thread):
     wirth something into error_file_path if need
     '''
     def _errorLogWrite(self, line_data):
+        print self._error_file_path
+        if not self._error_file_path:
+            return
+        file_handle = None
         try:
-            f = open(self._error_file_path, 'a')
-            f.write(str(line_data))
+            file_handle = open(self._error_file_path, 'a')
+            file_handle.write(str(line_data))
         finally:
-            f.close()
+            if file_handle in dir():
+                file_handle.close()
 
     '''
     stop thread run if need
