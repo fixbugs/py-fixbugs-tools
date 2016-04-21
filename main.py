@@ -77,13 +77,15 @@ class testClass(object):
             # print "---view url exception end---"
         return False
 
-    def errorLogWrite(self,line_data):
-        print self.error_file_path
+    def errorLogWrite(self, line_data):
+        fh = None
         try:
-            f = open(self.error_file_path,'a')
-            f.write(str(line_data))
+            fh = open(self.error_file_path, 'a')
+            fh.write(str(line_data))
         finally:
-            f.close()
+            if not fh:
+                return
+            fh.close()
 
 def testThreadQueue():
     from ThreadQueue import ThreadQueue
