@@ -107,7 +107,6 @@ def testThreadQueue():
 
 
 used_time = time.time()-start_time
-
 print used_time
 
 if __name__ == '__main__':
