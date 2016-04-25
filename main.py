@@ -105,10 +105,6 @@ def testThreadQueue():
             break
     print 'ok'
 
-
-used_time = time.time()-start_time
-print used_time
-
 if __name__ == '__main__':
     start_time = time.time()
     req = testThreadQueue()
