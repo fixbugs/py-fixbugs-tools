@@ -14,7 +14,7 @@ print fact(1000)
 
 
 #尾递归
-def fact(n):
+def new_fact(n):
     return fact_iter(n, 1)
 
 
@@ -23,5 +23,5 @@ def fact_iter(num, product):
         return product
     return fact_iter(num - 1, num * product)
 
-print fact(5)
-print fact(1000)
+print new_fact(5)
+print new_fact(1000)
