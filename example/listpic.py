@@ -42,3 +42,11 @@ print [d for d in os.listdir('.')] # os.listdir可以列出文件和目录
 
 print L = ['Hello', 'World', 'IBM', 'Apple']
 print [s.lower() for s in L]
+
+
+#生成器
+g = (x * x for x in range(10))
+print g
+
+print next(g)
+print next(g)
