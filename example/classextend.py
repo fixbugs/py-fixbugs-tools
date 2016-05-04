@@ -32,3 +32,6 @@ print isinstance(h, Husky)
 print isinstance(h, Dog)
 print isinstance(h, Animal)
 print isinstance(d, Dog) and isinstance(d, Animal)
+
+print dir('ABC')
+print dir(Husky)
