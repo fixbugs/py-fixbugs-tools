@@ -15,9 +15,20 @@ class Cat(Animal):
     pass
 
 
+class Husky(Dog):
+    pass
 
 dog = Dog()
 dog.run()
 
 cat = Cat()
 cat.run()
+
+a = Animal()
+d = Dog()
+h = Husky()
+
+print isinstance(h, Husky)
+print isinstance(h, Dog)
+print isinstance(h, Animal)
+print isinstance(d, Dog) and isinstance(d, Animal)
