@@ -12,8 +12,10 @@ import threading
  explain:
         do_method : exec work_function times, now just can be once
 '''
+
+
 class WorkThread(threading.Thread):
-    def __init__(self,**kwargs):
+    def __init__(self, **kwargs):
         threading.Thread.__init__(self)
         self._m_stop = False
         if not kwargs:

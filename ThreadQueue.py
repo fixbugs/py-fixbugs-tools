@@ -25,6 +25,8 @@ from WorkThread import WorkThread
        2、实例化ThreadQueue类后需要执行添加任务函数add_task
 
 '''
+
+
 class ThreadQueue(object):
     def __init__(self, **kwargs):
         self._flag = True
@@ -40,7 +42,9 @@ class ThreadQueue(object):
             if kwargs.has_key('thread_error_file_path'):
                 self._thread_error_file_path = kwargs['thread_error_file_path']
             else:
-                self._thread_error_file_path = '/tmp/' + str(self._thread_work_function) + 'work_thread_exec_error.log'
+                self._thread_error_file_path = '/tmp/'
+                + str(self._thread_work_function)
+                + 'work_thread_exec_error.log'
             if kwargs.has_key('function_para'):
                 self._function_para = kwargs['function_para']
             if kwargs.has_key('work_nums'):
@@ -110,7 +114,10 @@ class ThreadQueue(object):
                 if self.queue.empty():
                     self._full_queue()
                     pass
-                work_thread = WorkThread(work_function=self._thread_work_function, error_file_path=self._thread_error_file_path, function_para = self.queue.get())
+                work_thread = WorkThread(
+                    work_function=self._thread_work_function,
+                    error_file_path=self._thread_error_file_path,
+                    function_para=self.queue.get())
                 work_thread.start()
                 self.thread_arrays.append(work_thread)
                 #取出了队列中的元素后补足队列
@@ -122,7 +129,10 @@ class ThreadQueue(object):
                         self._flag = False
                         break
                     else:
-                        work_thread = WorkThread(work_function=self._thread_work_function, error_file_path=self._thread_error_file_path, function_para = self.queue.get())
+                        work_thread = WorkThread(
+                            work_function=self._thread_work_function,
+                            error_file_path=self._thread_error_file_path,
+                            function_para=self.queue.get())
                         work_thread.start()
                         #更新替换已经死亡的thread
                         self.thread_arrays[i] = work_thread
