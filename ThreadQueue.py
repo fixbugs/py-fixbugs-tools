@@ -33,21 +33,21 @@ class ThreadQueue(object):
         if not kwargs:
             self._flag = False
         else:
-            if kwargs.has_key('work_function') and kwargs.has_key('thread_work_function'):
+            if 'work_function' in kwargs and 'thread_work_function' in kwargs:
                 self._do_work_function = kwargs['work_function']
                 self._thread_work_function = kwargs['thread_work_function']
             else:
                 self._flag = False
                 pass
-            if kwargs.has_key('thread_error_file_path'):
+            if 'thread_error_file_path' in kwargs:
                 self._thread_error_file_path = kwargs['thread_error_file_path']
             else:
                 self._thread_error_file_path = '/tmp/'
                 + str(self._thread_work_function)
                 + 'work_thread_exec_error.log'
-            if kwargs.has_key('function_para'):
+            if 'function_para' in kwargs:
                 self._function_para = kwargs['function_para']
-            if kwargs.has_key('work_nums'):
+            if 'work_nums' in kwargs:
                 self._work_nums = int(kwargs['work_nums'])
             else:
                 self._work_nums = 20
@@ -64,7 +64,7 @@ class ThreadQueue(object):
     def add_tasks(self, **kwargs):
         if not self._flag:
             return False
-        if kwargs.has_key('work_function'):
+        if 'work_function' in kwargs:
             work_func = kwargs['work_function']
         else:
             work_func = self._do_work_function
@@ -72,7 +72,7 @@ class ThreadQueue(object):
             print "ThreadQueue add_tasks need work_function"
             return False
         try:
-            if kwargs.has_key('function_para'):
+            if 'function_para' in kwargs:
                 self.tasks_list = work_func(**kwargs['function_para'])
             else:
                 #check if has put function_para by class init
@@ -80,7 +80,7 @@ class ThreadQueue(object):
                     self.tasks_list = work_func(**self._function_para)
                 else:
                     self.tasks_list = work_func()
-        except Exception,e:
+        except Exception, e:
             print e
         if not self.tasks_list:
             return False
