@@ -4,17 +4,15 @@
 import threading
 
 
-'''
- work thread class
- input: kwargs(dict)
- output: None but exec function input in
-
- explain:
-        do_method : exec work_function times, now just can be once
-'''
-
-
 class WorkThread(threading.Thread):
+    '''
+    work thread class
+    input: kwargs(dict)
+    output: None but exec function input in
+
+    explain:
+        do_method : exec work_function times, now just can be once
+    '''
     def __init__(self, **kwargs):
         threading.Thread.__init__(self)
         self._m_stop = False

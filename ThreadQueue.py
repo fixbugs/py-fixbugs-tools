@@ -5,29 +5,27 @@ import Queue
 
 from WorkThread import WorkThread
 
-'''
- query class for exec function
- this is a queue to exec thread things
- 1 get all tasks
- 2 create work queue and full queue
- 3 exec threading and check threading status
- 4 put new test into queue where tasks is not null
- 5 check tasks is null and all threading is not alive end else go step 3
-
- work_function 获取任务队列的函数
- function_para 获取任务队列函数的参数
- work_nums 队列长度即同时执行任务的个数
- thread_work_function 任务线程队列的执行函数
- thread_error_file_path 线程队列执行错误的log文件位置
-
-
- 说明：1、传入的work_function是准备传递给WorkThread的
-       2、实例化ThreadQueue类后需要执行添加任务函数add_task
-
-'''
-
 
 class ThreadQueue(object):
+    '''
+    query class for exec function
+    this is a queue to exec thread things
+    1 get all tasks
+    2 create work queue and full queue
+    3 exec threading and check threading status
+    4 put new test into queue where tasks is not null
+    5 check tasks is null and all threading is not alive end else go step 3
+
+    work_function 获取任务队列的函数
+    function_para 获取任务队列函数的参数
+    work_nums 队列长度即同时执行任务的个数
+    thread_work_function 任务线程队列的执行函数
+    thread_error_file_path 线程队列执行错误的log文件位置
+
+
+    说明：1、传入的work_function是准备传递给WorkThread的
+    2、实例化ThreadQueue类后需要执行添加任务函数add_task
+    '''
     def __init__(self, **kwargs):
         self._flag = True
         if not kwargs:
