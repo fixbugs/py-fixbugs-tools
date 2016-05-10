@@ -1,4 +1,5 @@
-
+#!/usr/bin/env python2.6
+#-*- coding: utf-8 -*-
 
 import web
 render = web.template.render('templates/')
@@ -9,7 +10,6 @@ urls = (
 
 class index:
     def GET(self, name):
-        i = web.input(name=None)
         return render.index(name)
     #return "Hello, world!"
 
