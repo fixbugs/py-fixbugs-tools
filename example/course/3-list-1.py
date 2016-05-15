@@ -1,32 +1,34 @@
 #!/usr/bin/env python2.6
 #-*- coding: utf-8 -*-
 
-classmates = ['Michael', 'Bob', 'Tracy']
-print classmates
+# classmates = ['Michael', 'Bob', 'Tracy']
+# print classmates
 
-print len(classmates)
+# print dir(classmates)
 
-print classmates[0]
+# print len(classmates)
 
-print classmates[-1]
+# print classmates[0]
 
-classmates.append('Adam')
-print classmates
+# print classmates[-1]
 
-classmates.insert(1, 'Jack')
-print classmates
+# classmates.append('Adam')
+# print classmates
 
-print classmates.pop()
-print classmates
+# classmates.insert(1, 'Jack')
+# print classmates
 
-print classmates.pop(1)
-print classmates
+# print classmates.pop()
+# print classmates
 
-classmates[1] = 'Sarah'
-print classmates
+# print classmates.pop(1)
+# print classmates
 
-L = ['apple', 123, True]
-print L, len(L)
+# classmates[1] = 'Sarah'
+# print classmates
+
+# L = ['apple', 123, True]
+# print L, len(L)
 
 s = ['a', 'b', ['c', 'd'], 'e']
 print s, len(s)

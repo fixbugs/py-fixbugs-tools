@@ -130,7 +130,7 @@ print newperson('Jack', 24, city='Beijing', addr='Chaoyang', zipcode=123456)
 
 
 #限制关键字参数，只接收ciyt和job
-def nnewperson(name, age, *, city, job):
+def nnewperson(name, age, city, job):
     print(name, age, city, job)
 
 print nnewperson('Jack', 24, city='Beijing', job='Engineer')
@@ -142,7 +142,7 @@ def f1(a, b, c=0, *args, **kw):
     print('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)
 
 
-def f2(a, b, c=0, *, d, **kw):
+def f2(a, b, c=0, *d, **kw):
     print('a =', a, 'b =', b, 'c =', c, 'd =', d, 'kw =', kw)
 
 print f1(1, 2)
