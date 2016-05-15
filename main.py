@@ -4,6 +4,8 @@
 import requests
 import time
 import string
+import urllib2
+import simplejson
 
 start_time = time.time()
 
@@ -24,6 +26,7 @@ start_time = time.time()
 #     print req.url
 #     print req.text
 
+
 def create_task():
     result = []
     for i in range(0,81):
@@ -31,6 +34,7 @@ def create_task():
         tmp['page'] = i
         result.append(tmp)
     return result
+
 
 def test(*args, **kwargs):
     if args:
@@ -40,38 +44,40 @@ def test(*args, **kwargs):
         print kwargs['b']
     return True
 
+
 class testClass(object):
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
         self.error_file_path = '/root/work/codeReconstruction/errorlog'
         if args:
             self.args = args
         if kwargs:
             self.kwargs = kwargs
 
-    def test(self,*args,**kwargs):
+    def test(self, *args, **kwargs):
         page =  kwargs['page']
         if not page:
             page = 0
-        ret =self.viewUrl(page)
+        ret = self.viewUrl(page)
         if not ret:
             #need write into failed file
             print ret
 
-    def viewUrl(self,page):
+    def viewUrl(self, page):
         try:
             #url = 'http://admin.lm.leju.com/api/article/getArticlePublish?page='+ str(page)
-            url = 'http://admin.lm.leju.com/test/test/testacticlepublish?page='+ str(page)
-            url_res = urllib2.urlopen(url,timeout=30).read()
+            url = 'http://admin.lm.leju.com/test/test/testacticlepublish?page='
+            + str(page)
+            url_res = urllib2.urlopen(url, timeout=30).read()
             if not url_res:
                 return False
             res = simplejson.loads(url_res)
-            if res.has_key('status') and res['status'] == True:
+            if 'status' in res and res['status'] is True:
                 print res
                 return True
             else:
                 self.errorLogWrite(str(page)+'/n')
-        except Exception,e:
-            self.errorLogWrite(str(page)+ ',' + str(e) + '/n')
+        except Exception, e:
+            self.errorLogWrite(str(page) + ',' + str(e) + '/n')
             # print "---view url exception start---"
             # print e
             # print "---view url exception end---"
@@ -87,12 +93,13 @@ class testClass(object):
                 return
             fh.close()
 
+
 def testThreadQueue():
     from ThreadQueue import ThreadQueue
-    t_dict ={'a':'12',"b":'34'}
-    t_dict = ('1','2')
+    t_dict = {'a': '12', "b": '34'}
+    t_dict = ('1', '2')
     tc = testClass(t_dict)
-    tq = ThreadQueue(work_function=create_task,thread_work_function=tc.test)
+    tq = ThreadQueue(work_function=create_task, thread_work_function=tc.test)
     print tq.add_tasks()
     print tq.getWorkingQueue()
     #print 'end'
