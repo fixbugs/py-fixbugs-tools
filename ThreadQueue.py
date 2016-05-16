@@ -40,7 +40,8 @@ class ThreadQueue(object):
             if 'thread_error_file_path' in kwargs:
                 self._thread_error_file_path = kwargs['thread_error_file_path']
             else:
-                self._thread_error_file_path = '/tmp/work_thread_exec_error.log'
+                self._thread_error_file_path = '/tmp'\
+                                               + '/work_thread_exec_error.log'
             if 'function_para' in kwargs:
                 self._function_para = kwargs['function_para']
             if 'work_nums' in kwargs:

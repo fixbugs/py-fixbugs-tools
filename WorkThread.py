@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 import threading
+import simplejson
 
 
 class WorkThread(threading.Thread):
@@ -50,8 +51,10 @@ class WorkThread(threading.Thread):
             #check if need add errorlog
             if not res:
                 if hasattr(self, '_function_para'):
-                    line_data = 'error function return'
-                    + ' False with params:%s \n' % (str(self._function_para))
+                    line_data = 'error function return'\
+                                + ' False with params:'\
+                                + '%s\n' % (
+                                    simplejson.dumps(self._function_para))
                 else:
                     line_data = 'error function return False \n'
                 self._errorLogWrite(line_data)
@@ -61,7 +64,8 @@ class WorkThread(threading.Thread):
                     + 'with get message'
                     if hasattr(self, '_function_para'):
                         line_data = 'error by' + str(line_data)
-                        + 'with params:%s \n' % (str(self._function_para))
+                        + 'with params:%s \n'
+                        + '' % (simplejson.dumps(self._function_para))
                     else:
                         line_data = str(line_data) + '\n'
                     self._errorLogWrite(line_data)
