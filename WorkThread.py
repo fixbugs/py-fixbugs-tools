@@ -59,7 +59,7 @@ class WorkThread(threading.Thread):
                     line_data = 'error function return False \n'
                 self._errorLogWrite(line_data)
             elif isinstance(res, dict):
-                if(not res['status'] or res['status'] == False):
+                if not res['status']:
                     line_data = 'message' in res if True else 'error'
                     + 'with get message'
                     if hasattr(self, '_function_para'):
