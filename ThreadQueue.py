@@ -27,6 +27,7 @@ class ThreadQueue(object):
     2、实例化ThreadQueue类后需要执行添加任务函数add_task
     '''
     def __init__(self, **kwargs):
+        self._is_init = False
         self._flag = True
         if not kwargs:
             self._flag = False
@@ -86,6 +87,7 @@ class ThreadQueue(object):
             self._work_nums = self._tasks_total_nums
         #初始化队列
         self._init_queue()
+        self._is_init = True
         return True
 
     '''
@@ -93,6 +95,8 @@ class ThreadQueue(object):
     保证只有当返回值为False时结束调用
     '''
     def do_work(self):
+        if not self._is_init:
+            self.add_tasks()
         if not self._flag:
             thread_alive_num = 0
             for i in range(0, self._work_nums):
@@ -173,5 +177,4 @@ class ThreadQueue(object):
 
     #获取当前队列
     def getWorkingQueue(self):
-        #return self;
         return self.queue

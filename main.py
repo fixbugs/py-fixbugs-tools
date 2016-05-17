@@ -100,11 +100,7 @@ def testThreadQueue():
     t_dict = ('1', '2')
     tc = testClass(t_dict)
     tq = ThreadQueue(work_function=create_task, thread_work_function=tc.test)
-    print tq.add_tasks()
-    print tq.getWorkingQueue()
-    #print 'end'
-    #exit(0)
-    print 'end+1'
+#    tq.add_tasks()
     while True:
         if tq.do_work():
             continue
