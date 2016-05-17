@@ -64,13 +64,15 @@ class testClass(object):
 
     def viewUrl(self, page):
         try:
-            #url = 'http://admin.lm.leju.com/api/article/getArticlePublish?page='+ str(page)
-            url = 'http://admin.lm.leju.com/test/test/testacticlepublish?page='
-            + str(page)
-            url_res = urllib2.urlopen(url, timeout=30).read()
+            url = 'http://news.leju.com/api/data/gettopnews?time=1463358300&'\
+                  + 'size=2&page=' + str(page)
+            hd = urllib2.urlopen(url, timeout=30)
+            url_res = hd.read()
+            #url_res = urllib2.urlopen(url, timeout=30).read()
             if not url_res:
                 return False
             res = simplejson.loads(url_res)
+            print res
             if 'status' in res and res['status'] is True:
                 return True
             else:
