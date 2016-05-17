@@ -29,7 +29,7 @@ start_time = time.time()
 
 def create_task():
     result = []
-    for i in range(0,81):
+    for i in range(0, 10):
         tmp = {}
         tmp['page'] = i
         result.append(tmp)
@@ -72,7 +72,6 @@ class testClass(object):
                 return False
             res = simplejson.loads(url_res)
             if 'status' in res and res['status'] is True:
-                print res
                 return True
             else:
                 self.errorLogWrite(str(page)+'/n')
