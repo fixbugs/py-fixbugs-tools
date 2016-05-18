@@ -43,7 +43,6 @@ class WorkThread(threading.Thread):
                 elif isinstance(self._function_para, tuple):
                     res = self._do_work_function(*self._function_para)
                 else:
-                    #print "start function false"
                     self.stop()
                     res = True
             else:

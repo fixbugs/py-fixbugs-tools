@@ -9,25 +9,9 @@ import simplejson
 
 start_time = time.time()
 
-## test requests module
-# character = string.digits + string.ascii_lowercase + '._@ '
-# res = ''
-# headers = {
-#     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.69 Safari/537.36',
-# }
-
-# try:
-#     url = "http://news.leju.com/api/data/gettaglists?category="
-#     req = requests.get(url, headers=headers)
-#     print req
-# except:
-#     pass
-# else:
-#     print req.url
-#     print req.text
-
 
 def create_task():
+    #从这里传入参数到执行线程中
     result = []
     for i in range(0, 10):
         tmp = {}
@@ -54,7 +38,7 @@ class testClass(object):
             self.kwargs = kwargs
 
     def test(self, *args, **kwargs):
-        page =  kwargs['page']
+        page = kwargs['page']
         if not page:
             page = 0
         ret = self.viewUrl(page)
