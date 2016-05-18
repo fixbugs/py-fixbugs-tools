@@ -40,7 +40,7 @@ def test(*args, **kwargs):
     if args:
         print args
     if kwargs:
-        print kwargs.has_key('b')
+        print 'b' in kwargs
         print kwargs['b']
     return True
 
@@ -68,7 +68,6 @@ class testClass(object):
                   + 'size=2&page=' + str(page)
             hd = urllib2.urlopen(url, timeout=30)
             url_res = hd.read()
-            #url_res = urllib2.urlopen(url, timeout=30).read()
             if not url_res:
                 return False
             res = simplejson.loads(url_res)
@@ -79,9 +78,6 @@ class testClass(object):
                 self.errorLogWrite(str(page)+'/n')
         except Exception, e:
             self.errorLogWrite(str(page) + ',' + str(e) + '/n')
-            # print "---view url exception start---"
-            # print e
-            # print "---view url exception end---"
         return False
 
     def errorLogWrite(self, line_data):
