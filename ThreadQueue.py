@@ -175,6 +175,6 @@ class ThreadQueue(object):
                 self._tasks_list_num += 1
         return True
 
-    #获取当前队列
+    #获取当前队列,只返回队列句柄
     def getWorkingQueue(self):
         return self.queue

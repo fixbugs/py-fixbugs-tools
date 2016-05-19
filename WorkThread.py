@@ -33,6 +33,9 @@ class WorkThread(threading.Thread):
             if 'function_para' in kwargs:
                 self._function_para = kwargs['function_para']
 
+    '''
+    线程方法重写，单独使用线程方法
+    '''
     def run(self):
         while not self._m_stop:
             if hasattr(self, '_function_para'):
