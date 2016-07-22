@@ -1,3 +1,3 @@
 #!/usr/bin/env python2.6
 #-*- coding: utf-8 -*-
-__all__ =["WorkThread", "ThreadQueue"]
+__all__ = ["WorkThread", "ThreadQueue"]

@@ -11,6 +11,7 @@ import atexit
 
 from signal import SIGTERM
 
+
 class Daemon:
     def __init__(self, pidfile, stdin='/dev/null', stdout='/dev/null', stderr='/dev/null'):
       #需要获取调试信息，改为stdin='/dev/stdin', stdout='/dev/stdout', stderr='/dev/stderr'，以root身份运行。
@@ -92,7 +93,7 @@ class Daemon:
 
          #杀进程
         try:
-            while 1:
+            while True:
                 os.kill(pid, SIGTERM)
                 time.sleep(0.1)
                 #os.system('hadoop-daemon.sh stop datanode')
