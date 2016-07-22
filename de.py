@@ -3,7 +3,12 @@
 
 #python模拟linux的守护进程
 
-import sys, os, time, atexit, string
+import sys
+import os
+import time
+import atexit
+#import string
+
 from signal import SIGTERM
 
 class Daemon:
@@ -48,7 +53,7 @@ class Daemon:
          #注册退出函数，根据文件pid判断是否存在进程
         atexit.register(self.delpid)
         pid = str(os.getpid())
-        file(self.pidfile,'w+').write('%s\n' % pid)
+        file(self.pidfile, 'w+').write('%s\n' % pid)
 
     def delpid(self):
         os.remove(self.pidfile)
@@ -56,7 +61,7 @@ class Daemon:
     def start(self):
      #检查pid文件是否存在以探测是否存在进程
         try:
-            pf = file(self.pidfile,'r')
+            pf = file(self.pidfile, 'r')
             pid = int(pf.read().strip())
             pf.close()
         except IOError:
@@ -74,7 +79,7 @@ class Daemon:
     def stop(self):
         #从pid文件中获取pid
         try:
-            pf = file(self.pidfile,'r')
+            pf = file(self.pidfile, 'r')
             pid = int(pf.read().strip())
             pf.close()
         except IOError:
@@ -117,7 +122,7 @@ class Daemon:
 
 
 if __name__ == '__main__':
-    daemon = Daemon('/tmp/watch_process.pid', stdout = '/tmp/watch_stdout.log')
+    daemon = Daemon('/tmp/watch_process.pid', stdout='/tmp/watch_stdout.log')
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
             daemon.start()
