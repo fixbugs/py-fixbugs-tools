@@ -110,7 +110,8 @@ def testDaemon():
 
 if __name__ == '__main__':
     start_time = time.time()
-    req = testThreadQueue()
+    #req = testThreadQueue()
+    req = testDaemon()
     print req
     used_time = time.time() - start_time
     print used_time
