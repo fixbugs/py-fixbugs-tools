@@ -90,7 +90,7 @@ def testThreadQueue():
 
 
 def testDaemon():
-    imort sys
+    import sys
     from de import Daemon
     daemon = Daemon('/tmp/watch_process.pid', stdout='/tmp/watch_stdout.log')
     if len(sys.argv) == 2:
