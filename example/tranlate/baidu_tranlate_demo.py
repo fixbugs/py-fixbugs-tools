@@ -1,8 +1,9 @@
 #/usr/bin/env python
 #coding=utf8
- 
+
 import httplib
 import md5
+
 import urllib
 import random
 import simplejson
@@ -10,7 +11,6 @@ import simplejson
 appid = '20160724000025705'
 secretKey = 'sLxLk0lYnHPL1wZ_e5_x'
 
- 
 httpClient = None
 myurl = '/api/trans/vip/translate'
 q = 'chinese apple'
@@ -23,11 +23,11 @@ m1 = md5.new()
 m1.update(sign)
 sign = m1.hexdigest()
 myurl = myurl+'?appid='+appid+'&q='+urllib.quote(q)+'&from='+fromLang+'&to='+toLang+'&salt='+str(salt)+'&sign='+sign
- 
+
 try:
     httpClient = httplib.HTTPConnection('api.fanyi.baidu.com')
     httpClient.request('GET', myurl)
- 
+
     #response是HTTPResponse对象
     response = httpClient.getresponse()
     res = response.read()
