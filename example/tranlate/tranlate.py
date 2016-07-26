@@ -53,12 +53,12 @@ class Tranlate(object):
                 httpClient.close()
         return False
 
-appid = '20160724000025705'
-secretKey = 'sLxLk0lYnHPL1wZ_e5_x'
-
-tcls = Tranlate(appid, secretKey)
-tcls.setQueryString('chinese english apple')
-print tcls.getResult()
+if __name__ == '__main__':
+    appid = '20160724000025705'
+    secretKey = 'sLxLk0lYnHPL1wZ_e5_x'
+    tcls = Tranlate(appid, secretKey)
+    tcls.setQueryString('chinese english apple')
+    print tcls.getResult()
 
 # httpClient = None
 # myurl = '/api/trans/vip/translate'
