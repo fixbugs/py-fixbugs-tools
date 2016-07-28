@@ -15,6 +15,8 @@ def getFile(basedir):
                 getFile(os.path.join(parent, dirname))
                 #递归
             for filename in filenames:
+                if os.path.join(parent, filename) in filelists:
+                    continue
                 ext = filename.split('.')[-1]
                 #只统计指定的文件类型，略过一些log和cache文件
                 if ext in whitelist:
@@ -31,7 +33,9 @@ def countLine(fname):
     print fname + '----', count
     return count
 
-if __name__ == '__main__' :
+
+def main():
+    global filelists
     startTime = time.clock()
     getFile(basedir)
     totalline = 0
@@ -39,3 +43,6 @@ if __name__ == '__main__' :
         totalline = totalline + countLine(filelist)
         print 'total lines:', totalline
         print 'Done! Cost Time: %0.2f second' % (time.clock() - startTime)
+
+if __name__ == '__main__':
+    main()
