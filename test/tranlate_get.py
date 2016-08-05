@@ -18,7 +18,7 @@ import subprocess
 
 TARGET_TRANLATE_DIR = '/root/work/translate-mac/tranfiles/'
 NEED_TRANLATE_DIR = '/root/work/lm-front-svn/trunk/app'
-DOMAIN = "admin.queue.leju.com"
+DOMAIN = "news.leju.com"
 
 def walk_dir(dir_path):
     result = []
@@ -85,7 +85,10 @@ def saveTConent(t_contents, st_type, app_name, file_name, source_file_name):
 
 def createFileOrSave(file_name, t_content, source_file_name, st_type='model', ap_name='app', f_name='need'):
     old_tranlast_file_name = getOldTranslateFile(source_file_name)
-    old_tran_content =  analsisTranlateFile(old_tranlast_file_name)
+    if old_tranlast_file_name:
+        old_tran_content = analsisTranlateFile(old_tranlast_file_name)
+    else:
+        old_tran_content = []
     content = "<?php\n/**\n"
     content += " * create on server time " + str(time.strftime('%Y-%m-%d %H:%M:%S')) +"\n"
     content += " * " + str(ap_name) + " " + str(f_name[:-4]) + "的语言包\n"
@@ -180,6 +183,8 @@ def getFileContent(file_path):
 
 def getOldTranslateFile(file_path):
     split_names = file_path.split("/")
+    if isinstance(split_names, list):
+        return ''
     sp_len =  split_names.index("app")
     split_res_pre = split_names[0:sp_len]
     split_res = split_names[sp_len:]
