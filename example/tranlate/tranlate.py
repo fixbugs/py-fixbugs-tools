@@ -2,7 +2,7 @@
 #coding=utf8
 
 import httplib
-import md5
+import hashlib
 
 import urllib
 import random
@@ -34,9 +34,7 @@ class Tranlate(object):
         if not self._qstring:
             return False
         sign = self._appid + q + str(self._salt) + self._secretKey
-        m1 = md5.new()
-        m1.update(sign)
-        sign = m1.hexdigest()
+        sign = hashlib.md5(sign).hexdigest()
         myurl = self._url + '?appid=' + self._appid + '&q=' + urllib.quote(q) + '&from=' + self._fromLang + '&to=' + self._toLang + '&salt=' + str(self._salt) + '&sign=' + sign
         try:
             httpClient = httplib.HTTPConnection(self._thost)

@@ -2,7 +2,7 @@
 #coding=utf8
 
 import httplib
-import md5
+import hashlib
 
 import urllib
 import random
@@ -19,9 +19,7 @@ toLang = 'zh'
 salt = random.randint(32768, 65536)
 
 sign = appid+q+str(salt)+secretKey
-m1 = md5.new()
-m1.update(sign)
-sign = m1.hexdigest()
+sign = hashlib.md5(sign).hexdigest()
 myurl = myurl+'?appid='+appid+'&q='+urllib.quote(q)+'&from='+fromLang+'&to='+toLang+'&salt='+str(salt)+'&sign='+sign
 
 try:
