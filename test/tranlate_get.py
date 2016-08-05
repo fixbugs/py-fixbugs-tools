@@ -107,9 +107,9 @@ def createFileOrSave(file_name, t_content, source_file_name, st_type='model', ap
                 if old_tran_content['controller'].has_key(t):
                     content += " "*8 + "'"+ str(t) +"' => '"+ old_tran_content['controller'][t].encode('utf-8') +"',\n"
                 else:
-                    content += " "*8 + "'"+ str(t) +"' => '',\n"
+                    content += " "*8 + "'"+ str(t) +"' => '"+ englishToChinese(t)  +"',\n"
             else:
-                content += " "*8 + "'"+ str(t) +"' => '',\n"
+                content += " "*8 + "'"+ str(t) +"' => '"+ englishToChinese(t) +"',\n"
             pass
         pass
     content += " "*4 +"),\n"
@@ -121,9 +121,9 @@ def createFileOrSave(file_name, t_content, source_file_name, st_type='model', ap
                 if old_tran_content['model'].has_key(t):
                     content += " "*8 + "'"+ str(t) +"' => '"+ old_tran_content['model'][t].encode('utf-8') +"',\n"
                 else:
-                    content += " "*8 + "'"+ str(t) +"' => '',\n"
+                    content += " "*8 + "'"+ str(t) +"' => '"+ englishToChinese(t) +"',\n"
             else:
-                content += " "*8 + "'"+ str(t) +"' => '',\n"
+                content += " "*8 + "'"+ str(t) +"' => '"+ englishToChinese(t) +"',\n"
             pass
         pass
     content += " "*4 + "),\n"
@@ -193,6 +193,19 @@ def getOldTranslateFile(file_path):
     else:
         result = "/".join(split_res_pre)+"/_language/zh-cn/"+split_names[sp_len+1]+"/"+split_names[-1]
     return result
+
+def englishToChinese(content):
+    if not content:
+        return ''
+    from tranlate import Tranlate
+    appid = '20160724000025705'
+    secretKey = 'sLxLk0lYnHPL1wZ_e5_x'
+    tcls = Tranlate(appid, secretKey)
+    tcls.setQueryString(str(content))
+    tranlate_result = tcls.getResult()
+    if not tranlate_result:
+        return ''
+    return tranlate_result.encode('utf-8')
 
 def main():
     files = walk_dir(NEED_TRANLATE_DIR)
