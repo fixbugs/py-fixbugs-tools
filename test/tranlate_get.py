@@ -20,13 +20,14 @@ TARGET_TRANLATE_DIR = '/root/work/translate-mac/tranfiles/'
 NEED_TRANLATE_DIR = '/root/work/lm-front-svn/trunk/app'
 DOMAIN = "news.leju.com"
 
+
 def walk_dir(dir_path):
     result = []
-    for parent,dirnames,filenames in os.walk(dir_path):
+    for parent, dirnames, filenames in os.walk(dir_path):
         for filename in filenames:
-            if re.search('\.svn',filename):
+            if re.search('\.svn', filename):
                 continue
-            result.append(os.path.join(parent,filename))
+            result.append(os.path.join(parent, filename))
             pass
         pass
     res = []
@@ -40,14 +41,16 @@ def walk_dir(dir_path):
         res.append(s)
     return res
 
+
 def readFile(file_path):
     result = []
     try:
-        f = open(file_path,'r')
+        f = open(file_path, 'r')
         result = f.readlines()
     finally:
         f.close()
     return result
+
 
 def getTContent(file_path):
     f_content = readFile(file_path)
@@ -61,7 +64,7 @@ def getTContent(file_path):
             #replease content between '' and "" start with T(
             #need_translate_str = re.findall(r"T\((\'(.+)?\'|\"(.+)?\")",fc)
             #fix bug with double quote ' used for one T()
-            #need_translate_str = re.findall(r"T\((\'([^']+)?\'|\"([^']+)?\")",fc)
+            #need_translate_str = re.findall(r"T\((\'([^']+)?\'|\"([^']+)?\")", fc)
             if not need_translate_str:
                 continue
             tmp_translate_str = need_translate_str[0][2]
@@ -79,9 +82,10 @@ def getTContent(file_path):
 
 
 def saveTConent(t_contents, st_type, app_name, file_name, source_file_name):
-    content = createFileOrSave(TARGET_TRANLATE_DIR+app_name+"_"+st_type+"_"+file_name, t_contents, source_file_name, st_type, app_name, file_name)
+    content = createFileOrSave(TARGET_TRANLATE_DIR+app_name+"_"+st_type+"_" + file_name, t_contents, source_file_name, st_type, app_name, file_name)
     writeFile(file_name, content)
     pass
+
 
 def createFileOrSave(file_name, t_content, source_file_name, st_type='model', ap_name='app', f_name='need'):
     old_tranlast_file_name = getOldTranslateFile(source_file_name)
@@ -145,6 +149,7 @@ def createFileOrSave(file_name, t_content, source_file_name, st_type='model', ap
     content += ");\n"
     return content
 
+
 def writeFile(file_path, content):
     try:
         f = open(file_path, 'w')
@@ -194,6 +199,7 @@ def getOldTranslateFile(file_path):
         result = "/".join(split_res_pre)+"/_language/zh-cn/"+split_names[sp_len+1]+"/"+split_names[-1]
     return result
 
+
 def englishToChinese(content):
     if not content:
         return ''
@@ -207,10 +213,11 @@ def englishToChinese(content):
         return ''
     return tranlate_result.encode('utf-8')
 
+
 def main():
     files = walk_dir(NEED_TRANLATE_DIR)
     for f in files:
-        if re.search('\_',f):
+        if re.search('\_', f):
             continue
         if f.endswith('application.php'):
             continue
@@ -239,6 +246,7 @@ def main():
         else:
             saveTConent( t_contents, st_type, st_name, split_res[2], f)
 
+
 def oneFileMain(source_file_name):
     print source_file_name
     analysis_result = getTContent(source_file_name)
@@ -246,7 +254,8 @@ def oneFileMain(source_file_name):
     content = createFileOrSave('', analysis_result, source_file_name)
     print content
 
-if __name__== "__main__":
+
+if __name__ == "__main__":
 #    createFileOrSave("test.php","1")
     #main()
     #print time.strftime('%Y-%m-%d %H:%M:%S')
