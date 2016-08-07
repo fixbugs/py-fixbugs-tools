@@ -109,11 +109,11 @@ def createFileOrSave(file_name, t_content, source_file_name, st_type='model', ap
         for t in t_content:
             if old_tran_content and old_tran_content.has_key('controller') and old_tran_content['controller']:
                 if old_tran_content['controller'].has_key(t):
-                    content += " "*8 + "'"+ str(t) +"' => '"+ old_tran_content['controller'][t].encode('utf-8') +"',\n"
+                    content += " "*8 + "'" + str(t) + "' => '" + old_tran_content['controller'][t].encode('utf-8') + "',\n"
                 else:
-                    content += " "*8 + "'"+ str(t) +"' => '"+ englishToChinese(t)  +"',\n"
+                    content += " "*8 + "'" + str(t) + "' => '" + englishToChinese(t)  + "',\n"
             else:
-                content += " "*8 + "'"+ str(t) +"' => '"+ englishToChinese(t) +"',\n"
+                content += " "*8 + "'" + str(t) + "' => '" + englishToChinese(t) + "',\n"
             pass
         pass
     content += " "*4 +"),\n"
@@ -123,11 +123,11 @@ def createFileOrSave(file_name, t_content, source_file_name, st_type='model', ap
         for t in t_content:
             if old_tran_content and old_tran_content.has_key('model') and old_tran_content['model']:
                 if old_tran_content['model'].has_key(t):
-                    content += " "*8 + "'"+ str(t) +"' => '"+ old_tran_content['model'][t].encode('utf-8') +"',\n"
+                    content += " "*8 + "'" + str(t) + "' => '" + old_tran_content['model'][t].encode('utf-8') + "',\n"
                 else:
-                    content += " "*8 + "'"+ str(t) +"' => '"+ englishToChinese(t) +"',\n"
+                    content += " "*8 + "'" + str(t) +"' => '" + englishToChinese(t) + "',\n"
             else:
-                content += " "*8 + "'"+ str(t) +"' => '"+ englishToChinese(t) +"',\n"
+                content += " "*8 + "'" + str(t) + "' => '" + englishToChinese(t) + "',\n"
             pass
         pass
     content += " "*4 + "),\n"
@@ -137,11 +137,11 @@ def createFileOrSave(file_name, t_content, source_file_name, st_type='model', ap
         for t in t_content:
             if old_tran_content and old_tran_content.has_key('template') and old_tran_content['template']:
                 if old_tran_content['template'].has_key(t):
-                    content += " "*8 + "'"+ str(t) +"' => '"+ old_tran_content['template'][t].encode('utf-8') +"',\n"
+                    content += " "*8 + "'" + str(t) + "' => '" + old_tran_content['template'][t].encode('utf-8') + "',\n"
                 else:
-                    content += " "*8 + "'"+ str(t) +"' => '',\n"
+                    content += " "*8 + "'" + str(t) + "' => '',\n"
             else:
-                content += " "*8 + "'"+ str(t) +"' => '',\n"
+                content += " "*8 + "'" + str(t) + "' => '',\n"
             pass
         pass
     content += " "*4 + ")\n"
@@ -165,7 +165,7 @@ def writeFile(file_path, content):
 def analsisTranlateFile(file_path):
     if not os.path.exists(file_path):
         return False
-    p = subprocess.Popen(['php', '-r', 'echo json_encode(include "' + str(file_path) + '");'],stdout=subprocess.PIPE)
+    p = subprocess.Popen(['php', '-r', 'echo json_encode(include "' + str(file_path) + '");'], stdout=subprocess.PIPE)
     config = p.stdout.read().decode('utf8')
     config = json.loads(config)
     return config
@@ -185,6 +185,7 @@ def getFileContent(file_path):
     finally:
         f.close()
     return result
+
 
 def getOldTranslateFile(file_path):
     split_names = file_path.split("/")
@@ -238,13 +239,13 @@ def main():
         else:
             continue
         st_name = split_res[1]
-        t_contents =  getTContent(f)
+        t_contents = getTContent(f)
         if not t_contents:
             continue
         if st_type == 'model':
-            saveTConent( t_contents, st_type, st_name, split_res[3], f)
+            saveTConent(t_contents, st_type, st_name, split_res[3], f)
         else:
-            saveTConent( t_contents, st_type, st_name, split_res[2], f)
+            saveTConent(t_contents, st_type, st_name, split_res[2], f)
 
 
 def oneFileMain(source_file_name):
