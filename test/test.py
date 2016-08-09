@@ -10,4 +10,47 @@ def get_data(num=2333):
             return i
     return False
 
-print get_data()
+#print get_data()
+
+
+def box(data, max_num):
+    box_arr = []
+    tag_arr = []
+    for i in range(0, 5000):
+        tmp = dict()
+        tmp['weight'] = 0
+        tmp['mark'] = list()
+        for j in range(0, 15):
+            #tmp['mark'][j] = False
+            tmp['mark'].append(False)
+        tag_arr.append(tmp)
+    for i in range(0, 15):
+        j = 4999
+        while True:
+            if not j:
+                break
+            if j < data[i]:
+                break
+            if tag_arr[j]['weight'] < tag_arr[j - data[i]]['weight'] + data[i]:
+                tag_arr[j]['weight'] = tag_arr[j - data[i]]['weight'] + data[i]
+                for k in range(0, 15):
+                    tag_arr[j]['mark'][k] = tag_arr[j - data[i]]['mark'][k]
+                tag_arr[j]['mark'][i] = True
+            j = j - 1
+    flag = 1
+    for i in range(0, 15):
+        if(flag and tag_arr[4999]['mark'][i]):
+            box_arr.append(i+1)
+            flag = 0
+            continue
+        if(tag_arr[4999]['mark'][i]):
+            box_arr.append(i+1)
+    #print tag_arr
+    result = dict()
+    result['weight'] = tag_arr[max_num - 1]['weight']
+    result['box_link'] = '-'.join(map(str, box_arr))
+    return result
+
+hd_arr = [509, 838, 924, 650, 604, 793, 564, 651, 697, 649, 747, 787, 701, 605, 644]
+max_num = 5000
+print box(hd_arr, max_num)
