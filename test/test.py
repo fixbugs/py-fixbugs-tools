@@ -22,7 +22,6 @@ def box(data, max_num):
         tmp['weight'] = 0
         tmp['mark'] = list()
         for j in range(0, d_len):
-            #tmp['mark'][j] = False
             tmp['mark'].append(False)
         tag_arr.append(tmp)
     for i in range(0, d_len):
@@ -41,12 +40,11 @@ def box(data, max_num):
     flag = 1
     for i in range(0, d_len):
         if(flag and tag_arr[max_num - 1]['mark'][i]):
-            box_arr.append(i+1)
+            box_arr.append(i + 1)
             flag = 0
             continue
         if(tag_arr[max_num - 1]['mark'][i]):
-            box_arr.append(i+1)
-    #print tag_arr
+            box_arr.append(i + 1)
     result = dict()
     result['weight'] = tag_arr[max_num - 1]['weight']
     result['box_link'] = '-'.join(map(str, box_arr))
