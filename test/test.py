@@ -16,16 +16,17 @@ def get_data(num=2333):
 def box(data, max_num):
     box_arr = []
     tag_arr = []
-    for i in range(0, 5000):
+    d_len = len(data)
+    for i in range(0, max_num):
         tmp = dict()
         tmp['weight'] = 0
         tmp['mark'] = list()
-        for j in range(0, 15):
+        for j in range(0, d_len):
             #tmp['mark'][j] = False
             tmp['mark'].append(False)
         tag_arr.append(tmp)
-    for i in range(0, 15):
-        j = 4999
+    for i in range(0, d_len):
+        j = max_num - 1
         while True:
             if not j:
                 break
@@ -33,17 +34,17 @@ def box(data, max_num):
                 break
             if tag_arr[j]['weight'] < tag_arr[j - data[i]]['weight'] + data[i]:
                 tag_arr[j]['weight'] = tag_arr[j - data[i]]['weight'] + data[i]
-                for k in range(0, 15):
+                for k in range(0, d_len):
                     tag_arr[j]['mark'][k] = tag_arr[j - data[i]]['mark'][k]
                 tag_arr[j]['mark'][i] = True
             j = j - 1
     flag = 1
-    for i in range(0, 15):
-        if(flag and tag_arr[4999]['mark'][i]):
+    for i in range(0, d_len):
+        if(flag and tag_arr[max_num - 1]['mark'][i]):
             box_arr.append(i+1)
             flag = 0
             continue
-        if(tag_arr[4999]['mark'][i]):
+        if(tag_arr[max_num - 1]['mark'][i]):
             box_arr.append(i+1)
     #print tag_arr
     result = dict()
