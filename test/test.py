@@ -58,13 +58,12 @@ def box(data, max_num):
 def get_pass(pass_md5):
     pass_md5 = pass_md5.lower()
     import hashlib
-    pass_str = ''
-    for i in range(1990,2016):
-        for j in range(1,12):
-            for k in range(1,31):
+    for i in range(1990, 2016):
+        for j in range(1, 12):
+            for k in range(1, 31):
                 y = str(i)
-                m = '0'+str(j) if j<10 else str(j)
-                d = '0'+str(k) if k<10 else str(k)
+                m = '0'+str(j) if j < 10 else str(j)
+                d = '0'+str(k) if k < 10 else str(k)
                 tmp_str = y+m+d
                 if hashlib.md5(tmp_str).hexdigest() == pass_md5:
                     return tmp_str
