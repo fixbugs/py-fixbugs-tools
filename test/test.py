@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#coding=utf8
 
 
 def get_data(num=2333):
@@ -68,4 +69,28 @@ def get_pass(pass_md5):
                 if hashlib.md5(tmp_str).hexdigest() == pass_md5:
                     return tmp_str
 
-print get_pass('7E38890B870934B126F66857ED6B57B9')
+#print get_pass('7E38890B870934B126F66857ED6B57B9')
+
+def hotshare():
+    res = getFileContent('friends.txt')
+    print res
+
+
+'''
+根据文件路径获取文件内容
+@param file_path string 文件路径
+@return False or Dict 返回文件内容数组或者False
+'''
+def getFileContent(file_path):
+    import os
+    if not os.path.exists(file_path):
+        return False
+    result = []
+    try:
+        f = open(file_path, 'r')
+        result = f.readlines()
+    finally:
+        f.close()
+    return result
+
+print hotshare()
