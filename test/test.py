@@ -93,4 +93,37 @@ def getFileContent(file_path):
         f.close()
     return result
 
-print hotshare()
+#print hotshare()
+
+def shopingtaobao():
+    sp_hd = getFileContent('taobaoss.txt')
+    shoping_arr = dict()
+    total_num = 0
+    count = 0
+    for l in sp_hd:
+        sp_ret = l.split(" ")
+        method = sp_ret[0]
+        sp_ret[2] = sp_ret[2][:-1]
+        if method == 'up':
+            if sp_ret[2] in shoping_arr:
+                shoping_arr[sp_ret[2]] += int(sp_ret[1])
+            else:
+                shoping_arr[sp_ret[2]] = int(sp_ret[1])
+        elif method == 'down':
+            if sp_ret[2] in shoping_arr:
+                shoping_arr[sp_ret[2]] -= int(sp_ret[1])
+        elif method == 'query':
+            min_pr = int(sp_ret[1])
+            max_pr = int(sp_ret[2])
+            print shoping_arr,sp_ret
+            for p,num in shoping_arr.items():
+                n_price = int(p)
+                if n_price > max_pr:
+                    continue
+                if int(n_price) < int(min_pr):
+                    continue
+                total_num += int(num)
+    print shoping_arr
+    return total_num
+
+print shopingtaobao()
