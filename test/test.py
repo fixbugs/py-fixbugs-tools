@@ -115,7 +115,6 @@ def shopingtaobao():
         elif method == 'query':
             min_pr = int(sp_ret[1])
             max_pr = int(sp_ret[2])
-            print shoping_arr,sp_ret
             for p,num in shoping_arr.items():
                 n_price = int(p)
                 if n_price > max_pr:
