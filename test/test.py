@@ -95,11 +95,11 @@ def getFileContent(file_path):
 
 #print hotshare()
 
+
 def shopingtaobao():
-    sp_hd = getFileContent('taobaoss.txt')
+    sp_hd = getFileContent('taobao2.txt')
     shoping_arr = dict()
     total_num = 0
-    count = 0
     for l in sp_hd:
         sp_ret = l.split(" ")
         method = sp_ret[0]
@@ -122,7 +122,7 @@ def shopingtaobao():
                 if int(n_price) < int(min_pr):
                     continue
                 total_num += int(num)
-    print shoping_arr
+    #print shoping_arr
     return total_num
 
-#print shopingtaobao()
+print shopingtaobao()
