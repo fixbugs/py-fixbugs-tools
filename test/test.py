@@ -125,4 +125,46 @@ def shopingtaobao():
     #print shoping_arr
     return total_num
 
-print shopingtaobao()
+#print shopingtaobao()
+
+import hashlib
+
+
+def rankmd5():
+    datestr = '20160811fixbug'
+    checkcode = 22
+    result = list()
+    count = 1
+    answer_result = list()
+    while True:
+        if checkcode >= 999:
+            break
+        tmpstr = str(datestr)+str(checkcode)+str(count)
+        strmd5 = getmd5(tmpstr)
+
+        if strmd5.startswith('000000'):
+            answer_result.append(str(checkcode)+str(count))
+            result.append(count)
+            t_url = 'http://www.qlcoder.com/train/handsomerank?_token=p5YfP8MPGp8ZXReTa41PmMoA8F9OWiG66AbOqgi1&user=fixbug&checkcode='+str(count)
+            getdata(t_url)
+            count = 1
+            checkcode += 1
+            continue
+        count += 1
+        # for a in answer_result:
+        #     if a.startswith((str)checkcode):
+        #         break
+    print result
+
+
+def getmd5(str):
+    return hashlib.md5(str).hexdigest()
+
+
+def getdata(url):
+    import urllib
+    print url
+    f = urllib.urlopen(url)
+    return True
+
+print rankmd5()
