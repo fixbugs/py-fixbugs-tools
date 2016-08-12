@@ -54,6 +54,7 @@ def box(data, max_num):
 # hd_arr = [509, 838, 924, 650, 604, 793, 564, 651, 697, 649, 747, 787, 701, 605, 644]
 # max_num = 5000
 # print box(hd_arr, max_num)
+# exit(0)
 
 
 def get_pass(pass_md5):
@@ -131,8 +132,8 @@ import hashlib
 
 
 def rankmd5():
-    datestr = '20160811fixbug'
-    checkcode = 22
+    datestr = '20160812fixbug'
+    checkcode = 1
     result = list()
     count = 1
     answer_result = list()
@@ -145,16 +146,24 @@ def rankmd5():
         if strmd5.startswith('000000'):
             answer_result.append(str(checkcode)+str(count))
             result.append(count)
-            t_url = 'http://www.qlcoder.com/train/handsomerank?_token=p5YfP8MPGp8ZXReTa41PmMoA8F9OWiG66AbOqgi1&user=fixbug&checkcode='+str(count)
-            getdata(t_url)
+            #t_url = 'http://www.qlcoder.com/train/handsomerank?_token=p5YfP8MPGp8ZXReTa41PmMoA8F9OWiG66AbOqgi1&user=fixbug&checkcode='+str(count)
+            print t_url
+            #getdata(t_url)
             count = 1
+            for ans_r in answer_result:
+                if ans_r.startswith(str(checkcode+1)):
+                    t_len = len(str(checkcode+1))
+                    count = int(ans_r[t_len-1:])
             checkcode += 1
             continue
         count += 1
+        if checkcode == 12:
+            break
         # for a in answer_result:
         #     if a.startswith((str)checkcode):
         #         break
     print result
+    print answer_result
 
 
 def getmd5(str):
