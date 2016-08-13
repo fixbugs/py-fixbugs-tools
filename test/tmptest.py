@@ -9,4 +9,15 @@ for a in ans_ret:
     answer_result.append( str(checkcode)+str(a))
     checkcode += 1
 
+checkcode = 25
+for ans_r in answer_result:
+    print ans_r,checkcode, str(checkcode+1)
+    print ans_r.startswith(str(checkcode+1))
+
+    if ans_r.startswith(str(checkcode+1)):
+        t_len = len(str(checkcode+1))
+        print 'trtttttt'
+        print int(ans_r[t_len:])
+    #checkcode += 1
+
 print answer_result

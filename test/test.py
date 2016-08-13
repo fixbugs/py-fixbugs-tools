@@ -132,13 +132,18 @@ import hashlib
 
 
 def rankmd5():
-    datestr = '20160812fixbug'
-    checkcode = 1
+    datestr = '20160813fixbug'
+    checkcode = 999
     result = list()
     count = 1
     answer_result = list()
+    #old_ans_result = ['17875463', '261729516', '32343559', '45545586', '512520119', '641171814', '714185621', '82288994', '911874177', '1018108938', '1125482199', '129780706', '1366327270', '1440056777', '152184421', '1621773862', '17875463', '189586934']
+    #answer_result = old_ans_result
     while True:
-        if checkcode >= 999:
+        #if len(old_ans_result) >= checkcode:
+         #   checkcode += 1
+         #   continue
+        if checkcode >= 1001:
             break
         tmpstr = str(datestr)+str(checkcode)+str(count)
         strmd5 = getmd5(tmpstr)
@@ -146,19 +151,18 @@ def rankmd5():
         if strmd5.startswith('000000'):
             answer_result.append(str(checkcode)+str(count))
             result.append(count)
-            #t_url = 'http://www.qlcoder.com/train/handsomerank?_token=p5YfP8MPGp8ZXReTa41PmMoA8F9OWiG66AbOqgi1&user=fixbug&checkcode='+str(count)
-            print t_url
-            #getdata(t_url)
+            t_url = 'http://www.qlcoder.com/train/handsomerank?_token=p5YfP8MPGp8ZXReTa41PmMoA8F9OWiG66AbOqgi1&user=fixbug&checkcode='+str(count)
+            #print t_url
+            #if checkcode >= 21:
+                #getdata(t_url)
             count = 1
             for ans_r in answer_result:
                 if ans_r.startswith(str(checkcode+1)):
                     t_len = len(str(checkcode+1))
-                    count = int(ans_r[t_len-1:])
+                    count = int(ans_r[t_len:])
             checkcode += 1
             continue
         count += 1
-        if checkcode == 12:
-            break
         # for a in answer_result:
         #     if a.startswith((str)checkcode):
         #         break
@@ -176,4 +180,4 @@ def getdata(url):
     f = urllib.urlopen(url)
     return True
 
-print rankmd5()
+#print rankmd5()
