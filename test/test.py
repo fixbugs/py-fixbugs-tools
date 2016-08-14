@@ -181,3 +181,27 @@ def getdata(url):
     return True
 
 #print rankmd5()
+
+#print getFileContent('tt.txt')
+
+
+def lineget():
+    import numpy as np
+    x, y = np.loadtxt('tt.txt', unpack=True)
+    print '-'.join(map(str, np.polyfit(x, y, 1)))
+
+#print lineget()
+
+
+def lineget2():
+    import StringIO
+    import urllib2
+    import numpy as np
+    d = urllib2.urlopen("http://www.qlcoder.com/download/145622513871043.txt").read().decode("utf-8")
+
+    arr = np.genfromtxt(StringIO.StringIO(d), delimiter=" ")
+    z1 = np.polyfit(arr[:,0], arr[:,1], 5)
+    print z1
+    print ':'.join([str(i) for i in z1])
+
+print lineget2()
