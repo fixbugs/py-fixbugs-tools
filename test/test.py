@@ -204,4 +204,43 @@ def lineget2():
     print z1
     print ':'.join([str(i) for i in z1])
 
-print lineget2()
+#print lineget2()
+
+
+def moduslove():
+    mstr = '{"level":3,"modu":"2","map":["100","010","011"],"pieces":["XXX","X",".X,XX","X,X,X"]}'
+    import simplejson
+    m_dict = simplejson.loads(mstr)
+    m_map = m_dict['map']
+    m_pieces = m_dict['pieces']
+    for m in m_map:
+        print m
+    m_pee = list()
+    for mp in m_pieces:
+        m_pee.append(getmodulist(mp))
+    print m_pee
+
+
+def getmodulist(mstr):
+    if ',' in mstr:
+        res = list()
+        m_arr = mstr.split(',')
+        for m in m_arr:
+            res.append(getmodulistpstring(m))
+        return res
+    else:
+        return getmodulistpstring(mstr)
+
+
+def getmodulistpstring(pstring):
+    mp_list = list(pstring)
+    for k in range(0, len(mp_list)):
+        if mp_list[k] == 'X':
+            mp_list[k] = '1'
+        else:
+            mp_list[k] = '0'
+    return ''.join(mp_list)
+
+
+print moduslove()
+
