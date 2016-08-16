@@ -147,6 +147,7 @@ class doQueueClass(object):
             print 'failed', r
             return False
         else:
+            self.workcomp = True
             print 'ok', ret, r
             return True
 
