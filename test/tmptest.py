@@ -141,6 +141,8 @@ class doQueueClass(object):
         return self.workcomp
 
     def work(self, r):
+        if self.workcomp:
+            return True
         baseurl = 'http://www.qlcoder.com/train/moducheck?solution='
         ret = getdata(baseurl+r)
         if '失败了' in ret:
