@@ -21,23 +21,59 @@
 
 #print answer_result
 
+def jsonret(jstr):
+    import simplejson
+    return simplejson.loads(jstr)
 
-# 111
-# ---
-# 11
-# 10
-# 10
-# ---
-# 11
-# ---
-# 11
-# ---
-# 11
-# 10
-# 10
-# ---
-# 110
-# 011
+mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
+mstr = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
+
+def modu_list_get(piec, row_len, col_len):
+    result_list = list()
+    if ',' in piec:
+        piec_list = piec.split(',')
+        p_row_len = len(piec_list)
+        p_col_len = len(piec_list[0])
+        max_row = row_len - p_row_len
+        max_col = col_len - p_col_len
+        for r in range(0, max_row+1):
+            for l in range(0, max_col+1):
+                result_list.append( str(r)+str(l) )
+    else:
+        max_row = row_len - 1
+        max_col = col_len - 1
+        for r in range(0, max_row+1):
+            for l in range(0, max_col+1):
+                result_list.append( str(r)+str(l) )
+    return result_list
+
+def map_p(l1, l2):
+    import itertools
+    c = itertools.product(l1, l2)
+    result = list()
+    for elem in c:
+        result.append( str(''.join(elem)) )
+    return result
+
+def mapsolve(ddict):
+    m_map = ddict['map']
+    m_modu = ddict['modu']
+    m_pieces = ddict['pieces']
+
+    map_row_len = len(m_map)
+    map_col_len = len(m_map[0])
+    res = list()
+    for piec in m_pieces:
+        res.append(modu_list_get(piec, map_row_len, map_col_len))
+    tt_r = res[0]
+    num = 1 * len(res[0])
+    for i in range(1, len(res)):
+        num = num * len(res[i])
+        tt_r = map_p(tt_r, res[i])
+    return tt_r
+
+#print mapsolve( jsonret(mstr) )
+
 
 t1 = ['00', '01', '02', '10', '11', '12', '20', '21', '22'] #x
 t2 = ['00', '01', '10', '11', '20', '21'] #xx
@@ -58,17 +94,18 @@ l6 = t2
 l7 = t9
 
 
-res = list()
-for i1 in l1:
-    for i2 in l2:
-        for i3 in l3:
-            for i4 in l4:
-                for i5 in l5:
-                    for i6 in l6:
-                        for i7 in l7:
-                            res.append(i1+i2+i3+i4+i5+i6+i7)
+# res = list()
+# for i1 in l1:
+#     for i2 in l2:
+#         for i3 in l3:
+#             for i4 in l4:
+#                 for i5 in l5:
+#                     for i6 in l6:
+#                         for i7 in l7:
+#                             res.append(i1+i2+i3+i4+i5+i6+i7)
 
-print len(res)
+# print len(res)
+res = mapsolve( jsonret(mstr) )
 
 
 url = 'http://www.qlcoder.com/train/moducheck?solution='
