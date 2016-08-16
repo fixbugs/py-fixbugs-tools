@@ -108,10 +108,16 @@ def testDaemon():
         print 'usage: %s start|stop|restart' % sys.argv[0]
         sys.exit(2)
 
+def testdb():
+    from db import DB
+    dbobj = DB()
+    print dbobj.query("select * from user_message");
+
 if __name__ == '__main__':
     start_time = time.time()
     #req = testThreadQueue()
-    req = testDaemon()
+    #req = testDaemon()
+    req = testdb()
     print req
     used_time = time.time() - start_time
     print used_time

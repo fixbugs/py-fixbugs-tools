@@ -18,7 +18,6 @@
 #         t_len = len(str(checkcode+1))
 #         print 'trtttttt'
 #         print int(ans_r[t_len:])
-    #checkcode += 1
 
 #print answer_result
 
@@ -96,4 +95,3 @@ for r in res:
         print 'ok'
         print url+r
         break
-
