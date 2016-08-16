@@ -26,7 +26,8 @@ def jsonret(jstr):
     return simplejson.loads(jstr)
 
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
-mstr = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
+mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
+mstr = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
 
 def modu_list_get(piec, row_len, col_len):
     result_list = list()
@@ -38,13 +39,13 @@ def modu_list_get(piec, row_len, col_len):
         max_col = col_len - p_col_len
         for r in range(0, max_row+1):
             for l in range(0, max_col+1):
-                result_list.append( str(r)+str(l) )
+                result_list.append(str(r)+str(l))
     else:
         max_row = row_len - 1
-        max_col = col_len - 1
+        max_col = col_len - len(piec)
         for r in range(0, max_row+1):
             for l in range(0, max_col+1):
-                result_list.append( str(r)+str(l) )
+                result_list.append(str(r)+str(l))
     return result_list
 
 def map_p(l1, l2):
@@ -52,7 +53,7 @@ def map_p(l1, l2):
     c = itertools.product(l1, l2)
     result = list()
     for elem in c:
-        result.append( str(''.join(elem)) )
+        result.append(str(''.join(elem)))
     return result
 
 def mapsolve(ddict):
@@ -105,15 +106,14 @@ l7 = t9
 #                             res.append(i1+i2+i3+i4+i5+i6+i7)
 
 # print len(res)
-res = mapsolve( jsonret(mstr) )
-
+res = mapsolve(jsonret(mstr))
+print 'total count:', len(res)
 
 url = 'http://www.qlcoder.com/train/moducheck?solution='
 
 
 def getdata(url):
     import urllib2
-    import urllib
     headers = {'Cookie':'uuid=57a9e1be7aabd; XSRF-TOKEN=eyJpdiI6Ikdrbkc5Wk1pZUZSWmtGa25MN1E4TEE9PSIsInZhbHVlIjoiVVdQeFpnWnoxSkdadGJ6MUkyU3pzejgwK2p2REtXeW9yU3hIdkhtSUk3bWp2ZkdrNUZ2UEJDYlNERUZsb1JrVlJ4enI2SDBOeGJpdzluYmtJTVVIUmc9PSIsIm1hYyI6IjI1ODgyZjlkNDMyZmQ4ZWI0ZWZlNjdiM2E2MWNjZjNjOWI1ZTM4ODY5MTYzZGI1ZWQyMjQ0NmJhZDRkOWFhODAifQ%3D%3D; laravel_session=eyJpdiI6IjZ2SzM3ZU8xSXZnaThTNnk2Q2ZZVUE9PSIsInZhbHVlIjoiNmc2XC94M1Rzc2RBY29MajR3XC9uU2JtRVpFTEZEUFpXXC9mRFJHUEg4VVZvK1IzSHhTQkxoRldSN0NtdEVkWENqTWZPQThJaUdad2lXV1k3VEgyM1lBSEE9PSIsIm1hYyI6IjI4Njg4ZmMxZmRkNTYwY2MyYmRkZjc5MDE5OTlkOGEwNGFkNWU2YzcxODI5YjE0ZmVhMjU2OGQ4NGU1MjMxOWIifQ%3D%3D; è¿é¢çç­æ¡æ¯oreo=eyJpdiI6ImxucmpDdW9XSlc3YlBxRmVZM01wZHc9PSIsInZhbHVlIjoiNGFxclVCMENcLzFzT1BCUzUrRUQ1dmc9PSIsIm1hYyI6IjBlZGMzMWU5Njk1MzM1OGQ0ZTZiOGEyMzRiNGRlNWM1NDYzYmIzOTJkZTE3NmUwZTczZGY2NGRjZmRkMjI2Y2IifQ%3D%3D; Hm_lvt_420590b976ac0a82d0b82a80985a3b8a=1470750046,1470751084,1470751138,1470751188; Hm_lpvt_420590b976ac0a82d0b82a80985a3b8a=1471271412'}
     req = urllib2.Request(url=url, headers=headers)
     soc = urllib2.urlopen(req)
@@ -121,14 +121,60 @@ def getdata(url):
     soc.close()
     return con
 
+
+def checkResult(url):
+    #base_url = 'http://www.qlcoder.com/train/moducheck?solution='
+    #url = base_url + r
+    ret_data = getdata(url)
+    if '失败了' in ret_data:
+        print 'failed', url
+        return False
+    print ret_data
+    print 'ok', url
+    return True
+
+class doQueueClass(object):
+    def __init__(self, *args, **kwargs):
+        self.workcomp = False
+
+    def dowork(self):
+        return self.workcomp
+
+    def work(self, r):
+        baseurl = 'http://www.qlcoder.com/train/moducheck?solution='
+        ret = getdata(baseurl+r)
+        if '失败了' in ret:
+            print 'failed', r
+            return False
+        else:
+            print 'ok', ret, r
+            return True
+
+def doThreadQueue():
+    from ThreadQueue import ThreadQueue
+    dqc = doQueueClass()
+    tq = ThreadQueue(work_function=create_task_url, thread_work_function=dqc.work)
+    while True:
+        if tq.do_work():
+            if dqc.dowork():
+                break
+            else:
+                continue
+    print 'end'
+
+def create_task_url():
+    return mapsolve(jsonret(mstr))
+
+print doThreadQueue()
+exit(0)
+
 i = 0
 
 for r in res:
     i += 1
-    ret_data = getdata(url+r)
-    if '失败了' in ret_data:
-        print 'failed', i
+    #ret_data = getdata(url+r)
+    if not checkResult(url+r):
+        print 'failed', r
     else:
-        print 'ok'
-        print url+r
+        print 'ok', url+r
         break
