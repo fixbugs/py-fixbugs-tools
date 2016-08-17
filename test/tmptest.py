@@ -114,7 +114,7 @@ url = 'http://www.qlcoder.com/train/moducheck?solution='
 
 def getdata(url):
     import urllib2
-    headers = {'Cookie':'uuid=57a9e1be7aabd; XSRF-TOKEN=eyJpdiI6Ikdrbkc5Wk1pZUZSWmtGa25MN1E4TEE9PSIsInZhbHVlIjoiVVdQeFpnWnoxSkdadGJ6MUkyU3pzejgwK2p2REtXeW9yU3hIdkhtSUk3bWp2ZkdrNUZ2UEJDYlNERUZsb1JrVlJ4enI2SDBOeGJpdzluYmtJTVVIUmc9PSIsIm1hYyI6IjI1ODgyZjlkNDMyZmQ4ZWI0ZWZlNjdiM2E2MWNjZjNjOWI1ZTM4ODY5MTYzZGI1ZWQyMjQ0NmJhZDRkOWFhODAifQ%3D%3D; laravel_session=eyJpdiI6IjZ2SzM3ZU8xSXZnaThTNnk2Q2ZZVUE9PSIsInZhbHVlIjoiNmc2XC94M1Rzc2RBY29MajR3XC9uU2JtRVpFTEZEUFpXXC9mRFJHUEg4VVZvK1IzSHhTQkxoRldSN0NtdEVkWENqTWZPQThJaUdad2lXV1k3VEgyM1lBSEE9PSIsIm1hYyI6IjI4Njg4ZmMxZmRkNTYwY2MyYmRkZjc5MDE5OTlkOGEwNGFkNWU2YzcxODI5YjE0ZmVhMjU2OGQ4NGU1MjMxOWIifQ%3D%3D; è¿é¢çç­æ¡æ¯oreo=eyJpdiI6ImxucmpDdW9XSlc3YlBxRmVZM01wZHc9PSIsInZhbHVlIjoiNGFxclVCMENcLzFzT1BCUzUrRUQ1dmc9PSIsIm1hYyI6IjBlZGMzMWU5Njk1MzM1OGQ0ZTZiOGEyMzRiNGRlNWM1NDYzYmIzOTJkZTE3NmUwZTczZGY2NGRjZmRkMjI2Y2IifQ%3D%3D; Hm_lvt_420590b976ac0a82d0b82a80985a3b8a=1470750046,1470751084,1470751138,1470751188; Hm_lpvt_420590b976ac0a82d0b82a80985a3b8a=1471271412'}
+    headers = {'Cookie':'uuid=57b15ad2211ae; è¿é¢çç­æ¡æ¯oreo=eyJpdiI6IlJPUnFiczlHUVhnSit1NFhaT1ZoS2c9PSIsInZhbHVlIjoic1RhXC80RzllNFVvSXl1aTh5a0tNakE9PSIsIm1hYyI6IjMzZGNkOGUzYzYzODAwOTRiOTZhYzcxMDY0Y2E2OWI2YTBjMWExNDQyMmYxODc1NTA0YjE5ODQ2ZTZiOTUwZjMifQ%3D%3D; XSRF-TOKEN=eyJpdiI6IjdEc0x4ZmpnYW5WSUdBbTZsQ2JLWUE9PSIsInZhbHVlIjoiQXFjZVhGRHR6K0M1TytwMFJzek9BMlpBSUVcL1M3XC84Zm9oSVZwc0FhOEdKa2E4a1cwYmEyaUN1SkVXMlwvXC9QVTZhN1l1MmlQTVd4cXR0Q0pzQTAzMlJBPT0iLCJtYWMiOiIyZDNjM2I5MGQ4ZGFlNGMwM2ZmMjBkYTYxNjk4ZTQ4N2FmM2FkMWFiNzZkNTY1ZWVlMTMwY2ZhNjJjOTI2ZGU4In0%3D; laravel_session=eyJpdiI6Ik1DVzJWNlltV3lZbThmNUhMUDNUWEE9PSIsInZhbHVlIjoialwvMVBYZHczSnlvdG05RkxHQjR6S2swRzQwNFpzRys2UmhzZ1pLRnVMTWErdVwva09xY0IzaGZhS05aTVBidmtjWk93YlMrWmR0MDNQdGluZVpsZXlDUT09IiwibWFjIjoiM2U3ZWEzMDJmNTA1YzQ3NmI5ZThlODlkMjI0NDBhNmFkNTRlMDMzNTFhZWYzMWY5YjkwOTMyNGE0MGI4MjFmYiJ9; Hm_lvt_420590b976ac0a82d0b82a80985a3b8a=1470644113,1471240913; Hm_lpvt_420590b976ac0a82d0b82a80985a3b8a=1471427836'}
     req = urllib2.Request(url=url, headers=headers)
     soc = urllib2.urlopen(req)
     con = soc.read()
@@ -149,6 +149,11 @@ class doQueueClass(object):
             print 'failed', r
             return False
         else:
+            if '请先登陆' in ret:
+                ret = getdata(baseurl+r)
+                if '失败了' in ret:
+                    print 'failed',r
+                    return False
             self.workcomp = True
             print 'ok', ret, r
             return True
@@ -166,8 +171,15 @@ def doThreadQueue():
     print 'end'
 
 def create_task_url():
-    return mapsolve(jsonret(mstr))
+    res = mapsolve(jsonret(mstr))
+    ind = res.index('0000002000212101')
+    #print ind
+    #'1100022002020021'
+    rr = res[ind:]
+    print 'ned hd count:',len(rr)
+    return rr
 
+#print len(create_task_url())
 print doThreadQueue()
 exit(0)
 
