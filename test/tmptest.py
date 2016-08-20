@@ -21,6 +21,7 @@
 
 #print answer_result
 
+
 def jsonret(jstr):
     import simplejson
     return simplejson.loads(jstr)
@@ -28,6 +29,7 @@ def jsonret(jstr):
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
 mstr = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
+
 
 def modu_list_get(piec, row_len, col_len):
     result_list = list()
@@ -48,6 +50,7 @@ def modu_list_get(piec, row_len, col_len):
                 result_list.append(str(r)+str(l))
     return result_list
 
+
 def map_p(l1, l2):
     import itertools
     c = itertools.product(l1, l2)
@@ -55,6 +58,7 @@ def map_p(l1, l2):
     for elem in c:
         result.append(str(''.join(elem)))
     return result
+
 
 def mapsolve(ddict):
     m_map = ddict['map']
@@ -68,6 +72,9 @@ def mapsolve(ddict):
         res.append(modu_list_get(piec, map_row_len, map_col_len))
     tt_r = res[0]
     num = 1 * len(res[0])
+    print m_map
+    print m_modu
+    print m_pieces
     for i in range(1, len(res)):
         num = num * len(res[i])
         tt_r = map_p(tt_r, res[i])
@@ -107,6 +114,7 @@ l7 = t9
 
 # print len(res)
 res = mapsolve(jsonret(mstr))
+print res[0]
 print 'total count:', len(res)
 
 url = 'http://www.qlcoder.com/train/moducheck?solution='
@@ -185,7 +193,7 @@ def create_task_url():
     return rr
 
 #print len(create_task_url())
-print doThreadQueue()
+#print doThreadQueue()
 exit(0)
 
 i = 0
