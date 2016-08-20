@@ -80,7 +80,62 @@ def mapsolve(ddict):
         tt_r = map_p(tt_r, res[i])
     return tt_r
 
-#print mapsolve( jsonret(mstr) )
+
+def gamePiecesChangeToArr(piec):
+    result_list = list()
+    if ',' in piec:
+        piec_list = piec.split(',')
+        for p in piec_list:
+            tmp_piec_change = list()
+            for i in range(0, len(p)):
+                if p[i] == 'X':
+                    tmp_piec_change.append(1)
+                else:
+                    tmp_piec_change.append(0)
+            result_list.append(tmp_piec_change)
+    else:
+        tmp_piec_change = list()
+        for i in range(0, len(piec)):
+            if piec[i] == 'X':
+                tmp_piec_change.append(1)
+            else:
+                tmp_piec_change.append(0)
+        result_list.append(tmp_piec_change)
+    return result_list
+
+
+def gameBaseMapChange(mapinfo):
+    result = list()
+    for m in mapinfo:
+        tmp_res = list()
+        for i in range(0, len(m)):
+            tmp_res.append(int(m[i]))
+        result.append(tmp_res)
+    return result
+
+
+def gameBaseInfoDecode(ginfo):
+    m_map = ginfo['map']
+    m_modu = ginfo['modu']
+    m_pieces = ginfo['pieces']
+    m_pieces_change = list()
+    for piec in m_pieces:
+        m_pieces_change.append(gamePiecesChangeToArr(piec))
+    result = dict()
+    result['modu'] = m_modu
+    result['gmap'] = gameBaseMapChange(m_map)
+    result['gpiecs'] = m_pieces_change
+    return result
+
+
+def gameResultGet(gmodu, piec, xyaddr):
+    xaddr = xyaddr[0]
+    yaddr = xyaddr[1]
+    print gmodu[xaddr][yaddr], piec[xaddr][yaddr]
+    print gmodu
+    print piec
+    print xyaddr
+    print '----alove---'
 
 
 t1 = ['00', '01', '02', '10', '11', '12', '20', '21', '22'] #x
@@ -102,20 +157,37 @@ l6 = t2
 l7 = t9
 
 
-# res = list()
-# for i1 in l1:
-#     for i2 in l2:
-#         for i3 in l3:
-#             for i4 in l4:
-#                 for i5 in l5:
-#                     for i6 in l6:
-#                         for i7 in l7:
-#                             res.append(i1+i2+i3+i4+i5+i6+i7)
+def checkGameOut(ginfo, cslove):
+    ginfo = gameBaseInfoDecode(ginfo)
+    slove_arr = list()
+    count = 0
+    tmp_list = list()
+    if len(ginfo['gpiecs'])*2 != len(cslove):
+        print 'out, slove length error'
+        return False
+    for i in range(0, len(cslove)):
+        tmp_list.append(int(cslove[i]))
+        if count == 1:
+            slove_arr.append(tmp_list)
+            count = 0
+            tmp_list = list()
+            continue
+        count += 1
+    print slove_arr
+    gmodu = ginfo['gmap']
+    for i in range(0, len(slove_arr)):
+        print slove_arr[i], ginfo['gpiecs'][i]
+        print gameResultGet(gmodu, ginfo['gpiecs'][i], slove_arr[i])
+        break
+    print ginfo, cslove
+
 
 # print len(res)
 res = mapsolve(jsonret(mstr))
 print res[0]
 print 'total count:', len(res)
+
+print checkGameOut(jsonret(mstr) , res[0])
 
 url = 'http://www.qlcoder.com/train/moducheck?solution='
 
