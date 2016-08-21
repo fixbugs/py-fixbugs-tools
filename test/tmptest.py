@@ -28,8 +28,8 @@ def jsonret(jstr):
 
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
-mstr = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
-
+mstr_13 = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
+mstr = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
 
 def modu_list_get(piec, row_len, col_len):
     result_list = list()
@@ -170,21 +170,19 @@ def checkGameOut(ginfo, cslove):
             tmp_list = list()
             continue
         count += 1
-    print slove_arr
     gmodu_map = ginfo['gmap']
     gmodu = ginfo['modu']
     for i in range(0, len(slove_arr)):
-        print 'count', i
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
     return gameEndCheck(gmodu_map)
 
 
 def gameEndCheck(gmodu_map):
-    print gmodu_map
     for x in range(0, len(gmodu_map)):
         for y in range(0, len(gmodu_map[x])):
             if gmodu_map[x][y] != 0:
                 return False
+    print gmodu_map
     return True
 
 
@@ -233,7 +231,6 @@ class doQueueClass(object):
     def work(self, r):
         if self.workcomp:
             return True
-        print r
         ret = checkGameOut(jsonret(mstr), r)
         if ret:
             self.workcomp = True
@@ -268,6 +265,7 @@ def doThreadQueue():
             else:
                 continue
     print 'end'
+
 
 def create_task_url():
     res = mapsolve(jsonret(mstr))

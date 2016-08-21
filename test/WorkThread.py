@@ -41,13 +41,10 @@ class WorkThread(threading.Thread):
             if hasattr(self, '_function_para'):
                 if isinstance(self._function_para, dict):
                     res = self._do_work_function(**self._function_para)
-                    print '1---'
                 elif isinstance(self._function_para, list):
                     res = self._do_work_function(*self._function_para)
-                    print '2---'
                 elif isinstance(self._function_para, tuple):
                     res = self._do_work_function(*self._function_para)
-                    print '3---'
                 elif isinstance(self._function_para, str):
                     res = self._do_work_function(self._function_para)
                 else:
