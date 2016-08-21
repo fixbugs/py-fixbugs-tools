@@ -192,7 +192,12 @@ def gameEndCheck(gmodu_map):
 res = mapsolve(jsonret(mstr))
 #print res[0]
 print 'total count:', len(res)
-#print checkGameOut(jsonret(mstr), res[0])
+# import time
+# st_time = time.clock()
+# for i in range(0, 1000):
+#     print checkGameOut(jsonret(mstr), res[i])
+# print time.clock() - st_time
+# exit(0)
 #print 'end game'
 
 
