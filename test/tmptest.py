@@ -72,9 +72,6 @@ def mapsolve(ddict):
         res.append(modu_list_get(piec, map_row_len, map_col_len))
     tt_r = res[0]
     num = 1 * len(res[0])
-    print m_map
-    print m_modu
-    print m_pieces
     for i in range(1, len(res)):
         num = num * len(res[i])
         tt_r = map_p(tt_r, res[i])
@@ -128,14 +125,14 @@ def gameBaseInfoDecode(ginfo):
     return result
 
 
-def gameResultGet(gmodu, piec, xyaddr):
+def gameResultGet(gmodu, piec, xyaddr, modu):
     xaddr = xyaddr[0]
     yaddr = xyaddr[1]
-    print gmodu[xaddr][yaddr], piec[xaddr][yaddr]
-    print gmodu
-    print piec
-    print xyaddr
-    print '----alove---'
+    modu = int(modu)
+    for x in range(0, len(piec)):
+        for y in range(0, len(piec[x])):
+            gmodu[xaddr+x][yaddr+y] = (gmodu[xaddr+x][yaddr+y] + piec[x][y])%modu
+    return gmodu
 
 
 t1 = ['00', '01', '02', '10', '11', '12', '20', '21', '22'] #x
@@ -174,20 +171,30 @@ def checkGameOut(ginfo, cslove):
             continue
         count += 1
     print slove_arr
-    gmodu = ginfo['gmap']
+    gmodu_map = ginfo['gmap']
+    gmodu = ginfo['modu']
     for i in range(0, len(slove_arr)):
-        print slove_arr[i], ginfo['gpiecs'][i]
-        print gameResultGet(gmodu, ginfo['gpiecs'][i], slove_arr[i])
-        break
-    print ginfo, cslove
+        print 'count', i
+        gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
+    return gameEndCheck(gmodu_map)
+
+
+def gameEndCheck(gmodu_map):
+    print gmodu_map
+    for x in range(0, len(gmodu_map)):
+        for y in range(0, len(gmodu_map[x])):
+            if gmodu_map[x][y] != 0:
+                return False
+    return True
 
 
 # print len(res)
 res = mapsolve(jsonret(mstr))
-print res[0]
+#print res[0]
 print 'total count:', len(res)
+#print checkGameOut(jsonret(mstr), res[0])
+#print 'end game'
 
-print checkGameOut(jsonret(mstr) , res[0])
 
 url = 'http://www.qlcoder.com/train/moducheck?solution='
 
@@ -214,8 +221,7 @@ def checkResult(url):
     return True
 
 
-import time
-
+#import time
 
 class doQueueClass(object):
     def __init__(self, *args, **kwargs):
@@ -227,21 +233,29 @@ class doQueueClass(object):
     def work(self, r):
         if self.workcomp:
             return True
-        baseurl = 'http://www.qlcoder.com/train/moducheck?solution='
-        ret = getdata(baseurl+r)
-        if '失败了' in ret:
-            print 'failed', r
-            return False
-        else:
-            if '请先登陆' in ret:
-                time.sleep(2)
-                ret = getdata(baseurl+r)
-                if '失败了' in ret:
-                    print 'failed',r
-                    return False
+        print r
+        ret = checkGameOut(jsonret(mstr), r)
+        if ret:
             self.workcomp = True
-            print 'ok', ret, r
+            print 'end game result:', r
             return True
+        return False
+        # baseurl = 'http://www.qlcoder.com/train/moducheck?solution='
+        # ret = getdata(baseurl+r)
+        # if '失败了' in ret:
+        #     print 'failed', r
+        #     return False
+        # else:
+        #     if '请先登陆' in ret:
+        #         time.sleep(2)
+        #         ret = getdata(baseurl+r)
+        #         if '失败了' in ret:
+        #             print 'failed',r
+        #             return False
+        #     self.workcomp = True
+        #     print 'ok', ret, r
+        #     return True
+
 
 def doThreadQueue():
     from ThreadQueue import ThreadQueue
@@ -257,24 +271,12 @@ def doThreadQueue():
 
 def create_task_url():
     res = mapsolve(jsonret(mstr))
-    ind = res.index('0000022000122122')
-    #print ind
+     #print ind
     #'1100022002020021'
-    rr = res[ind:]
-    print 'ned hd count:',len(rr)
+    rr = res[0:]
+    print 'ned hd count:', len(rr)
     return rr
 
 #print len(create_task_url())
-#print doThreadQueue()
+print doThreadQueue()
 exit(0)
-
-i = 0
-
-for r in res:
-    i += 1
-    #ret_data = getdata(url+r)
-    if not checkResult(url+r):
-        print 'failed', r
-    else:
-        print 'ok', url+r
-        break
