@@ -211,6 +211,30 @@ def checkGameOut(ginfo, cslove):
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
     return gameEndCheck(gmodu_map)
 
+pub_ginfo = gameBaseInfoDecode(jsonret(mstr))
+
+def checkGameOutNew(cslove):
+    ginfo = pub_ginfo
+    slove_arr = list()
+    count = 0
+    tmp_list = list()
+    if len(ginfo['gpiecs'])*2 != len(cslove):
+        print 'out, slove length error'
+        return False
+    for i in xrange(0, len(cslove)):
+        tmp_list.append(int(cslove[i]))
+        if count == 1:
+            slove_arr.append(tmp_list)
+            count = 0
+            tmp_list = list()
+            continue
+        count += 1
+    gmodu_map = ginfo['gmap']
+    gmodu = ginfo['modu']
+    for i in xrange(0, len(slove_arr)):
+        gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
+    return gameEndCheck(gmodu_map)
+
 
 def gameEndCheck(gmodu_map):
     for x in xrange(0, len(gmodu_map)):
@@ -228,11 +252,11 @@ def gameEndCheck(gmodu_map):
 #exit(0)
 
 #test itertools get for more
-# import time
+import time
 # res = mapslove_iter(jsonret(mstr))
 # st_time = time.clock()
-# for i in xrange(0, 1000000):
-#     print res.next()
+# for i in xrange(0, 10000):
+#     print checkGameOutNew(res.next()),i
 # print time.clock() - st_time
 # print 'end gmae'
 # exit(0)
@@ -281,21 +305,16 @@ class doQueueClass(object):
             print 'end game result:', r
             return True
         return False
-        # baseurl = 'http://www.qlcoder.com/train/moducheck?solution='
-        # ret = getdata(baseurl+r)
-        # if '失败了' in ret:
-        #     print 'failed', r
-        #     return False
-        # else:
-        #     if '请先登陆' in ret:
-        #         time.sleep(2)
-        #         ret = getdata(baseurl+r)
-        #         if '失败了' in ret:
-        #             print 'failed',r
-        #             return False
-        #     self.workcomp = True
-        #     print 'ok', ret, r
-        #     return True
+
+    def newwork(self, r):
+        if self.workcomp:
+            return True
+        ret = checkGameOutNew(r)
+        if ret:
+            self.workcomp = True
+            print 'end game result:', r
+            return True
+        return False
 
 
 def doThreadQueue():
@@ -311,6 +330,23 @@ def doThreadQueue():
     print 'end'
 
 
+def doThreadQueueNew(max_num):
+    from ThreadQueue import ThreadQueue
+    dqc = doQueueClass()
+    tq = ThreadQueue(work_function=create_iter, thread_work_function=dqc.newwork, max_exec_num=max_num)
+    while True:
+        if tq.do_work():
+            if dqc.dowork():
+                break
+            else:
+                continue
+    print 'end'
+
+
+def create_iter():
+    return mapslove_iter(jsonret(mstr))
+
+
 def create_task_url():
     res = mapsolve(jsonret(mstr))
      #print ind
@@ -319,6 +355,8 @@ def create_task_url():
     print 'ned hd count:', len(rr)
     return rr
 
+print doThreadQueueNew(100)
+
 #print len(create_task_url())
-print doThreadQueue()
+#print doThreadQueue()
 exit(0)

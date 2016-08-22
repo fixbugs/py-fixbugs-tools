@@ -49,6 +49,10 @@ class ThreadQueue(object):
                 self._work_nums = int(kwargs['work_nums'])
             else:
                 self._work_nums = 20
+            if 'max_exec_num' in kwargs:
+                self._max_exec_num = kwargs['max_exec_num']
+            else:
+                self._max_exec_num = 0
             pass
         pass
 
@@ -80,9 +84,12 @@ class ThreadQueue(object):
                     self.tasks_list = work_func()
         except Exception, e:
             print e
-        if not self.tasks_list:
-            return False
-        self._tasks_total_nums = len(self.tasks_list)
+        if not self._max_exec_num:
+            if not self.tasks_list:
+                return False
+            self._tasks_total_nums = len(self.tasks_list)
+        else:
+            self._tasks_total_nums = self._max_exec_num
         if self._tasks_total_nums < self._work_nums:
             self._work_nums = self._tasks_total_nums
         #初始化队列
@@ -112,9 +119,14 @@ class ThreadQueue(object):
         for i in range(0, self._work_nums):
             if len(self.thread_arrays) < self._work_nums:
                 #先判断队列是否为空以及_tasks_list_num即当前标记num的数值
-                if self.queue.empty():
-                    self._full_queue()
-                    pass
+                if not self._max_exec_num:
+                    if self.queue.empty():
+                        self._full_queue()
+                        pass
+                else:
+                    if self._tasks_list_num < self._work_nums:
+                        if self.queue.empty():
+                            self._full_queue()
                 work_thread = WorkThread(
                     work_function=self._thread_work_function,
                     error_file_path=self._thread_error_file_path,
@@ -127,7 +139,11 @@ class ThreadQueue(object):
                 if not self.thread_arrays[i].isAlive():
                     if self.queue.empty():
                         #只有当队列再次为空时 全局程序才结束
-                        self._flag = False
+                        if not self._max_exec_num:
+                            self._flag = False
+                        else:
+                            if self._max_exec_num < self._tasks_list_num:
+                                self._flag = False
                         break
                     else:
                         work_thread = WorkThread(
@@ -137,11 +153,18 @@ class ThreadQueue(object):
                         work_thread.start()
                         #更新替换已经死亡的thread
                         self.thread_arrays[i] = work_thread
-                    if self.queue.qsize() < self._work_nums:
-                        if self._tasks_list_num == self._tasks_total_nums:
+                    if not self._max_exec_num:
+                        if self.queue.qsize() < self._work_nums:
+                            if self._tasks_list_num == self._tasks_total_nums:
                             #只有当前任务num和队列初始总数想当时才断开判断，不再填充队列
-                            break
-                        self._full_queue()
+                                break
+                            self._full_queue()
+                    else:
+                        if self.queue.qsize() < self._work_nums:
+                            if self._tasks_list_num == self._tasks_total_nums:
+                            #只有当前任务num和队列初始总数想当时才断开判断，不再填充队列
+                                break
+                            self._full_queue()
         return True
 
     '''
@@ -158,7 +181,10 @@ class ThreadQueue(object):
         self.queue = Queue.Queue(maxsize=self._work_nums)
         self.thread_arrays = []
         self._tasks_list_num = 0
-        if hasattr(self, 'tasks_list') and len(self.tasks_list):
+        if not self._max_exec_num:
+            if hasattr(self, 'tasks_list') and len(self.tasks_list):
+                self._full_queue()
+        else:
             self._full_queue()
 
     '''
@@ -169,10 +195,17 @@ class ThreadQueue(object):
         if self._tasks_list_num == self._tasks_total_nums:
             return False
         if self.queue.empty() or self.queue.qsize() < self._work_nums:
-            for i in range(self.queue.qsize(), self._work_nums):
+            if not self._max_exec_num:
+                for i in range(self.queue.qsize(), self._work_nums):
                 #向queue里增加任务，初始时queue为空
-                self.queue.put(self.tasks_list[self._tasks_list_num])
-                self._tasks_list_num += 1
+                    self.queue.put(self.tasks_list[self._tasks_list_num])
+                    self._tasks_list_num += 1
+            else:
+                tcount = 100
+                for i in range(self.queue.qsize(), self._work_nums):
+                    print self.tasks_list.next()
+                    self.queue.put(self.tasks_list.next())
+                    self._tasks_list_num += 1
         return True
 
     #获取当前队列,只返回队列句柄
