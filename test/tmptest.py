@@ -57,6 +57,7 @@ def modu_list_get(piec, row_len, col_len):
 
 import itertools
 
+
 def map_p(l1, l2):
     c = itertools.product(l1, l2)
     result = list()
@@ -80,22 +81,10 @@ def mapsolve(ddict):
     for i in xrange(1, len(res)):
         num = num * len(res[i])
         tt_r = map_p(tt_r, res[i])
-    # test list to str to list
-    #print eval(res_str)
-    #itertools.product
-    # res_str = str(res)
-    # count = 0
-    # for i in itertools.product(*eval(res_str)):
-    #     print i
-    #     if count==1000:
-    #         break
-    #     count = count + 1
-    #     print count
-    # print num
-    # exit(0)
     return tt_r
 
-def mapslove_iter(ddict):
+
+def mapslove_max_length(ddict):
     m_map = ddict['map']
     m_modu = ddict['modu']
     m_pieces = ddict['pieces']
@@ -107,12 +96,31 @@ def mapslove_iter(ddict):
         res.append(modu_list_get(piec, map_row_len, map_col_len))
     tt_r = res[0]
     num = 1 * len(res[0])
+    print '-----res-------'
+    print res
+    print '------res------'
+    for i in xrange(1, len(res)):
+        num = num * len(res[i])
+    return num
+
+
+def mapslove_iter(ddict):
+    m_map = ddict['map']
+    m_modu = ddict['modu']
+    m_pieces = ddict['pieces']
+
+    map_row_len = len(m_map)
+    map_col_len = len(m_map[0])
+    res = list()
+    for piec in m_pieces:
+        res.append(modu_list_get(piec, map_row_len, map_col_len))
+    num = 1 * len(res[0])
     for i in xrange(1, len(res)):
         num = num * len(res[i])
     res_str = str(res)
-    count = 0
     for i in itertools.product(*eval(res_str)):
         yield(''.join(i))
+
 
 def gamePiecesChangeToArr(piec):
     result_list = list()
@@ -128,7 +136,7 @@ def gamePiecesChangeToArr(piec):
             result_list.append(tmp_piec_change)
     else:
         tmp_piec_change = list()
-        for i in rqange(0, len(piec)):
+        for i in xrange(0, len(piec)):
             if piec[i] == 'X':
                 tmp_piec_change.append(1)
             else:
@@ -214,6 +222,7 @@ def checkGameOut(ginfo, cslove):
 
 pub_ginfo = gameBaseInfoDecode(jsonret(mstr))
 
+
 def checkGameOutNew(cslove):
     ginfo = pub_ginfo
     slove_arr = list()
@@ -234,7 +243,11 @@ def checkGameOutNew(cslove):
     gmodu = ginfo['modu']
     for i in xrange(0, len(slove_arr)):
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
-    return gameEndCheck(gmodu_map)
+    gret = gameEndCheck(gmodu_map)
+    if gret:
+        return cslove
+    else:
+        return gret
 
 
 def gameEndCheck(gmodu_map):
@@ -377,6 +390,7 @@ if __name__ == '__main__':
     print 'main start'
     litter_num = int(sys.argv[1])
     max_num = int(sys.argv[2])
+    print 'total len:', mapslove_max_length(jsonret(mstr))
     res = mapslove_iter(jsonret(mstr))
     st_time = time.clock()
     for i in xrange(0, max_num):
@@ -385,8 +399,9 @@ if __name__ == '__main__':
             continue
         if i%1000000==0:
             print i
-        if checkGameOutNew(res.next()):
-            print 'ok game slove'
+        r = res.next()
+        if checkGameOutNew(r):
+            print 'ok game slove', r, i
             break
     print time.clock() - st_time
     print 'end gmae'
