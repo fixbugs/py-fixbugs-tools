@@ -94,7 +94,7 @@ def gamePiecesChangeToArr(piec):
             result_list.append(tmp_piec_change)
     else:
         tmp_piec_change = list()
-        for i in range(0, len(piec)):
+        for i in rqange(0, len(piec)):
             if piec[i] == 'X':
                 tmp_piec_change.append(1)
             else:
@@ -206,7 +206,7 @@ url = 'http://www.qlcoder.com/train/moducheck?solution='
 
 def getdata(url):
     import urllib2
-    headers = {'Cookie':'uuid=57b15ad2211ae; remember_82e5d2c56bdd0811318f0cf078b78bfc=eyJpdiI6IkpFb2hheE5aZFk2UG9nNlwvSk1SenlBPT0iLCJ2YWx1ZSI6IlBaV25YTzZ6WnErSStkdmVERTFQdDNUcUpkME9yVGRNNmtFSzBhdTFIVWZqSzRRd3lFaUt2RzdBU0NBSXVXaE9lSXR1Rzh4QSttUStTc0V1anUrTnhLaHhJMEZabmRWbVYzTTJsTFJmZFd3PSIsIm1hYyI6IjBiNmE5Y2ZmODc5MzQ2YzMwOWMxOGQ0ZmFhZjJjNTI4ZDczYjkwM2EzZDBhZWZjYmMzZDRlYjliMGQ4NzlmN2IifQ%3D%3D; è¿é¢çç­æ¡æ¯oreo=eyJpdiI6IittXC9wRXJKWkUyV1NHeVJpVHNsYkVBPT0iLCJ2YWx1ZSI6InJIK0lNeHp5b0FIYk4wWlUyaTVCTUE9PSIsIm1hYyI6ImM0ZWM4MGI5ZjZiOTRkMDFjMDhiMTRmMGVhMjA5NGMwYjI3ODUxYWJkZDcxZGI5MTNmNzUzNjQzMjk3MjQ1OWEifQ%3D%3D; XSRF-TOKEN=eyJpdiI6InBZZGF6MVhONGVcL3JXbVJcL1ZITFI4UT09IiwidmFsdWUiOiJ1Zk9paUpXSDdGWUg3NFdxRVZYUUs0ck9ibjZ1NzhhUzZDR3NFaUZUVUg4UTNoUkJCMVZGa3ZMdEhzS0tnZTJ0YzlzRFJaMW9iZkQyNmthaklDR0hIdz09IiwibWFjIjoiYjVkNmMzZTEyOTU2OTQwMmMzODU4MGEyZWY2Yjk1YzQwMDQyMGIzZGE0YTU4OTI5NTc2Y2YzMDE5MzUxN2ZkOCJ9; laravel_session=eyJpdiI6InZ6d0I2SzR4OTBWa0puajlqeCt3aGc9PSIsInZhbHVlIjoiTE9Lb3Zqb2VHYnNrK3E4N3BSbHMyaDB5dHZDMEZ5QXhrZVdrYm42K3dJMjhmVE9oWGdGbksyeW1BTmNUMGdLOVFWaXVyVWFaRnpMVVczaTgwN1lrU2c9PSIsIm1hYyI6ImQ1NjhmYTRjNjU3Y2M5N2M3ZmNlYTVhNTEzNjc0YzljOTEwOWE3YjBmYjIzNGNlYTEwYmE1YjUwMjRiODI2OTkifQ%3D%3D; Hm_lvt_420590b976ac0a82d0b82a80985a3b8a=1470644113,1471240913; Hm_lpvt_420590b976ac0a82d0b82a80985a3b8a=1471481801'}
+    headers = {'Cookie':'uuid=57b15ad2211ae; remember_82e5d2c56bdd0811318f0cf078b78bfc=eyJpdiI6IkpFb2hheE5aZFk2UG9nNlwvSk1SenlBPT0iLCJ2YWx1ZSI6IlBaV25YTzZ6WnErSStkdmVERTFQdDNUcUpkME9yVGRNNmtFSzBhdTFIVWZqSzRRd3lFaUt2RzdBU0NBSXVXaE9lSXR1Rzh4QSttUStTc0V1anUrTnhLaHhJMEZabmRWbVYzTTJsTFJmZFd3PSIsIm1hYyI6IjBiNmE5Y2ZmODc5MzQ2YzMwOWMxOGQ0ZmFhZjJjNTI4ZDczYjkwM2EzZDBhZWZjYmMzZDRlYjliMGQ4NzlmN2IifQ%3D%3D; è¿é¢çç­æ¡æ¯oreo=eyJpdiI6Ik5YNlJ1bkhCemVuQVVRRithN25QM2c9PSIsInZhbHVlIjoid0dmbjJ5Y0o2bXd1UUI4bklQUzBGQT09IiwibWFjIjoiOWZiNWQ3NzIzNTJiMWYwMzA5YTE5OWVkZDA4MGI0MTkxMzYxZDY5MWY2NWRmMzBjMzQ2MTZiNzQ3ODI2ODEwNiJ9; XSRF-TOKEN=eyJpdiI6IlFyaGJVeU4rZWlzYmx6SmlNUmRCbFE9PSIsInZhbHVlIjoiTVwvYlh5TWVwZERyTDA4ektNcTFxNnp4SG0yXC91c1lydEsxemw1TnlNNXVDT1lObmtONVZrWnhHRWt4dVBBYnRPVE9NUzdUc20yeFBiWUU4MW4yVGRZQT09IiwibWFjIjoiNDhhZTY0OTkzOTM3MTQ3M2UwODVhOTk5OTA5ZmE2Y2Q2ZTM5YTVkNzEzNzliY2Y2YjEwNDgyZTEzOWIwNDRlZiJ9; laravel_session=eyJpdiI6IlpwZms1XC83TnV5QWFwcjlsd2MzaEl3PT0iLCJ2YWx1ZSI6ImhcL0tPK0IzWWZBTlVLV1NINHhsZnVTMUxNY3JuXC9uNHU1cHlJVWo2QVlIVTg4MDNuREpWVVJNVGZlTk1rTk1Pd21MQng2TWZSamFJZk5oTjA0dzR3ekE9PSIsIm1hYyI6IjZjYmYwM2I3YzZkYzhhZjIxYjc5ZGQ1NWUwYWEyYTIwM2FkZmE3OTAzMmM5OWY0NzZkYzgxMjY0ZDhkOWQ3MjkifQ%3D%3D; Hm_lvt_420590b976ac0a82d0b82a80985a3b8a=1470644113,1471240913; Hm_lpvt_420590b976ac0a82d0b82a80985a3b8a=1471491235'}
     req = urllib2.Request(url=url, headers=headers)
     soc = urllib2.urlopen(req)
     con = soc.read()
@@ -225,6 +225,8 @@ def checkResult(url):
     print 'ok', url
     return True
 
+print checkResult('http://www.qlcoder.com/train/moducheck?solution='+'00');
+exit(0)
 
 #import time
 
