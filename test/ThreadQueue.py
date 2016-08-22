@@ -114,6 +114,7 @@ class ThreadQueue(object):
                 print "flag is false and all tasks exec end"
                 return True
             print "flag is false end bug tasks need tims to exec"
+#            exit(0)
             return False
         #sencond init task queue and create thread arrays
         for i in range(0, self._work_nums):
@@ -142,7 +143,7 @@ class ThreadQueue(object):
                         if not self._max_exec_num:
                             self._flag = False
                         else:
-                            if self._max_exec_num < self._tasks_list_num:
+                            if self._max_exec_num == self._tasks_list_num:
                                 self._flag = False
                         break
                     else:
@@ -161,7 +162,7 @@ class ThreadQueue(object):
                             self._full_queue()
                     else:
                         if self.queue.qsize() < self._work_nums:
-                            if self._tasks_list_num == self._tasks_total_nums:
+                            if self._tasks_list_num == self._max_exec_num:
                             #只有当前任务num和队列初始总数想当时才断开判断，不再填充队列
                                 break
                             self._full_queue()
@@ -203,7 +204,6 @@ class ThreadQueue(object):
             else:
                 tcount = 100
                 for i in range(self.queue.qsize(), self._work_nums):
-                    print self.tasks_list.next()
                     self.queue.put(self.tasks_list.next())
                     self._tasks_list_num += 1
         return True

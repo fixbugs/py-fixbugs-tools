@@ -241,7 +241,7 @@ def gameEndCheck(gmodu_map):
         for y in xrange(0, len(gmodu_map[x])):
             if gmodu_map[x][y] != 0:
                 return False
-    print gmodu_map
+    print 'gmodu map slove end string:', gmodu_map
     return True
 
 
@@ -253,13 +253,14 @@ def gameEndCheck(gmodu_map):
 
 #test itertools get for more
 import time
-# res = mapslove_iter(jsonret(mstr))
-# st_time = time.clock()
-# for i in xrange(0, 10000):
-#     print checkGameOutNew(res.next()),i
-# print time.clock() - st_time
-# print 'end gmae'
-# exit(0)
+res = mapslove_iter(jsonret(mstr))
+st_time = time.clock()
+for i in xrange(0, 1000000):
+    if checkGameOutNew(res.next()):
+        print 'ok game slove'
+print time.clock() - st_time
+print 'end gmae'
+exit(0)
 
 
 url = 'http://www.qlcoder.com/train/moducheck?solution='
@@ -340,6 +341,8 @@ def doThreadQueueNew(max_num):
                 break
             else:
                 continue
+        else:
+            break
     print 'end'
 
 
@@ -355,7 +358,9 @@ def create_task_url():
     print 'ned hd count:', len(rr)
     return rr
 
-print doThreadQueueNew(100)
+# st_time = time.clock()
+# doThreadQueueNew(1000000)
+# print time.clock() - st_time
 
 #print len(create_task_url())
 #print doThreadQueue()
