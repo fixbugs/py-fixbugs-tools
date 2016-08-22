@@ -22,6 +22,7 @@
 #print answer_result
 
 import simplejson
+import sys
 
 
 def jsonret(jstr):
@@ -253,14 +254,20 @@ def gameEndCheck(gmodu_map):
 
 #test itertools get for more
 import time
-res = mapslove_iter(jsonret(mstr))
-st_time = time.clock()
-for i in xrange(0, 1000000):
-    if checkGameOutNew(res.next()):
-        print 'ok game slove'
-print time.clock() - st_time
-print 'end gmae'
-exit(0)
+# res = mapslove_iter(jsonret(mstr))
+# st_time = time.clock()
+# for i in xrange(0, 200000000):
+#     if i<50000000:
+#         res.next()
+#         continue
+#     if i%1000000==0:
+#         print i
+#     if checkGameOutNew(res.next()):
+#         print 'ok game slove'
+#         break
+# print time.clock() - st_time
+# print 'end gmae'
+# exit(0)
 
 
 url = 'http://www.qlcoder.com/train/moducheck?solution='
@@ -364,4 +371,22 @@ def create_task_url():
 
 #print len(create_task_url())
 #print doThreadQueue()
-exit(0)
+#exit(0)
+
+if __name__ == '__main__':
+    print 'main start'
+    litter_num = int(sys.argv[1])
+    max_num = int(sys.argv[2])
+    res = mapslove_iter(jsonret(mstr))
+    st_time = time.clock()
+    for i in xrange(0, max_num):
+        if i<litter_num:
+            res.next()
+            continue
+        if i%1000000==0:
+            print i
+        if checkGameOutNew(res.next()):
+            print 'ok game slove'
+            break
+    print time.clock() - st_time
+    print 'end gmae'
