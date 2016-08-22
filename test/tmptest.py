@@ -21,9 +21,10 @@
 
 #print answer_result
 
+import simplejson
+
 
 def jsonret(jstr):
-    import simplejson
     return simplejson.loads(jstr)
 
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
@@ -41,20 +42,21 @@ def modu_list_get(piec, row_len, col_len):
         p_col_len = len(piec_list[0])
         max_row = row_len - p_row_len
         max_col = col_len - p_col_len
-        for r in range(0, max_row+1):
-            for l in range(0, max_col+1):
+        for r in xrange(0, max_row+1):
+            for l in xrange(0, max_col+1):
                 result_list.append(str(r)+str(l))
     else:
         max_row = row_len - 1
         max_col = col_len - len(piec)
-        for r in range(0, max_row+1):
-            for l in range(0, max_col+1):
+        for r in xrange(0, max_row+1):
+            for l in xrange(0, max_col+1):
                 result_list.append(str(r)+str(l))
     return result_list
 
 
+import itertools
+
 def map_p(l1, l2):
-    import itertools
     c = itertools.product(l1, l2)
     result = list()
     for elem in c:
@@ -74,11 +76,42 @@ def mapsolve(ddict):
         res.append(modu_list_get(piec, map_row_len, map_col_len))
     tt_r = res[0]
     num = 1 * len(res[0])
-    for i in range(1, len(res)):
+    for i in xrange(1, len(res)):
         num = num * len(res[i])
         tt_r = map_p(tt_r, res[i])
+    # test list to str to list
+    #print eval(res_str)
+    #itertools.product
+    # res_str = str(res)
+    # count = 0
+    # for i in itertools.product(*eval(res_str)):
+    #     print i
+    #     if count==1000:
+    #         break
+    #     count = count + 1
+    #     print count
+    # print num
+    # exit(0)
     return tt_r
 
+def mapslove_iter(ddict):
+    m_map = ddict['map']
+    m_modu = ddict['modu']
+    m_pieces = ddict['pieces']
+
+    map_row_len = len(m_map)
+    map_col_len = len(m_map[0])
+    res = list()
+    for piec in m_pieces:
+        res.append(modu_list_get(piec, map_row_len, map_col_len))
+    tt_r = res[0]
+    num = 1 * len(res[0])
+    for i in xrange(1, len(res)):
+        num = num * len(res[i])
+    res_str = str(res)
+    count = 0
+    for i in itertools.product(*eval(res_str)):
+        yield(''.join(i))
 
 def gamePiecesChangeToArr(piec):
     result_list = list()
@@ -86,7 +119,7 @@ def gamePiecesChangeToArr(piec):
         piec_list = piec.split(',')
         for p in piec_list:
             tmp_piec_change = list()
-            for i in range(0, len(p)):
+            for i in xrange(0, len(p)):
                 if p[i] == 'X':
                     tmp_piec_change.append(1)
                 else:
@@ -107,7 +140,7 @@ def gameBaseMapChange(mapinfo):
     result = list()
     for m in mapinfo:
         tmp_res = list()
-        for i in range(0, len(m)):
+        for i in xrange(0, len(m)):
             tmp_res.append(int(m[i]))
         result.append(tmp_res)
     return result
@@ -131,8 +164,8 @@ def gameResultGet(gmodu, piec, xyaddr, modu):
     xaddr = xyaddr[0]
     yaddr = xyaddr[1]
     modu = int(modu)
-    for x in range(0, len(piec)):
-        for y in range(0, len(piec[x])):
+    for x in xrange(0, len(piec)):
+        for y in xrange(0, len(piec[x])):
             gmodu[xaddr+x][yaddr+y] = (gmodu[xaddr+x][yaddr+y] + piec[x][y])%modu
     return gmodu
 
@@ -164,7 +197,7 @@ def checkGameOut(ginfo, cslove):
     if len(ginfo['gpiecs'])*2 != len(cslove):
         print 'out, slove length error'
         return False
-    for i in range(0, len(cslove)):
+    for i in xrange(0, len(cslove)):
         tmp_list.append(int(cslove[i]))
         if count == 1:
             slove_arr.append(tmp_list)
@@ -174,14 +207,14 @@ def checkGameOut(ginfo, cslove):
         count += 1
     gmodu_map = ginfo['gmap']
     gmodu = ginfo['modu']
-    for i in range(0, len(slove_arr)):
+    for i in xrange(0, len(slove_arr)):
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
     return gameEndCheck(gmodu_map)
 
 
 def gameEndCheck(gmodu_map):
-    for x in range(0, len(gmodu_map)):
-        for y in range(0, len(gmodu_map[x])):
+    for x in xrange(0, len(gmodu_map)):
+        for y in xrange(0, len(gmodu_map[x])):
             if gmodu_map[x][y] != 0:
                 return False
     print gmodu_map
@@ -189,16 +222,20 @@ def gameEndCheck(gmodu_map):
 
 
 # print len(res)
-res = mapsolve(jsonret(mstr))
+#res = mapsolve(jsonret(mstr))
 #print res[0]
-print 'total count:', len(res)
+#print 'total count:', len(res)
+#exit(0)
+
+#test itertools get for more
 # import time
+# res = mapslove_iter(jsonret(mstr))
 # st_time = time.clock()
-# for i in range(0, 1000):
-#     print checkGameOut(jsonret(mstr), res[i])
+# for i in xrange(0, 1000000):
+#     print res.next()
 # print time.clock() - st_time
+# print 'end gmae'
 # exit(0)
-#print 'end game'
 
 
 url = 'http://www.qlcoder.com/train/moducheck?solution='
@@ -225,8 +262,6 @@ def checkResult(url):
     print 'ok', url
     return True
 
-print checkResult('http://www.qlcoder.com/train/moducheck?solution='+'00');
-exit(0)
 
 #import time
 
