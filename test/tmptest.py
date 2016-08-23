@@ -94,14 +94,23 @@ def mapslove_max_length(ddict):
     res = list()
     for piec in m_pieces:
         res.append(modu_list_get(piec, map_row_len, map_col_len))
-    tt_r = res[0]
-    num = 1 * len(res[0])
-    print '-----res-------'
-    print res
-    print '------res------'
-    for i in xrange(1, len(res)):
+    num = 1
+    for i in xrange(0, len(res)):
         num = num * len(res[i])
     return num
+
+
+def mapslove_pieces(ddict):
+    m_map = ddict['map']
+    m_modu = ddict['modu']
+    m_pieces = ddict['pieces']
+
+    map_row_len = len(m_map)
+    map_col_len = len(m_map[0])
+    res = list()
+    for piec in m_pieces:
+        res.append(modu_list_get(piec, map_row_len, map_col_len))
+    return res
 
 
 def mapslove_iter(ddict):
@@ -114,8 +123,9 @@ def mapslove_iter(ddict):
     res = list()
     for piec in m_pieces:
         res.append(modu_list_get(piec, map_row_len, map_col_len))
-    num = 1 * len(res[0])
-    for i in xrange(1, len(res)):
+    print res
+    num = 1
+    for i in xrange(0, len(res)):
         num = num * len(res[i])
     res_str = str(res)
     for i in itertools.product(*eval(res_str)):
@@ -175,7 +185,7 @@ def gameResultGet(gmodu, piec, xyaddr, modu):
     modu = int(modu)
     for x in xrange(0, len(piec)):
         for y in xrange(0, len(piec[x])):
-            gmodu[xaddr+x][yaddr+y] = (gmodu[xaddr+x][yaddr+y] + piec[x][y])%modu
+            gmodu[xaddr+x][yaddr+y] = (gmodu[xaddr+x][yaddr+y] + piec[x][y]) % modu
     return gmodu
 
 
@@ -224,6 +234,7 @@ pub_ginfo = gameBaseInfoDecode(jsonret(mstr))
 
 
 def checkGameOutNew(cslove):
+    print cslove
     ginfo = pub_ginfo
     slove_arr = list()
     count = 0
@@ -386,7 +397,44 @@ def create_task_url():
 #print doThreadQueue()
 #exit(0)
 
+
+def recursive_back_slove(piecs, n=0, tree_result=list()):
+    if len(piecs) == len(tree_result):
+        tmp = list()
+        for i in xrange(0, len(piecs)):
+            tmp.append(piecs[i][tree_result[i]])
+        if checkGameOutNew(''.join(tmp)):
+            return True
+        else:
+            return False
+    else:
+        for i in xrange(0, len(piecs[n])):
+            if len(tree_result) < len(piecs):
+                tree_result.append(i)
+            else:
+                tree_result[n] = i
+            if recursive_back_slove(piecs, n+1, tree_result):
+                return tree_result
+            #else:
+             #   tree_result = tree_result[0:n]
+        #tree_result = tree_result[0:-1]
+        return recursive_back_slove(piecs, n-1, tree_result)
+        # just can get piecs[n] words
+        # for i in xrange(0, len(piecs[n])):
+        #     tree_result.append(piecs[n][i])
+        #     if recursive_back_slove(piecs, n+1, tree_result):
+        #         return tree_result
+        #     else:
+        #         tree_result = tree_result[0:-1]
+        # if n >= 0:
+        #     return recursive_back_slove(piecs, n-1, tree_result)
+
+
 if __name__ == '__main__':
+    #import sys
+    #sys.setrecursionlimit(1000000)
+    print recursive_back_slove(mapslove_pieces(jsonret(mstr)), 0)
+    exit(0)
     print 'main start'
     litter_num = int(sys.argv[1])
     max_num = int(sys.argv[2])
