@@ -417,25 +417,50 @@ def recursive_back_slove(piecs, n=0, tree_result=list()):
                 tree_result[n] = i
             if recursive_back_slove(piecs, n+1, tree_result):
                 return tree_result
-            #else:
-             #   tree_result = tree_result[0:n]
-        #tree_result = tree_result[0:-1]
         return recursive_back_slove(piecs, n-1, tree_result)
-        # just can get piecs[n] words
-        # for i in xrange(0, len(piecs[n])):
-        #     tree_result.append(piecs[n][i])
-        #     if recursive_back_slove(piecs, n+1, tree_result):
-        #         return tree_result
-        #     else:
-        #         tree_result = tree_result[0:-1]
-        # if n >= 0:
-        #     return recursive_back_slove(piecs, n-1, tree_result)
+
+
+import copy
+
+def conflict(piecs, max_len, piec, tree_result):
+    if len(tree_result) == max_len:
+        #check
+        tmp = list()
+        for i in xrange(0, max_len-1):
+            tmp.append(piecs[i][tree_result[i]])
+        for piecs in piec:
+            ttmp = copy.copy(tmp)
+            ttmp.append(piecs)
+            if checkGameOutNew(''.join(ttmp)):
+                return True
+    return False
+
+
+def rbs(piecs, n=0, tree_result=tuple()):
+    for l in range(len(piecs)):
+        # if len(tree_result) == n:
+        #     if not conflict(piecs, len(piecs, piecs[n-1]), tree_result):
+        #         tree_result
+        #         yield rbs(piecs, n-1, tree_result)
+        if not conflict(piecs, len(piecs), piecs[n-1], tree_result):
+            if len(tree_result) == n:
+                print n, 'len tree result eq',tree_result
+                yield (l,)
+            else:
+                for r in rbs(piecs, n, tree_result+(l,)):
+                    yield (l,) + r
+
 
 
 if __name__ == '__main__':
     #import sys
     #sys.setrecursionlimit(1000000)
-    print recursive_back_slove(mapslove_pieces(jsonret(mstr)), 0)
+    mapsl = mapslove_pieces(jsonret(mstr))
+    rres = rbs(mapsl, len(mapsl))
+    for i in range(2):
+        print rres.next()
+    #print recursive_back_slove(mapslove_pieces(jsonret(mstr)), 0)
+
     exit(0)
     print 'main start'
     litter_num = int(sys.argv[1])

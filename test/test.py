@@ -242,4 +242,17 @@ def getmodulistpstring(pstring):
     return ''.join(mp_list)
 
 
-print moduslove()
+#print moduslove()
+
+def testfunc():
+    for i in range(0,4):
+        if i %2==0:
+            yield (i,)
+        else:
+            yield (i,) + (i,1)
+
+a = testfunc()
+print a.next()
+print a.next()
+print a.next()
+print a.next()
