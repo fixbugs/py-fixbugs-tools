@@ -127,8 +127,10 @@ def mapslove_iter(ddict):
     num = 1
     for i in xrange(0, len(res)):
         num = num * len(res[i])
+        print i,num, len(res[i])
     res_str = str(res)
     for i in itertools.product(*eval(res_str)):
+        print i
         yield(''.join(i))
 
 
@@ -452,4 +454,4 @@ if __name__ == '__main__':
             print 'ok game slove', r, i
             break
     print time.clock() - st_time
-    print 'end gmae'
+    print 'end game'
