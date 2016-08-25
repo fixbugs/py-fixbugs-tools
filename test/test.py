@@ -99,34 +99,39 @@ def getFileContent(file_path):
 
 def shopingtaobao():
     sp_hd = getFileContent('taobao2.txt')
-    shoping_arr = dict()
+    shoping_arr = [0]*1000000
     total_num = 0
+    now_num = 1
     for l in sp_hd:
+        now_num += 1
         sp_ret = l.split(" ")
         method = sp_ret[0]
         sp_ret[2] = sp_ret[2][:-1]
         if method == 'up':
             if sp_ret[2] in shoping_arr:
-                shoping_arr[sp_ret[2]] += int(sp_ret[1])
+                shoping_arr[int(sp_ret[2])] += int(sp_ret[1])
             else:
-                shoping_arr[sp_ret[2]] = int(sp_ret[1])
+                shoping_arr[int(sp_ret[2])] = int(sp_ret[1])
         elif method == 'down':
             if sp_ret[2] in shoping_arr:
-                shoping_arr[sp_ret[2]] -= int(sp_ret[1])
+                shoping_arr[int(sp_ret[2])] -= int(sp_ret[1])
         elif method == 'query':
             min_pr = int(sp_ret[1])
             max_pr = int(sp_ret[2])
-            for p, num in shoping_arr.items():
-                n_price = int(p)
-                if n_price > max_pr:
-                    continue
-                if int(n_price) < int(min_pr):
-                    continue
-                total_num += int(num)
+            total_num += sum(shoping_arr[min_pr+1:max_pr+1])
+            print now_num, total_num, 'total_end', min_pr, max_pr
+            # for p, num in shoping_arr.items():
+            #     n_price = int(p)
+            #     if n_price > max_pr:
+            #         continue
+            #     if int(n_price) < int(min_pr):
+            #         continue
+            #     total_num += int(num)
     #print shoping_arr
     return total_num
 
-#print shopingtaobao()
+print shopingtaobao()
+exit(0)
 
 import hashlib
 
@@ -250,9 +255,3 @@ def testfunc():
             yield (i,)
         else:
             yield (i,) + (i,1)
-
-a = testfunc()
-print a.next()
-print a.next()
-print a.next()
-print a.next()
