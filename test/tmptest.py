@@ -422,6 +422,7 @@ def recursive_back_slove(piecs, n=0, tree_result=list()):
 
 import copy
 
+
 def conflict(piecs, max_len, piec, tree_result):
     if len(tree_result) == max_len:
         #check
@@ -444,12 +445,11 @@ def rbs(piecs, n=0, tree_result=tuple()):
         #         yield rbs(piecs, n-1, tree_result)
         if not conflict(piecs, len(piecs), piecs[n-1], tree_result):
             if len(tree_result) == n:
-                print n, 'len tree result eq',tree_result
+                print n, 'len tree result eq', tree_result
                 yield (l,)
             else:
                 for r in rbs(piecs, n, tree_result+(l,)):
                     yield (l,) + r
-
 
 
 if __name__ == '__main__':

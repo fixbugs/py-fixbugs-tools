@@ -99,27 +99,27 @@ def getFileContent(file_path):
 
 def shopingtaobao():
     sp_hd = getFileContent('taobao2.txt')
-    shoping_arr = [0]*1000000
+    shoping_arr = [0]*100001
     total_num = 0
     now_num = 1
+    count = 1
     for l in sp_hd:
         now_num += 1
         sp_ret = l.split(" ")
         method = sp_ret[0]
         sp_ret[2] = sp_ret[2][:-1]
         if method == 'up':
-            if sp_ret[2] in shoping_arr:
-                shoping_arr[int(sp_ret[2])] += int(sp_ret[1])
-            else:
-                shoping_arr[int(sp_ret[2])] = int(sp_ret[1])
+            shoping_arr[int(sp_ret[2])] += int(sp_ret[1])
         elif method == 'down':
-            if sp_ret[2] in shoping_arr:
-                shoping_arr[int(sp_ret[2])] -= int(sp_ret[1])
+            shoping_arr[int(sp_ret[2])] -= int(sp_ret[1])
         elif method == 'query':
             min_pr = int(sp_ret[1])
             max_pr = int(sp_ret[2])
-            total_num += sum(shoping_arr[min_pr:max_pr])
-            print now_num, total_num, 'total_end', min_pr, max_pr
+            total_num += sum(shoping_arr[min_pr:max_pr+1])
+            #print now_num, total_num, 'total_end', min_pr, max_pr
+            count += 1
+            if count % 1000 == 0:
+                print now_num, total_num, 'total_end', min_pr, max_pr
             # for p, num in shoping_arr.items():
             #     n_price = int(p)
             #     if n_price > max_pr:

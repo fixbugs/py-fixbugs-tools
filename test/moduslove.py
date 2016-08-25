@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #coding=utf8
 
-import os, re
+import os
+#import re
 
 
 def execCmd(cmd):
@@ -9,6 +10,7 @@ def execCmd(cmd):
     text = r.read()
     r.close()
     return text
+
 
 def c_res(cmd):
     result = execCmd(cmd)
