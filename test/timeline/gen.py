@@ -9,22 +9,55 @@ if sys.version_info[0] == 3:
 
 random.seed(10)
 limit = 10000000
-out = open('timeline.txt', 'w')
-for i in range(limit):
+# out = open('timeline.txt', 'w')
+# for i in range(limit):
+#     r = random.randint(1, limit)
+#     if i % 3 == 0:
+#         out.write('p ' + str(r) + ' ' + ''.join(random.sample(string.ascii_letters, 4)) + '\r\n')
+#     else:
+#         out.write('v ' + str(r) + '\r\n')
+
+
+import hashlib
+
+
+def string_md5(c_str):
+    return hashlib.md5(c_str).hexdigest()
+
+v_result = list()
+all_data = list()
+site_arr = [0] * limit
+for i in xrange(limit):
+    tmp_d = dict()
     r = random.randint(1, limit)
+    if i % 10000 == 0:
+        print i
+        print ' ----------------------'
     if i % 3 == 0:
-        out.write('p ' + str(r) + ' ' + ''.join(random.sample(string.ascii_letters, 4)) + '\r\n')
+        #p
+        tmp_d['method'] = 'p'
+        tmp_d['person'] = int(r)
+        tmp_d['content'] = ''.join(random.sample(string.ascii_letters, 4))
+        all_data.append(tmp_d)
     else:
-        out.write('v ' + str(r) + '\r\n')
+        tmp_d['method'] = 'v'
+        tmp_d['person'] = int(r)
+        all_data.append(tmp_d)
+        last_site_num = site_arr[r]
+        site_arr[r] = i
+        speak_str = list()
+        for x in all_data[i-1:last_site_num-1:-1]:
+            if x['method'] == 'v':
+                if x['person'] == tmp_d['person']:
+                    break
+            else:
+                if tmp_d['person'] == x['person']:
+                    continue
+                if tmp_d['person'] % x['person'] == 0:
+                    print 'add content'
+                    speak_str.append(x['content'])
+        if len(speak_str):
+            v_result.append(string_md5('-'.join(speak_str)))
 
 
-#########
-# p 2 hello     //素数2发表了1条内容为hello的微博
-# p 2 iloveyou
-# p 2 heyjuice
-# v 10          //数字10查看了自己的时间线，由于10关注了2，因此他看到了这3条微博 heyjuice-iloveyou-hello,按时间的倒序陈列
-# p 2 yoyoyo
-# p 5 checknow
-# v 10          //数字10再次查看了自己的时间线，看到了 checknow-yoyoyo
-# v 6           //数字6查看了自己的时间线，由于6关注了2，看到了 yoyoyo-heyjuice-iloveyou-hello
-########
+print string_md5('-'.join(v_result))

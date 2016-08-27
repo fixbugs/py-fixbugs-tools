@@ -96,7 +96,6 @@ def formatData():
             tmp_d['method'] = 'v'
             tmp_d['person'] = int(person)
         all_data.append(tmp_d)
-    print all_data
     for i in xrange(len(all_data)):
         if i%10000 == 0:
             print i
@@ -118,7 +117,6 @@ def formatData():
                 v_result.append(string_md5('-'.join(speak_str)))
         else:
             pass
-    print v_result
     return string_md5('-'.join(v_result))
 
 
