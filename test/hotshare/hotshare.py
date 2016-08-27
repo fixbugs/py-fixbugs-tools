@@ -52,7 +52,11 @@ print all_result
 print '---------------------'
 print single_f
 print '-------root key out put--------------'
+new_result = list()
 for key in new_tree.keys():
-    print key
+    new_result.append(key)
+print ' ---------------result------------'
+print len(new_result)
+print len(single_f)
 
 #uf.printree()
