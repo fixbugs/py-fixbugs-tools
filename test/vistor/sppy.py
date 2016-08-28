@@ -17,6 +17,7 @@ def split_file(fpath, out_dir, base_num=1000):
                     appendToFile(out_dir, str(i)+'sp.txt', ''.join(line_lists[i]))
                 print 'now count:',count
             line = file_hd.readline()
+            count += 1
     return True
 
 
