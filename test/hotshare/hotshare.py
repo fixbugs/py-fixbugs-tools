@@ -56,7 +56,9 @@ new_result = list()
 for key in new_tree.keys():
     new_result.append(key)
 print ' ---------------result------------'
-print len(new_result)
-print len(single_f)
+print len(new_result) + len(single_f)
+print 100000 - len(all_result) + len(new_result)
+print '---------------------------------------------'
+#print uf.gettree()
 
 #uf.printree()

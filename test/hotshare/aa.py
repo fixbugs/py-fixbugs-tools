@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #coding:utf-8
-#py2.7  
+#py2.7
 
 
 class unionfind:
@@ -64,9 +64,9 @@ class unionfind:
             rs.setdefault(root, [])
             rs[root] += [item]
         return rs
-        for key in rs.keys():
-            print rs[key],
 
+    def getitem(self):
+        return self.items
 
 
 if __name__ == '__main__':
