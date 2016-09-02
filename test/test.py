@@ -56,10 +56,11 @@ def box(data, max_num):
 # print box(hd_arr, max_num)
 # exit(0)
 
+import hashlib
+
 
 def get_pass(pass_md5):
     pass_md5 = pass_md5.lower()
-    import hashlib
     for i in range(1990, 2016):
         for j in range(1, 12):
             for k in range(1, 31):
@@ -71,6 +72,7 @@ def get_pass(pass_md5):
                     return tmp_str
 
 #print get_pass('7E38890B870934B126F66857ED6B57B9')
+
 
 def hotshare():
     res = getFileContent('friends.txt')
@@ -132,8 +134,6 @@ def shopingtaobao():
 
 print shopingtaobao()
 exit(0)
-
-import hashlib
 
 
 def rankmd5():
@@ -250,8 +250,8 @@ def getmodulistpstring(pstring):
 #print moduslove()
 
 def testfunc():
-    for i in range(0,4):
-        if i %2==0:
+    for i in range(0, 4):
+        if i % 2 == 0:
             yield (i,)
         else:
-            yield (i,) + (i,1)
+            yield (i,) + (i, 1)
