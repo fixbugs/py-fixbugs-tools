@@ -70,6 +70,6 @@ class unionfind:
 
 
 if __name__ == '__main__':
-    u = unionfind([('a','b','c'),('b','d'),('e','f'),('g'),('d','h')]) 
+    u = unionfind([('a', 'b', 'c'), ('b', 'd'), ('e', 'f'), ('g'), ('d', 'h')]) 
     u.createtree()
     print u.printree()

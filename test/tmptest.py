@@ -469,10 +469,10 @@ if __name__ == '__main__':
     res = mapslove_iter(jsonret(mstr))
     st_time = time.clock()
     for i in xrange(0, max_num):
-        if i<litter_num:
+        if i < litter_num:
             res.next()
             continue
-        if i%1000000==0:
+        if i % 1000000 == 0:
             print i
         r = res.next()
         if checkGameOutNew(r):
