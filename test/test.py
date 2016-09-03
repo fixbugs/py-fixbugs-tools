@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#coding=utf8
+#coding=utf-8
 
 
 def get_data(num=2333):
