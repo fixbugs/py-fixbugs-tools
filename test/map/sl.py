@@ -75,7 +75,7 @@ def born(given_map, point):
     else:
         return True
 
-start = {(0,0): True,(0,1): True,(1,1): True,(0,-1): True,(-1,0): True}
+start = {(0, 0): True, (0, 1): True, (1, 1): True, (0, -1): True, (-1, 0): True}
 
 rnd = 0
 max_rnd = 0
