@@ -68,7 +68,7 @@ for i in xrange(limit):
         speak_str = list()
         if isPrime(int(r)):
             continue
-        for x in all_data[i-1:last_site_num-1:-1]:
+        for x in all_data[i-1:last_site_num:-1]:
             if x['method'] == 'v':
                 if x['person'] == tmp_d['person']:
                     break
@@ -76,9 +76,9 @@ for i in xrange(limit):
                 if tmp_d['person'] == x['person']:
                     continue
                 if tmp_d['person'] % x['person'] == 0:
-                    print 'add content, now site:', i
+                    print 'content check', i
                     speak_str.append(x['content'])
-        if len(speak_str):
+        if len(speak_str) > 0:
             v_result.append(string_md5('-'.join(speak_str)))
 
 
