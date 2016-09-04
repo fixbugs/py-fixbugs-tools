@@ -76,7 +76,7 @@ for i in xrange(limit):
                 if tmp_d['person'] == x['person']:
                     continue
                 if tmp_d['person'] % x['person'] == 0:
-                    print 'add content'
+                    print 'add content, now site:', i
                     speak_str.append(x['content'])
         if len(speak_str):
             v_result.append(string_md5('-'.join(speak_str)))
