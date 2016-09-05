@@ -43,7 +43,7 @@ def compress(data):
             count += 1
     return result + cur + str(count)
 
-def bwt(string , slice_len):
+def bwt(string, slice_len):
     string_len = len(string)
     string_slice = []
     for index in range(len(string)):
@@ -54,12 +54,16 @@ def bwt(string , slice_len):
             string_slice.append((string[s:] + string[:e] , string[s-1]))
     return string_slice
 
-if __name__=='__main__':
+if __name__ == '__main__':
     sstr = getFileContent('war_and_piece.txt')
-    #wt = wheelerTransform("BABABABANANABABABABABANANABABABABABANANABANANANAAHH")
-    print len(sstr[0])
-    print bwt(sstr[0], 100)
-    exit(0)
-    wt = wheelerTransform(sstr[0])
-    print wt
+    #print wheelerTransform("BABABABANANABABABABABANANABABABABABANANABANANANAAHH")
+    bwt_res = bwt(sstr[0], 100)
+    #print bwt_res
+    nw = list()
+    for b in bwt_res:
+        nw.append( wheelerTransform(b[0]) )
+    #wt = wheelerTransform(new_str)
+    wt = ''.join(nw)
+    print '-----wt-----------'
+    print '---------md5---result------'
     print string_md5(wt)
