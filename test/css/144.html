@@ -59,11 +59,42 @@
         input::before {
         content: "1";
         } */
-     input:checked +
-*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
-     p:after {
-         content: "connected";
-     }
+//     input:checked + 
+//        *+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+* +
+//     p::after{
+//         content: "connected";
+//     }
+input:not(:checked) +
+        *+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
+        p::before {
+    content: "1";
+}
+
+
+input:checked +
+        *+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
+        p::before {
+    content: "1";
+}
+
+
+input:checked +
+        *+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
+        p::before {
+    content: "1";
+}
+
+input:checked + input:checked + input:checked +
+        *+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
+        p::before {
+    content: "0";
+}
+
+input:not(:checked) + input:not(:checked) + input:not(:checked) +
+        *+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+
+        p::before {
+    content: "0";
+}
         /*这上面是你要提交的CSS*/
     </style>
 
