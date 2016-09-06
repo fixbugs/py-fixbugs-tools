@@ -17,6 +17,7 @@ def getFileContent(file_path):
         f.close()
     return result
 
+
 def getPasserList():
     fname = 'passenger.txt'
     result = list()
@@ -27,6 +28,7 @@ def getPasserList():
         tmp.append(float(sp_res[1]))
         result.append(tmp)
     return result
+
 
 def getCarList():
     fname = 'ubercar.txt'
@@ -39,8 +41,10 @@ def getCarList():
         result.append(tmp)
     return result
 
+
 def getSiteDistance(grida, gridb):
     return math.sqrt( pow(grida[0]+gridb[0], 2) + pow(grida[1]+gridb[1], 2) )
+
 
 def getPasserNearCar(passGrid, CL):
     nearSite = 0
@@ -54,6 +58,7 @@ def getPasserNearCar(passGrid, CL):
             result['distance'] = tmpDistance
             nearSite = i
     return result
+
 
 def nearest(PassList):
     CL = getCarList()
