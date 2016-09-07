@@ -44,7 +44,7 @@ def put(key):
 def init():
     #ls = map(chr, read_file(0, 102400))
     ls = read_file(0, 102400)
-    for li in ''.join(ls).split('\n'):
+    for li in ''.join(str(v) for v in ls).split('\n'):
         l2 = li.split(':')
         if len(l2) < 2:
             continue
@@ -73,9 +73,7 @@ def heightToInt(nstr):
     loop = '0123456789abcdefghijklmnopqrstuvwxyz'
     res = 0
     length = len(nstr)
-    #print nstr, length
     for i in range(length)[::-1]:
-#        print loop.index(nstr[i]), pow(36, length-i-1)
         res += loop.index(nstr[i]) * pow(36, length-i-1)
     return res
 
