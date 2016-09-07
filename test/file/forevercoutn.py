@@ -80,8 +80,13 @@ def heightToInt(nstr):
     return res
 
 if __name__ == '__main__':
+    # error on key 89,need 1, but output 0
     init()
-    keys = ['test1', 'test2', 'test3','sjflksjfljsldjf','weewerwerwer','werwnkashfhshdfk']
+    put('89')
+    print get('89')
+    exit(0)
+    init()
+    keys = ['89', 'test2', 'test3','sjflksjfljsldjf','weewerwerwer','werwnkashfhshdfk']
     for k in keys:
         put(k)
     for k in keys:
