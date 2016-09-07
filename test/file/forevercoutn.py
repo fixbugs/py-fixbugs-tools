@@ -12,6 +12,7 @@ def write_file(offset, bytestr):
 
 import os
 
+
 def read_file(offset, length):
     if not os.path.exists(cacheFileName):
         return list()
@@ -48,15 +49,17 @@ def init():
         l2 = li.split(':')
         if len(l2) < 2:
             continue
-        mp[l2[0]] = int(l2[1])
+        mp[l2[0]] = str(l2[1])
+
 
 def createNewKey(key):
-    if len(key)<8 :
+    if len(key) < 8 :
         return key
     import hashlib
     hash_key = hashlib.md5(key).hexdigest()
     result = hash_key[0:8]
     return result
+
 
 def intToHeight(num):
     loop = '0123456789abcdefghijklmnopqrstuvwxyz'
@@ -77,10 +80,22 @@ def heightToInt(nstr):
         res += loop.index(nstr[i]) * pow(36, length-i-1)
     return res
 
+
+def getRandomStr(length):
+    import random
+    main_str = 'abcdefghijklmnopqrstuvwxyz!@#$%^&*()'
+    return ''.join(random.sample(main_str, int(length)))
+
 if __name__ == '__main__':
     # error on key 89,need 1, but output 0
+    slist = list()
     init()
-    put('89')
+    for i in range(0, 200):
+        tmp = getRandomStr(18)
+        slist.append(tmp)
+        put(str(tmp))
+    for i in range(0, 200):
+        print get(slist[i])
     print get('89')
     exit(0)
     init()
