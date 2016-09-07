@@ -10,8 +10,11 @@ def write_file(offset, bytestr):
     f.write(bytestr)
     f.close()
 
+import os
 
 def read_file(offset, length):
+    if not os.path.exists(cacheFileName):
+        return list()
     f = file(cacheFileName, 'rb+')
     f.seek(offset)
     res = f.read(length)
@@ -23,10 +26,12 @@ mp = {}
 
 # user_code
 def get(key):
+    key = createNewKey(key)
     return heightToInt(mp.get(key, 0))
 
 
 def put(key):
+    key = createNewKey(key)
     last_num = heightToInt(str(mp.get(key, '0')))
     mp[key] = intToHeight(last_num + 1)
     s = ''
@@ -45,6 +50,13 @@ def init():
             continue
         mp[l2[0]] = int(l2[1])
 
+def createNewKey(key):
+    if len(key)<8 :
+        return key
+    import hashlib
+    hash_key = hashlib.md5(key).hexdigest()
+    result = hash_key[0:8]
+    return result
 
 def intToHeight(num):
     loop = '0123456789abcdefghijklmnopqrstuvwxyz'
@@ -69,7 +81,7 @@ def heightToInt(nstr):
 
 if __name__ == '__main__':
     init()
-    keys = ['test1', 'test2', 'test3']
+    keys = ['test1', 'test2', 'test3','sjflksjfljsldjf','weewerwerwer','werwnkashfhshdfk']
     for k in keys:
         put(k)
     for k in keys:
