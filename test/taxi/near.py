@@ -43,7 +43,9 @@ def getCarList():
 
 
 def getSiteDistance(grida, gridb):
-    return math.sqrt( pow(grida[0]+gridb[0], 2) + pow(grida[1]+gridb[1], 2) )
+    tmp = math.sqrt( pow(grida[0]-gridb[0], 2) + pow(grida[1]-gridb[1], 2) )
+    tmp = round(tmp, 4)
+    return tmp
 
 
 def getPasserNearCar(passGrid, CL):
@@ -52,6 +54,9 @@ def getPasserNearCar(passGrid, CL):
     result = dict()
     for i in range(len(CL)):
         tmpDistance = getSiteDistance(passGrid, CL[i])
+        if not result:
+            result['index'] = i
+            result['distance'] = tmpDistance
         if tmpDistance < lastDistance:
             lastDistance = tmpDistance
             result['index'] = i
@@ -59,7 +64,7 @@ def getPasserNearCar(passGrid, CL):
             nearSite = i
     return result
 
-CarResIndex = [79, 99, 73, 57, 83, 8, 55, 17, 63, 64, 88, 7, 15, 81, 34, 65, 35, 10, 21, 13, 69, 41, 50, 1, 74, 5, 19, 33, 29, 58, 87, 92, 31, 60, 16, 43, 11, 2, 96, 47, 95, 98, 54, 85, 89, 94, 90, 97, 44, 84]
+CarResIndex = [69, 11, 59, 32, 28, 15, 60, 86, 12, 62, 4, 45, 2, 65, 26, 23, 88, 9, 35, 44, 51, 61, 46, 5, 48, 43, 68, 72, 64, 76, 0, 74, 40, 52, 77, 31, 70, 71, 39, 16, 87, 41, 95, 92, 56, 54, 47, 17, 1, 10]
 
 def nearest(PassList):
     CL = getCarList()
@@ -74,10 +79,13 @@ def nearest(PassList):
         totalDistance += lastCheck['distance']
         CResult.append(CL.index(CLR[nowNearSite]))
         CLR.remove(CLR[nowNearSite])
-    # if int(totalDistance) == 5651:
-    #     CarResIndex = copy.deepcopy(CResult)
-    #     print CarResIndex
-    #     print '----------------'
+    if int(totalDistance) < 309:
+        global CarResIndex
+        CarResIndex = copy.deepcopy(CResult)
+        print '--------------'
+        print totalDistance
+        print CarResIndex
+        print '----------------'
     # checkDis = 0.0
     # for i in range(len(PResult)):
     #     checkDis += getSiteDistance(PassList[i], CL[CResult[i]])
@@ -87,32 +95,33 @@ def nearest(PassList):
 def main():
     PL = getPasserList()
     PLR = copy.deepcopy(PL)
-    #CL = getCarList()
+    CL = getCarList()
     old = nearest(PLR)
     for i in range(1,50):
         for j in range(0,i):
             old = nearest(PLR)
-            tmpP = PLR[j]
-            PLR[j] = PLR[i]
-            PLR[i] = tmpP
+            PLR[i], PLR[j] = PLR[j],PLR[i]
             if old > nearest(PLR):
-                old = nearest(PLR)
+                #old = nearest(PLR)
                 continue
-            tmpP = PLR[j]
-            PLR[j] = PLR[i]
-            PLR[i] = tmpP
-            #old = nearest(PLR)
+            PLR[i], PLR[j] = PLR[j], PLR[i]
+            old = nearest(PLR)
     print '-----plr------'
     PindexRes = list()
     for p in PLR:
         PindexRes.append(PL.index(p))
 #    print PLR
-    print PindexRes
-    print len(PindexRes), len(CarResIndex)
+    #print PindexRes
+    #print len(PindexRes), len(CarResIndex)
     print '-----carresindex------'
     #print CarResIndex
+    checkTotal = 0.0
     for i in range(50):
         print 'P' + str(PindexRes[i]+1) + '-' + 'U' + str(CarResIndex[i]+1)
+        #print PL[PindexRes[i]], CL[CarResIndex[i]]
+        checkTotal += getSiteDistance(PL[PindexRes[i]], CL[CarResIndex[i]])
+    print checkTotal
+
     #print CL
     #print getSiteDistance(PL[0], CL[0])
 
