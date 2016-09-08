@@ -59,6 +59,7 @@ def getPasserNearCar(passGrid, CL):
             nearSite = i
     return result
 
+CarResIndex = [79, 99, 73, 57, 83, 8, 55, 17, 63, 64, 88, 7, 15, 81, 34, 65, 35, 10, 21, 13, 69, 41, 50, 1, 74, 5, 19, 33, 29, 58, 87, 92, 31, 60, 16, 43, 11, 2, 96, 47, 95, 98, 54, 85, 89, 94, 90, 97, 44, 84]
 
 def nearest(PassList):
     CL = getCarList()
@@ -73,6 +74,10 @@ def nearest(PassList):
         totalDistance += lastCheck['distance']
         CResult.append(CL.index(CLR[nowNearSite]))
         CLR.remove(CLR[nowNearSite])
+    # if int(totalDistance) == 5651:
+    #     CarResIndex = copy.deepcopy(CResult)
+    #     print CarResIndex
+    #     print '----------------'
     # checkDis = 0.0
     # for i in range(len(PResult)):
     #     checkDis += getSiteDistance(PassList[i], CL[CResult[i]])
@@ -93,13 +98,21 @@ def main():
             if old > nearest(PLR):
                 old = nearest(PLR)
                 continue
-            print '--------------'
             tmpP = PLR[j]
             PLR[j] = PLR[i]
             PLR[i] = tmpP
             #old = nearest(PLR)
-    print PLR
-    print old
+    print '-----plr------'
+    PindexRes = list()
+    for p in PLR:
+        PindexRes.append(PL.index(p))
+#    print PLR
+    print PindexRes
+    print len(PindexRes), len(CarResIndex)
+    print '-----carresindex------'
+    #print CarResIndex
+    for i in range(50):
+        print 'P' + str(PindexRes[i]+1) + '-' + 'U' + str(CarResIndex[i]+1)
     #print CL
     #print getSiteDistance(PL[0], CL[0])
 
