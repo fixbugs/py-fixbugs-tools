@@ -23,12 +23,13 @@ def init():
         if len(l2)<2:
             continue
         mp[l2[0]] = str(l2[1])
-        
+
 def createNewKey(key):
     if len(key) < 8 :
         return key
     import hashlib
     hash_key = hashlib.md5(key).hexdigest()
+    hash_key = hashlib.md5(has_key + key).hexdigest()
     result = hash_key[0:8]
     return result
 

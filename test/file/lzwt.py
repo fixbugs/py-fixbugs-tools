@@ -1,97 +1,6 @@
 #!/usr/bin/env python
 #coding=utf-8
 
-cacheFileName = 'cache.data'
-
-
-def write_file(offset, bytestr):
-    f = file(cacheFileName, 'wb+')
-    f.seek(offset)
-    f.write(bytestr)
-    f.close()
-
-import os
-
-
-def read_file(offset, length):
-    if not os.path.exists(cacheFileName):
-        return list()
-    f = file(cacheFileName, 'rb+')
-    f.seek(offset)
-    res = f.read(length)
-    f.close()
-    return res
-
-mp = {}
-
-
-# user_code
-def get(key):
-    key = createNewKey(key)
-    return heightToInt(mp.get(key, 0))
-
-
-def put(key):
-    key = createNewKey(key)
-    last_num = heightToInt(str(mp.get(key, '0')))
-    mp[key] = intToHeight(last_num + 1)
-    s = ''
-    for kv in mp.items():
-        s = '%s:%s\n' % kv + s
-    b_s = bytearray(s)
-    #todo 无损压缩
-    b_s = lzw_encode(b_s)
-    #需要计算并定位需要修改或者写入的字符内容
-    write_file(0, b_s)
-
-
-def init():
-    #ls = map(chr, read_file(0, 102400))
-    ls = read_file(0, 102400)
-    if ls:
-        ls = lzw_decode(ls)
-    for li in ''.join(str(v) for v in ls).split('\n'):
-        l2 = li.split(':')
-        if len(l2) < 2:
-            continue
-        mp[l2[0]] = str(l2[1])
-
-
-def createNewKey(key):
-    if len(key) < 8 :
-        return key
-    import hashlib
-    hash_key = hashlib.md5(key).hexdigest()
-    hash_key = hashlib.md5(hash_key + key).hexdigest()
-    result = hash_key[0:2]
-    return result
-
-
-def intToHeight(num):
-    loop = '0123456789abcdefghijklmnopqrstuvwxyz'
-    a = []
-    while num != 0:
-        a.append(loop[num % 36])
-        num = num / 36
-    a.reverse()
-    return ''.join(a)
-
-
-def heightToInt(nstr):
-    nstr = str(nstr)
-    loop = '0123456789abcdefghijklmnopqrstuvwxyz'
-    res = 0
-    length = len(nstr)
-    for i in range(length)[::-1]:
-        res += loop.index(nstr[i]) * pow(36, length-i-1)
-    return res
-
-
-def getRandomStr(length):
-    import random
-    main_str = 'abcdefghijklmnopqrstuvwxyz!@#$%^&*()'
-    return ''.join(random.sample(main_str, int(length)))
-
 def LZW ( inStr,narrow=False,bits=14):
     '''''使用LZW压缩算法压缩。
         narrow为True时输出字节流位紧缩
@@ -122,7 +31,7 @@ def LZW ( inStr,narrow=False,bits=14):
             iTagCurrent+=1      #增加一个标记，并放入字典
             iTag=cChar  #当前标记为后缀
 
-        if iTagCurrent>=iMaxLen:    #如果到达了最大标记数，清除字典，从头开始
+        if iTagCurrent>=iMaxLen:    #如果到达了最大标记数，清除字典，从头开始 
             sOutStr.append(256)
             mTagMap={}
             iTagCurrent=258
@@ -263,21 +172,10 @@ def lzw_decode(dstr):
         outs += chr(d)
     return outs
 
+
 if __name__ == '__main__':
-    # error on key 89,need 1, but output 0
-    slist = list()
-    init()
-    for i in range(0, 400):
-        tmp = getRandomStr(18)
-        slist.append(tmp)
-        put(str(tmp))
-    # for i in range(0, 200):
-    #     print get(slist[i])
-    print get('89')
-    exit(0)
-    init()
-    keys = ['89', 'test2', 'test3','sjflksjfljsldjf','weewerwerwer','werwnkashfhshdfk']
-    for k in keys:
-        put(k)
-    for k in keys:
-        print get(k)
+    estr = 'sjkj:fksdjkf:fsjk:fsf::fsjkf:fsjkfj::fsjfkj::fsjkfj::fsf'
+    res = lzw_encode(estr)
+    print res,len(res)
+    desc = lzw_decode(res)
+    print desc,len(desc)
