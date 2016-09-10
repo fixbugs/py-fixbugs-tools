@@ -92,14 +92,15 @@ def getRandomStr(length):
     main_str = 'abcdefghijklmnopqrstuvwxyz!@#$%^&*()'
     return ''.join(random.sample(main_str, int(length)))
 
-def LZW ( inStr,narrow=False,bits=14):
+
+def LZW(inStr, narrow=False, bits=14):
     '''''使用LZW压缩算法压缩。
         narrow为True时输出字节流位紧缩
         默认最大位宽14位，允许范围12~16位'''
-    if isinstance(inStr,str):
-        inStr=list(inStr)
+    if isinstance(inStr, str):
+        inStr = list(inStr)
         for i in range(len(inStr)):
-            inStr[i]=ord(inStr[i])
+            inStr[i] = ord(inStr[i])
     sOutStr=[256]   #先放一个 开始&清除 标记
     mTagMap={}      #字典
     iTagCurrent=258  #当前的标记总数 0~255 标记256 为begin & clear , 257 为end
@@ -246,12 +247,14 @@ def UnLZW ( inStr , narrow=False):
             deTag(mTagMap,nowTag,outStr)
             nowTag=cChar
 
+
 def lzw_encode(estr):
     estr = LZW(estr, True, 16)
     eouts = ''
     for d in estr:
         eouts += chr(d)
     return eouts
+
 
 def lzw_decode(dstr):
     ll = list()
