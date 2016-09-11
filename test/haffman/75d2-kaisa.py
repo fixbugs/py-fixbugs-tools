@@ -50,27 +50,61 @@ def getUnSecStr(secStr, n):
     unsecretStr = ''.join(unsecretStrList)
     return unsecretStr
 
+import math
+
+
+def splitWords(words, n):
+    result = list()
+    for i in range(n-1):
+        result.append('')
+    for w in words:
+        for i in range(n-1):
+            result[i] += w[i]
+    return result
+
 
 def deZLStr(zlstr, n):
+    if n == 0 :
+        return zlstr
     zlLength = n
     result = list()
     tmpStr = ''
-    for i in range(len(zlstr)):
-        if (i + 1) % zlLength == 0:
+    for i in range(0, len(zlstr)):
+        if i == len(zlstr) - 1:
+            tmpStr = str(zlstr[i])
+            result.append(tmpStr)
+        if ((i + 1) % zlLength) == 0:
+            tmpStr += str(zlstr[i])
             result.append(tmpStr)
             tmpStr = ''
         else:
             tmpStr += str(zlstr[i])
-    return ''.join(result)
+    print len(result), n
+    totalPiece = int(math.ceil(len(result)/n))
+    newStrList = list()
+    for i in range(totalPiece):
+        words = result[i*(n):i*(n)+n]
+        newStrList += splitWords(words, n)
+    print len(result), len(newStrList)
+    print newStrList, len(''.join(newStrList))
+    return ''.join(newStrList)
 
-#for i in range(-10):
-    #print i
-unsecStr = getUnSecStr(secretStr, -10)
-print unsecStr
-for j in range(1, 27):
+# for i in range(-26, 26):
+#     unsecStr = getUnSecStr(secretStr, i)
+
+unsecStr = secretStr
+print len(secretStr)
+
+for j in range(2, 50):
     deres = deZLStr(unsecStr, j)
+    print '-----------'
+    print unsecStr, len(deres)
+    print deres, len(deres)
+    if j ==2:
+        break
     if deres.endswith('.'):
         print deres
+        exit(0)
 
 # for i in range(1, 27):
 #     deres = deZLStr(unsecretStr, i)
