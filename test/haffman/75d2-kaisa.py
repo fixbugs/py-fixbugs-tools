@@ -106,6 +106,7 @@ def deZLStr(zlstr, n):
 unsecStr = secretStr
 print len(secretStr)
 
+#test 50 is end '.'
 for j in range(1, 150):
     deres = deZLStr(unsecStr, j)
     #print unsecStr, len(deres)
