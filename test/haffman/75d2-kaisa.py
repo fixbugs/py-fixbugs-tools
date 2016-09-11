@@ -50,28 +50,29 @@ def getUnSecStr(secStr, n):
     unsecretStr = ''.join(unsecretStrList)
     return unsecretStr
 
-import math
-
 
 def splitWords(words, n):
     result = list()
-    for i in range(n-1):
+    for i in range(n):
         result.append('')
     for w in words:
-        for i in range(n-1):
-            result[i] += w[i]
+        for i in range(n):
+            if i < len(w):
+                result[i] += w[i]
+            else:
+                result[i] += ''
     return result
 
 
 def deZLStr(zlstr, n):
-    if n == 0 :
+    if n == 0:
         return zlstr
     zlLength = n
     result = list()
     tmpStr = ''
     for i in range(0, len(zlstr)):
         if i == len(zlstr) - 1:
-            tmpStr = str(zlstr[i])
+            tmpStr += str(zlstr[i])
             result.append(tmpStr)
         if ((i + 1) % zlLength) == 0:
             tmpStr += str(zlstr[i])
@@ -79,14 +80,24 @@ def deZLStr(zlstr, n):
             tmpStr = ''
         else:
             tmpStr += str(zlstr[i])
-    print len(result), n
-    totalPiece = int(math.ceil(len(result)/n))
+    totalPiece = int(len(result)/n) + 1
     newStrList = list()
+    tl = 0
     for i in range(totalPiece):
-        words = result[i*(n):i*(n)+n]
-        newStrList += splitWords(words, n)
-    print len(result), len(newStrList)
-    print newStrList, len(''.join(newStrList))
+        # if n*(i+1) > totalPiece:
+        #     words = result[i*(n):]
+        # else:
+        #     words = result[i*n:i*i+n]
+#        print i*n, i*(n)+n
+        words = result[i*n:i*n+n]
+#        print len(words)
+        # print result[0:2]
+        # print result[2:4]
+        # print result[4:6]
+        tl += len(words)
+        tmpSpWds = splitWords(words, n)
+        for t in tmpSpWds:
+            newStrList.append(t)
     return ''.join(newStrList)
 
 # for i in range(-26, 26):
@@ -95,15 +106,11 @@ def deZLStr(zlstr, n):
 unsecStr = secretStr
 print len(secretStr)
 
-for j in range(2, 50):
+for j in range(1, 150):
     deres = deZLStr(unsecStr, j)
-    print '-----------'
-    print unsecStr, len(deres)
-    print deres, len(deres)
-    if j ==2:
-        break
+    #print unsecStr, len(deres)
     if deres.endswith('.'):
-        print deres
+        print deres, j
         exit(0)
 
 # for i in range(1, 27):
