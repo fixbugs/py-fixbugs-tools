@@ -6,7 +6,6 @@ cacheFileName = 'cache.data'
 
 def write_file(offset, bytestr):
     f = file(cacheFileName, 'wb+')
-    print dir(f)
     f.seek(offset)
     f.write(bytestr)
     f.close()
@@ -59,7 +58,7 @@ def init():
 
 
 def createNewKey(key):
-    if len(key) < 8 :
+    if len(key) < 8:
         return key
     import hashlib
     hash_key = hashlib.md5(key).hexdigest()
@@ -138,6 +137,7 @@ def LZW(inStr, narrow=False, bits=14):
     else:
         return sOutStr
 
+
 def Narrow (sOutStr):
     sOutN=[]
     iTemp=0
@@ -166,6 +166,7 @@ def Narrow (sOutStr):
     if BitLeft>0:
         sOutN.append(iTemp)
     return sOutN
+
 
 def UnNarrow (inStr):
     sOut=[]
@@ -197,6 +198,7 @@ def UnNarrow (inStr):
         sOut.append(iTemp)
 
     return sOut
+
 
 def deTag ( mTagMap,nowTag,outStr):
     '''''将一个标记转化为元字符序列，并放入到输出流中'''
@@ -297,7 +299,7 @@ if __name__ == '__main__':
     print get('89')
     exit(0)
     init()
-    keys = ['89', 'test2', 'test3','sjflksjfljsldjf','weewerwerwer','werwnkashfhshdfk']
+    keys = ['89', 'test2', 'test3', 'sjflksjfljsldjf', 'weewerwerwer', 'werwnkashfhshdfk']
     for k in keys:
         put(k)
     for k in keys:
