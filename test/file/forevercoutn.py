@@ -272,21 +272,6 @@ def lzw_decode(dstr):
 if __name__ == '__main__':
     #test write
     #write_file(0, 'aaaa')
-    cont = read_file(0, 100000)
-    print len(cont), cont
-    write_file(0, 'a')
-    print '-------------'
-    cont = read_file(0, 100000)
-    print len(cont), cont
-    write_file(1, 'b')
-    write_file(2, 'c')
-    print '================'
-    cont = read_file(0, 100000)
-    for c in cont:
-        print c
-    print len(cont), cont
-    print '3333333333333333333'
-    exit(0)
     # error on key 89,need 1, but output 0
     slist = list()
     init()
