@@ -40,7 +40,7 @@ def put(key):
         s = '%s:%s\n' % kv + s
     b_s = bytearray(s)
     #todo 无损压缩
-    b_s = lzw_encode(b_s)
+    #b_s = lzw_encode(b_s)
     #需要计算并定位需要修改或者写入的字符内容
     write_file(0, b_s)
 
@@ -48,8 +48,8 @@ def put(key):
 def init():
     #ls = map(chr, read_file(0, 102400))
     ls = read_file(0, 102400)
-    if ls:
-        ls = lzw_decode(ls)
+    #if ls:
+    #    ls = lzw_decode(ls)
     for li in ''.join(str(v) for v in ls).split('\n'):
         l2 = li.split(':')
         if len(l2) < 2:
@@ -235,7 +235,7 @@ def UnLZW(inStr, narrow=False):
                 deTag(mTagMap, nowTag, outStr)
                 nowTag = -1
             return outStr
-        elif nowTag == -1: #刚开始
+        elif nowTag == -1: # 刚开始
             nowTag = cChar
         else:
             pair = [nowTag, 0]
@@ -281,7 +281,8 @@ if __name__ == '__main__':
         put(str(tmp))
     # for i in range(0, 200):
     #     print get(slist[i])
-    print get('89')
+    for s in slist:
+        print get(s)
     exit(0)
     init()
     keys = ['89', 'test2', 'test3', 'sjflksjfljsldjf', 'weewerwerwer', 'werwnkashfhshdfk']
