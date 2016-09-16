@@ -31,7 +31,7 @@ if __name__ == '__main__':
     total_page = int(max_num/step) + 1
     print total_page
     for i in xrange(start_num, total_page):
-        cmd = 'python /project/python/github/py-fixbugs-tools/test/tmptest.py '+ str(i*step) +' '+str((i+1)*step)
+        cmd = 'python /project/python/github/py-fixbugs-tools/test/tmptest.py ' + str(i*step) + ' '+str((i+1)*step)
         ret = c_res(cmd)
         if ret:
             print 'ok'

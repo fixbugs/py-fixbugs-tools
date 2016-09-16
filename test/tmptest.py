@@ -31,8 +31,8 @@ def jsonret(jstr):
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
 mstr_13 = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
-mstr_14 = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
-mstr = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"],"pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}'
+mstr = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
+mstr_15 = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"], "pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}'
 
 
 def modu_list_get(piec, row_len, col_len):
@@ -123,14 +123,12 @@ def mapslove_iter(ddict):
     res = list()
     for piec in m_pieces:
         res.append(modu_list_get(piec, map_row_len, map_col_len))
-    print res
     num = 1
     for i in xrange(0, len(res)):
         num = num * len(res[i])
-        print i,num, len(res[i])
+#        print i, num, len(res[i])
     res_str = str(res)
     for i in itertools.product(*eval(res_str)):
-        print i
         yield(''.join(i))
 
 
@@ -236,7 +234,6 @@ pub_ginfo = gameBaseInfoDecode(jsonret(mstr))
 
 
 def checkGameOutNew(cslove):
-    print cslove
     ginfo = pub_ginfo
     slove_arr = list()
     count = 0
@@ -455,13 +452,13 @@ def rbs(piecs, n=0, tree_result=tuple()):
 if __name__ == '__main__':
     #import sys
     #sys.setrecursionlimit(1000000)
-    mapsl = mapslove_pieces(jsonret(mstr))
-    rres = rbs(mapsl, len(mapsl))
-    for i in range(2):
-        print rres.next()
+    # mapsl = mapslove_pieces(jsonret(mstr))
+    # rres = rbs(mapsl, len(mapsl))
+    # for i in range(2):
+    #     print rres.next()
     #print recursive_back_slove(mapslove_pieces(jsonret(mstr)), 0)
 
-    exit(0)
+    #exit(0)
     print 'main start'
     litter_num = int(sys.argv[1])
     max_num = int(sys.argv[2])
