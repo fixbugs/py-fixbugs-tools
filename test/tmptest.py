@@ -52,6 +52,7 @@ def modu_list_get(piec, row_len, col_len):
         for r in xrange(0, max_row+1):
             for l in xrange(0, max_col+1):
                 result_list.append(str(r)+str(l))
+    #print piec, result_list
     return result_list
 
 
@@ -91,7 +92,9 @@ def mapslove_max_length(ddict):
 
     map_row_len = len(m_map)
     map_col_len = len(m_map[0])
+
     res = list()
+
     for piec in m_pieces:
         res.append(modu_list_get(piec, map_row_len, map_col_len))
     num = 1
@@ -465,8 +468,16 @@ if __name__ == '__main__':
     max_num = int(sys.argv[2])
     total_len = mapslove_max_length(jsonret(mstr))
     if total_len < max_num:
-        max_num = total_len + 1
+        max_num = total_len
     print 'total len:', total_len
+    aa = mapsolve(jsonret(mstr))
+    for i in xrange(0, max_num):
+        if i % 100000 == 0:
+            print i
+        if checkGameOutNew(aa[i]):
+            print 'end:', aa[i]
+    print '----------end---------------all----------'
+    exit(0)
     res = mapslove_iter(jsonret(mstr))
     st_time = time.clock()
     for i in xrange(0, max_num):
