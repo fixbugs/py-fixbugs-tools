@@ -180,12 +180,9 @@ def gameBaseInfoDecode(ginfo):
 
 
 def gameResultGet(gmodu, piec, xyaddr, modu):
-    print xyaddr
     xaddr = xyaddr[0]
     yaddr = xyaddr[1]
     modu = int(modu)
-    print piec
-    print '--------------'
     for x in xrange(0, len(piec)):
         for y in xrange(0, len(piec[x])):
             gmodu[xaddr+x][yaddr+y] = (gmodu[xaddr+x][yaddr+y] + piec[x][y]) % modu
@@ -254,11 +251,8 @@ def checkGameOutNew(cslove):
         count += 1
     gmodu_map = ginfo['gmap']
     gmodu = ginfo['modu']
-    print gmodu
-    print 'start', gmodu_map
     for i in xrange(0, len(slove_arr)):
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
-        print gmodu_map
     gret = gameEndCheck(gmodu_map)
     #print gmodu_map, gret
     if gret:
@@ -471,7 +465,7 @@ if __name__ == '__main__':
     max_num = int(sys.argv[2])
     total_len = mapslove_max_length(jsonret(mstr))
     if total_len < max_num:
-        max_num = total_len
+        max_num = total_len + 1
     print 'total len:', total_len
     res = mapslove_iter(jsonret(mstr))
     st_time = time.clock()
@@ -485,6 +479,5 @@ if __name__ == '__main__':
         if checkGameOutNew(r):
             print 'ok game slove', r, i
             break
-        break
     print time.clock() - st_time
     print 'end game'
