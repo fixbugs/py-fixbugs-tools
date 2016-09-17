@@ -30,8 +30,8 @@ def jsonret(jstr):
 
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
-mstr_13 = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
-mstr = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
+mstr = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
+mstr_14 = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
 mstr_15 = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"], "pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}'
 
 
@@ -180,9 +180,12 @@ def gameBaseInfoDecode(ginfo):
 
 
 def gameResultGet(gmodu, piec, xyaddr, modu):
+    print xyaddr
     xaddr = xyaddr[0]
     yaddr = xyaddr[1]
     modu = int(modu)
+    print piec
+    print '--------------'
     for x in xrange(0, len(piec)):
         for y in xrange(0, len(piec[x])):
             gmodu[xaddr+x][yaddr+y] = (gmodu[xaddr+x][yaddr+y] + piec[x][y]) % modu
@@ -251,9 +254,13 @@ def checkGameOutNew(cslove):
         count += 1
     gmodu_map = ginfo['gmap']
     gmodu = ginfo['modu']
+    print gmodu
+    print 'start', gmodu_map
     for i in xrange(0, len(slove_arr)):
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
+        print gmodu_map
     gret = gameEndCheck(gmodu_map)
+    #print gmodu_map, gret
     if gret:
         return cslove
     else:
@@ -462,7 +469,10 @@ if __name__ == '__main__':
     print 'main start'
     litter_num = int(sys.argv[1])
     max_num = int(sys.argv[2])
-    print 'total len:', mapslove_max_length(jsonret(mstr))
+    total_len = mapslove_max_length(jsonret(mstr))
+    if total_len < max_num:
+        max_num = total_len
+    print 'total len:', total_len
     res = mapslove_iter(jsonret(mstr))
     st_time = time.clock()
     for i in xrange(0, max_num):
@@ -475,5 +485,6 @@ if __name__ == '__main__':
         if checkGameOutNew(r):
             print 'ok game slove', r, i
             break
+        break
     print time.clock() - st_time
     print 'end game'
