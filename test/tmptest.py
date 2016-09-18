@@ -89,15 +89,18 @@ def mapslove_max_length(ddict):
     m_map = ddict['map']
     m_modu = ddict['modu']
     m_pieces = ddict['pieces']
-
+    print m_pieces
     map_row_len = len(m_map)
     map_col_len = len(m_map[0])
-
+    print m_map
+    print map_row_len, map_col_len
     res = list()
 
     for piec in m_pieces:
         res.append(modu_list_get(piec, map_row_len, map_col_len))
     num = 1
+    print res
+    exit(0)
     for i in xrange(0, len(res)):
         num = num * len(res[i])
     return num
