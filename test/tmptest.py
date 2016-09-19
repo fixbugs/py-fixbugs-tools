@@ -186,13 +186,13 @@ def gameResultGet(gmodu, piec, xyaddr, modu):
     xaddr = xyaddr[0]
     yaddr = xyaddr[1]
     modu = int(modu)
-   # print xyaddr
-   # print 'piec', piec
+    #print xyaddr
+    #print 'piec', piec
     for x in xrange(0, len(piec)):
         for y in xrange(0, len(piec[x])):
             gmodu[xaddr+x][yaddr+y] = (gmodu[xaddr+x][yaddr+y] + piec[x][y]) % modu
-   # print gmodu
-   # print '------------------'
+    #print gmodu
+    #print '------------------'
     return gmodu
 
 
@@ -260,11 +260,21 @@ def checkGameOutNew(cslove):
     gmodu_map = ginfo['gmap']
     gmodu = ginfo['modu']
     count = 0
- #   print gmodu_map
+    # print jsonret(mstr)
+    # print ginfo
+    # print gmodu_map
+    # print slove_arr
+    # print '--------gp-------------'
+    # print ginfo['gpiecs']
+    # print '-----------------'
     for i in xrange(0, len(slove_arr)):
         count += 1
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
+    #print '----------------'
+    #print gmodu_map
     gret = gameEndCheck(gmodu_map)
+    #print gret
+    #exit(0)
     #print gmodu_map, gret
     if gret:
         return cslove
@@ -464,13 +474,15 @@ def rbs(piecs, n=0, tree_result=tuple()):
 if __name__ == '__main__':
     #import sys
     #sys.setrecursionlimit(1000000)
-    # mapsl = mapslove_pieces(jsonret(mstr))
-    # rres = rbs(mapsl, len(mapsl))
-    # for i in range(2):
-    #     print rres.next()
-    #print recursive_back_slove(mapslove_pieces(jsonret(mstr)), 0)
+    #需要新增按照合并完成后0更少的操作回退尝试
+    maps = mapslove_pieces(jsonret(mstr))
+    print maps
+    rres = rbs(maps, len(maps))
+    for i in range(2):
+        print rres.next()
+    print recursive_back_slove(mapslove_pieces(jsonret(mstr)), 0)
 
-    #exit(0)
+    exit(0)
     print 'main start'
     litter_num = int(sys.argv[1])
     max_num = int(sys.argv[2])
@@ -478,14 +490,14 @@ if __name__ == '__main__':
     if total_len < max_num:
         max_num = total_len
     print 'total len:', total_len
-    aa = mapsolve(jsonret(mstr))
-    for i in xrange(0, max_num):
-        if i % 100000 == 0:
-            print i
-        if checkGameOutNew(aa[i]):
-            print 'end:', aa[i]
-    print '----------end---------------all----------'
-    exit(0)
+    # aa = mapsolve(jsonret(mstr))
+    # for i in xrange(0, max_num):
+    #     if i % 100000 == 0:
+    #         print i
+    #     if checkGameOutNew(aa[i]):
+    #         print 'end:', aa[i]
+    # print '----------end---------------all----------'
+    # exit(0)
     res = mapslove_iter(jsonret(mstr))
     st_time = time.clock()
     for i in xrange(0, max_num):
