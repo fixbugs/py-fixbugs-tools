@@ -30,8 +30,8 @@ def jsonret(jstr):
 
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
-mstr = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
-mstr_14 = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
+mstr_13 = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
+mstr = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
 mstr_15 = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"], "pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}'
 
 
@@ -89,18 +89,15 @@ def mapslove_max_length(ddict):
     m_map = ddict['map']
     m_modu = ddict['modu']
     m_pieces = ddict['pieces']
-    print m_pieces
     map_row_len = len(m_map)
     map_col_len = len(m_map[0])
-    print m_map
-    print map_row_len, map_col_len
+#    print m_map
+#    print map_row_len, map_col_len
     res = list()
 
     for piec in m_pieces:
         res.append(modu_list_get(piec, map_row_len, map_col_len))
     num = 1
-    print res
-    exit(0)
     for i in xrange(0, len(res)):
         num = num * len(res[i])
     return num
@@ -189,9 +186,13 @@ def gameResultGet(gmodu, piec, xyaddr, modu):
     xaddr = xyaddr[0]
     yaddr = xyaddr[1]
     modu = int(modu)
+   # print xyaddr
+   # print 'piec', piec
     for x in xrange(0, len(piec)):
         for y in xrange(0, len(piec[x])):
             gmodu[xaddr+x][yaddr+y] = (gmodu[xaddr+x][yaddr+y] + piec[x][y]) % modu
+   # print gmodu
+   # print '------------------'
     return gmodu
 
 
@@ -247,6 +248,7 @@ def checkGameOutNew(cslove):
     if len(ginfo['gpiecs'])*2 != len(cslove):
         print 'out, slove length error'
         return False
+#    print cslove, len(cslove)
     for i in xrange(0, len(cslove)):
         tmp_list.append(int(cslove[i]))
         if count == 1:
@@ -257,7 +259,10 @@ def checkGameOutNew(cslove):
         count += 1
     gmodu_map = ginfo['gmap']
     gmodu = ginfo['modu']
+    count = 0
+ #   print gmodu_map
     for i in xrange(0, len(slove_arr)):
+        count += 1
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
     gret = gameEndCheck(gmodu_map)
     #print gmodu_map, gret
