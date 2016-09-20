@@ -52,7 +52,6 @@ def modu_list_get(piec, row_len, col_len):
         for r in xrange(0, max_row+1):
             for l in xrange(0, max_col+1):
                 result_list.append(str(r)+str(l))
-    #print piec, result_list
     return result_list
 
 
@@ -91,8 +90,6 @@ def mapslove_max_length(ddict):
     m_pieces = ddict['pieces']
     map_row_len = len(m_map)
     map_col_len = len(m_map[0])
-#    print m_map
-#    print map_row_len, map_col_len
     res = list()
 
     for piec in m_pieces:
@@ -283,6 +280,7 @@ def checkGameOutNew(cslove):
 
 
 def gameEndCheck(gmodu_map):
+    print gmodu_map
     for x in xrange(0, len(gmodu_map)):
         for y in xrange(0, len(gmodu_map[x])):
             if gmodu_map[x][y] != 0:
@@ -500,6 +498,7 @@ if __name__ == '__main__':
     # exit(0)
     res = mapslove_iter(jsonret(mstr))
     st_time = time.clock()
+    unsee = 0
     for i in xrange(0, max_num):
         if i < litter_num:
             res.next()
@@ -507,8 +506,11 @@ if __name__ == '__main__':
         if i % 1000000 == 0:
             print i
         r = res.next()
+        if(len(r) != 16):
+            unsee += 1
         if checkGameOutNew(r):
             print 'ok game slove', r, i
             break
     print time.clock() - st_time
     print 'end game'
+    print unsee
