@@ -3,6 +3,7 @@
 
 import MySQLdb
 
+
 class DB():
     def __init__(self, DB_HOST='localhost', DB_USER='root', DB_PWD='123456', DB_NAME='test'):
         self.DB_HOST = DB_HOST
@@ -22,28 +23,36 @@ class DB():
         )
 
     def query(self, sqlString):
-        cursor=self.conn.cursor()
+        cursor = self.conn.cursor()
         cursor.execute(sqlString)
-        returnData=cursor.fetchall()
+        returnData = cursor.fetchall()
+        cursor.close()
+        self.conn.close()
+        return returnData
+
+    def queryNew(self, sqlString):
+        cursor = self.conn.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+        cursor.execute(sqlString)
+        returnData = cursor.fetchall()
         cursor.close()
         self.conn.close()
         return returnData
 
     def update(self, sqlString):
-        cursor=self.conn.cursor()
+        cursor = self.conn.cursor()
         cursor.execute(sqlString)
         self.conn.commit()
         cursor.close()
         self.conn.close()
 
     def insert_many(self, sqlString, datalist):
-        cursor=self.conn.cursor()
+        cursor = self.conn.cursor()
         cursor.executemany(sqlString, datalist)
         self.conn.commit()
         cursor.close()
         self.conn.close()
 
-    def insert(self,sqlString):
+    def insert(self, sqlString):
         cursor = self.conn.cursor()
         cursor.execute(sqlString)
         returnData = cursor.lastrowid
