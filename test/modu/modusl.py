@@ -14,9 +14,10 @@ def jsonret(jstr):
 
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
-mstr_13 = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
-mstr = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
+mstr = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
+mstr_14 = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
 mstr_15 = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"], "pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}'
+#mstr = '{"level":15,"modu":"3","map":["00000","00000","00000","00000","00001"], "pieces":["X","X"]}'
 
 
 def modu_list_get(piec, row_len, col_len):
@@ -135,7 +136,7 @@ pub_ginfo = gameBaseInfoDecode(jsonret(mstr))
 
 
 def checkGameOutNew(cslove):
-    ginfo = pub_ginfo
+    ginfo = copy.deepcopy(pub_ginfo)
     slove_arr = list()
     count = 0
     tmp_list = list()
@@ -177,7 +178,6 @@ def checkGameOutNew(cslove):
 
 
 def gameEndCheck(gmodu_map):
-    print gmodu_map
     for x in xrange(0, len(gmodu_map)):
         for y in xrange(0, len(gmodu_map[x])):
             if gmodu_map[x][y] != 0:
@@ -244,30 +244,30 @@ def slove():
 
 
 if __name__ == '__main__':
-    print 'aa'
-    print slove()
-    # print 'main start'
-    # litter_num = int(sys.argv[1])
-    # max_num = int(sys.argv[2])
-    # total_len = mapslove_max_length(jsonret(mstr))
-    # if total_len < max_num:
-    #     max_num = total_len
-    # print 'total len:', total_len
-    # res = mapslove_iter(jsonret(mstr))
-    # st_time = time.clock()
-    # unsee = 0
-    # for i in xrange(0, max_num):
-    #     if i < litter_num:
-    #         res.next()
-    #         continue
-    #     if i % 1000000 == 0:
-    #         print i
-    #     r = res.next()
-    #     if(len(r) != 16):
-    #         unsee += 1
-    #     if checkGameOutNew(r):
-    #         print 'ok game slove', r, i
-    #         break
-    # print time.clock() - st_time
-    # print 'end game'
-    # print unsee
+#    print 'aa'
+#    print slove()
+    print 'main start'
+    litter_num = int(sys.argv[1])
+    max_num = int(sys.argv[2])
+    total_len = mapslove_max_length(jsonret(mstr))
+    if total_len < max_num:
+        max_num = total_len
+    print 'total len:', total_len
+    res = mapslove_iter(jsonret(mstr))
+    st_time = time.clock()
+    unsee = 0
+    for i in xrange(0, max_num):
+        if i < litter_num:
+            res.next()
+            continue
+        if i % 1000000 == 0:
+            print i
+        r = res.next()
+        if(len(r) != 16):
+            unsee += 1
+        if checkGameOutNew(r):
+            print 'ok game slove', r, i
+            break
+    print time.clock() - st_time
+    print 'end game'
+    print unsee
