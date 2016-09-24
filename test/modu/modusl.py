@@ -11,12 +11,26 @@ import copy
 def jsonret(jstr):
     return simplejson.loads(jstr)
 
+#725594112 => 125170719
+#322486272 => 0001010101120110001100 21473880
+
+#209952000000 => 000001014040120120201022 175951673
 
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
 mstr_13 = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
 mstr_14 = '{"level":14,"modu":"2","map":["0011","1011","0101","0001","1001"],"pieces":["X,X,X,X,X","XX,XX,X.,X.,X.","XX.,.X.,XXX,.X.","XXX,X..","X,X,X","X.,XX,.X","XX,.X","XXXX,.X.."]}'
-mstr = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"], "pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}'
+mstr_15 = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"], "pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}'
+mstr_16 = '{"level":16,"modu":"2","map":["10100","01000","00111","00110"],"pieces":["X.,X.,XX,.X","XX,.X",".X,XX","X,X","X..,XXX","X..,XXX,XX.,X..","...X.,XXXXX,...X.",".X,XX,X.","XX,XX,X."]}'
+mstr_17 = '{"level":17,"modu":"3","map":["11122","21102","10000","01112","11200"],"pieces":["..XX,.XX.,XX..,.X..","X.X.,XXXX,.X..","XXX,.X.,.X.","X...,X.XX,XXX.","X,X,X,X,X",".X...,XXXXX,X..X.","X..,XXX","XXX,X.X,X..","XX,X."]}'
+mstr_18 = '{"level":18,"modu":"2","map":["1010","0011","0101","1101","1110"],"pieces":["XX,.X",".X.,.X.,XXX","X.,XX,X.",".X..,XX..,.XXX,.XX.",".X.,XXX",".X..,XX..,XXXX,.X..",".X,.X,XX","X..,X..,XXX,XX.,X..","X.,X.,XX","X.,XX,.X"]}'
+mstr_19 = '{"level":19,"modu":"3","map":["0022","2102","1112","1111","2210"],"pieces":[".X,.X,XX,XX","XX,X.,X.","X.,XX","X..,XXX,.X.,.X.","XX,X.","XXX,..X","X.,X.,XX,.X,.X","XXXX","XX,X.","..X.,..X.,XXXX,...X"]}'
+mstr_20 = '{"level":20,"modu":"2","map":["111011","001110","001000","110110","110100"],"pieces":["X.X.,XXX.,..XX,..X.","XX.,.X.,XXX,X..","X...,XXXX,.X..,.X..","....XX,XXXXX.,...X..,...X..","X..,X..,XXX","...X.,XXXXX,.X...,.X...","XXX,X..","XXX.,..XX,...X,..XX,..X.",".X,XX","XX,.X,.X"]}'
+mstr_21 = '{"level":21,"modu":"3","map":["120212","212222","100220","000112","001210"],"pieces":["XXX.,..X.,..XX","XX,X.","...X,X.XX,XXXX","X.,XX,X.",".X..,XXXX,..XX,...X,...X",".X,XX","...XX,...X.,XXXX.,.X...,.X...","X...,X...,XXX.,..XX,..XX","..X.,.XXX,.XX.,XX..,X...","..X.,..X.,..XX,XXX.,XX..","XX,.X,.X"]}'
+mstr_22 = '{"level":22,"modu":"2","map":["00111","11000","10100","01100"],"pieces":[".X..,.XXX,XX..,X...","X..,XXX","X.,XX,X.","..XX,.XX.,XX..,.X..","X..,XXX",".X.,XXX","..X.,XXX.,..XX","XX,.X,XX",".XXX,XX.X","XXX",".X.,XXX,..X"]}'
+mstr_23 = '{"level":23,"modu":"3","map":["00102","01112","10202","11212","01112","02202"],"pieces":[".X,XX,X.,X.","...X,...X,..XX,XXX.,X...","....X,XXXXX,X.X..,X....","..X..,..X..,.XX..,XXXX.,...XX",".X.,XXX,XX.,X..,XXX","..X,XXX,..X,..X",".X.,XXX,.XX,XXX,.X.","..X,XXX,X..,X..",".XX.,XXXX,X...","..X,XXX,.X.,.X.",".XX,.XX,XX."]}'
+mstr_24 = '{"level":24,"modu":"2","map":["01010","10100","01101","11101","00111","01011"],"pieces":["XX.,.XX","X,X,X,X","X.XX,XXX.,.X..,.XX.","XXX,.X.","XXX..,X.XXX","..X.,XXXX",".X,XX,XX,X.",".XXX,.XX.,..X.,XXX.,..X.","...X,...X,XXXX","..X,XXX","..XX.,XXXXX,XX..X","X..,X..,XXX,.X."]}'
+mstr = '{"level":25,"modu":"3","map":["1222","0200","1012","2222","2121"],"pieces":[".X.,.XX,XXX","X.,XX,X.,X.","XXX,..X",".X,XX,X.,XX","XXXX","X.,X.,XX,X.,X.","X..,XXX",".X,XX",".X,XX,X.","X.,X.,X.,XX,.X","X..,X..,XXX",".X,XX,.X"]}'
 #mstr = '{"level":15,"modu":"3","map":["00000","00000","00000","00000","00001"], "pieces":["X","X"]}'
 
 
@@ -135,20 +149,37 @@ def gameResultGet(gmodu, piec, xyaddr, modu):
 
 pub_ginfo = gameBaseInfoDecode(jsonret(mstr))
 
+jmstr = jsonret(mstr)
+
 
 def pubGlobalInfo():
-    return gameBaseInfoDecode(jsonret(mstr))
+    return gameBaseInfoDecode(jmstr)
 
 
-def checkGameOutNew(cslove, ginfo):
-    ginfo = pubGlobalInfo()
+def checkGameOutNew(cslove):
+    #ginfo = pubGlobalInfo()
+    ginfo = copy.deepcopy(pub_ginfo)
     slove_arr = list()
-    count = 0
     tmp_list = list()
-    if len(ginfo['gpiecs'])*2 != len(cslove):
-        print 'out, slove length error'
-        return False
-    for i in xrange(0, len(cslove)):
+    count = 0
+    cslove_len = len(cslove)
+    # if len(ginfo['gpiecs'])*2 != cslove_len:
+    #     print 'out, slove length error'
+    #     return False
+    ########################
+    # gmodu_map = ginfo['gmap']
+    # gmodu = ginfo['modu']
+    # for i in xrange(0, cslove_len):
+    #     tmp_list.append(int(cslove[i]))
+    #     if count == 1:
+    #         count = 0
+    #         now_p = (i+1)/2 - 1
+    #         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][now_p], tmp_list, gmodu)
+    #         tmp_list = list()
+    #         continue
+    #     count += 1
+    ######################
+    for i in xrange(0, cslove_len):
         tmp_list.append(int(cslove[i]))
         if count == 1:
             slove_arr.append(tmp_list)
@@ -159,7 +190,8 @@ def checkGameOutNew(cslove, ginfo):
     gmodu_map = ginfo['gmap']
     gmodu = ginfo['modu']
     count = 0
-    for i in xrange(0, len(slove_arr)):
+    slove_arr_len = len(slove_arr)
+    for i in xrange(0, slove_arr_len):
         count += 1
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
     gret = gameEndCheck(gmodu_map)
@@ -170,8 +202,10 @@ def checkGameOutNew(cslove, ginfo):
 
 
 def gameEndCheck(gmodu_map):
-    for x in xrange(0, len(gmodu_map)):
-        for y in xrange(0, len(gmodu_map[x])):
+    xlen = len(gmodu_map)
+    for x in xrange(0, xlen):
+        ylen = len(gmodu_map[x])
+        for y in xrange(0, ylen):
             if gmodu_map[x][y] != 0:
                 return False
     print 'gmodu map slove end string:', gmodu_map
@@ -250,21 +284,15 @@ if __name__ == '__main__':
     print 'total len:', total_len
     res = mapslove_iter(modu_info)
     st_time = time.clock()
-    unsee = 0
-    gamebs_info = pubGlobalInfo()
-    gamebs_info = ''
     for i in xrange(0, max_num):
         if i < litter_num:
             res.next()
             continue
-        if i % 1000000 == 0:
+        if i % 100000 == 0:
             print i
         r = res.next()
-        if(len(r) != 16):
-            unsee += 1
-        if checkGameOutNew(r, gamebs_info):
+        if checkGameOutNew(r):
             print 'ok game slove', r, i
             break
     print time.clock() - st_time
     print 'end game'
-    print unsee

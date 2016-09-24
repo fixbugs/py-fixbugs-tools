@@ -15,7 +15,7 @@ def execCmd(cmd):
 def c_res(cmd):
     result = execCmd(cmd)
     if 'ok game slove' in result:
-        print 'ok',result
+        print 'ok', result
         return True
     else:
         return False
@@ -23,6 +23,7 @@ def c_res(cmd):
 if __name__ == '__main__':
     import sys
     start_num = 0
+    nowdir = os.getcwd()
     if len(sys.argv)>1:
         start_num = int(sys.argv[1])
     max_num = 200000000
@@ -31,7 +32,7 @@ if __name__ == '__main__':
     total_page = int(max_num/step) + 1
     print total_page
     for i in xrange(start_num, total_page):
-        cmd = 'python /project/python/github/py-fixbugs-tools/test/tmptest.py ' + str(i*step) + ' '+str((i+1)*step)
+        cmd = 'python ' + nowdir + '/modu/modusl.py ' + str(i*step) + ' '+str((i+1)*step)
         ret = c_res(cmd)
         if ret:
             print 'ok'
