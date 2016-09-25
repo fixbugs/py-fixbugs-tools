@@ -15,6 +15,7 @@ def jsonret(jstr):
 #322486272 => 0001010101120110001100 21473880
 
 #209952000000 => 000001014040120120201022 175951673
+#3627970560 =>
 
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
@@ -194,6 +195,7 @@ def checkGameOutNew(cslove):
     for i in xrange(0, slove_arr_len):
         count += 1
         gmodu_map = gameResultGet(gmodu_map, ginfo['gpiecs'][i], slove_arr[i], gmodu)
+        #can check has next
     gret = gameEndCheck(gmodu_map)
     if gret:
         return cslove
