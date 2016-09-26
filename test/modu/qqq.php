@@ -25,9 +25,6 @@ cal($piece_array,0,$map);
 //testAddMaps();
 
 
-
-
-
 function cal($piece_array,$t,$map){
     global $position_array,$row,$column;
     $positions = getMaxPosition($piece_array[$t],$row,$column);

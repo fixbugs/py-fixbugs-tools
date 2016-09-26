@@ -11,7 +11,17 @@ import copy
 def jsonret(jstr):
     return simplejson.loads(jstr)
 
-mstr = '{"level":11,"modu":"2","map":["1000","1000","0000"],"pieces":["X,X"]}'
+mstr = '{"level":11,"modu":"2","map":["1000","1001","0000"],"pieces":["X,X","X"]}'
+
+
+def gameBaseMapChange(mapinfo):
+    result = list()
+    for m in mapinfo:
+        tmp_res = list()
+        for i in xrange(0, len(m)):
+            tmp_res.append(int(m[i]))
+        result.append(tmp_res)
+    return result
 
 
 def gameBaseInfoDecode(ginfo):
@@ -31,7 +41,7 @@ def gameBaseInfoDecode(ginfo):
     result = dict()
     result['modu'] = m_modu
     result['map'] = m_map
-    #result['gmap'] = gameBaseMapChange(m_map)
+    result['gmap'] = gameBaseMapChange(m_map)
     result['gpiecs'] = piece_array
     result['row'] = len(m_map)
     result['column'] = len(m_map[0])
@@ -47,16 +57,15 @@ def getMaxPosition(piece, row, column):
 
 
 def addToMap(nmap, position, piece, row, column, modu):
-    x, y = position.split(',')
-    x = int(x)
-    y = int(y)
+    if isinstance(position, (str)):
+        position = position.split(',')
+    xaddr, yaddr = position
+    xaddr = int(xaddr)
+    yaddr = int(yaddr)
     modu = int(modu)
-    print piece
-    print x,y
-    for i in xrange(x, x+len(piece)):
-        num = piece[i-x]
-        for j in xrange(0, len(num)):
-            nmap[i][j+y] = (int(num[j]) + int(num[i][j+y]) ) % modu
+    for x in xrange(0, len(piece)):
+        for y in xrange(0, len(piece[x])):
+            nmap[xaddr+x][yaddr+y] = (nmap[xaddr+x][yaddr+y] + nmap[x][y]) % modu
     return nmap
 
 
@@ -69,8 +78,9 @@ def addMaps(nmap, postions, piece_array, row, column, modu):
 
 def check(nmap):
     result = 0
-    for m in nmap:
-        result += m
+    for ml in nmap:
+        for j in ml:
+            result += j
     return result
 
 
@@ -87,6 +97,7 @@ def cal(piece_arr, t, nmap):
             if t+1 >= len(position_arr):
                 resultMap = addMaps(nmap, position_arr, piece_arr, row, column, nginfo['modu'])
                 re = check(resultMap)
+                print resultMap
                 if re == 0:
                     print position_arr
                     exit(0)
@@ -96,4 +107,4 @@ def cal(piece_arr, t, nmap):
 
 
 if __name__ == '__main__':
-    cal(ginfo['gpiecs'], 0, ginfo['map'])
+    cal(ginfo['gpiecs'], 0, ginfo['gmap'])
