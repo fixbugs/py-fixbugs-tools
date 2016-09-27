@@ -11,7 +11,8 @@ import copy
 def jsonret(jstr):
     return simplejson.loads(jstr)
 
-mstr = '{"level":11,"modu":"2","map":["1000","1001","0000"],"pieces":["X,X","X"]}'
+mstr = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
+mstr = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
 
 
 def gameBaseMapChange(mapinfo):
@@ -65,12 +66,12 @@ def addToMap(nmap, position, piece, row, column, modu):
     modu = int(modu)
     for x in xrange(0, len(piece)):
         for y in xrange(0, len(piece[x])):
-            nmap[xaddr+x][yaddr+y] = (nmap[xaddr+x][yaddr+y] + nmap[x][y]) % modu
+            nmap[xaddr+x][yaddr+y] = (nmap[xaddr+x][yaddr+y] + int(piece[x][y])) % modu
     return nmap
 
 
 def addMaps(nmap, postions, piece_array, row, column, modu):
-    tmp = nmap
+    tmp = copy.deepcopy(nmap)
     for i in xrange(len(postions)):
         tmp = addToMap(tmp, postions[i], piece_array[i], row, column, modu)
     return tmp
@@ -84,27 +85,33 @@ def check(nmap):
     return result
 
 
+position_arr = [0]*len(ginfo['gpiecs'])
+st_time = time.clock()
+
 def cal(piece_arr, t, nmap):
     nginfo = copy.deepcopy(ginfo)
-    position_arr = nginfo['gpiecs']
+    piece_arr = nginfo['gpiecs']
     row = nginfo['row']
     column = nginfo['column']
     postions = getMaxPosition(piece_arr[t], row, column)
     x, y = postions
-    for i in xrange(0, x):
-        for j in xrange(0, y):
+    for i in xrange(0, x+1):
+        for j in xrange(0, y+1):
+            #position_arr[t] = str(i) + ',' + str(j)
             position_arr[t] = str(i) + ',' + str(j)
-            if t+1 >= len(position_arr):
+            if t+1 >= len(piece_arr):
                 resultMap = addMaps(nmap, position_arr, piece_arr, row, column, nginfo['modu'])
                 re = check(resultMap)
-                print resultMap
                 if re == 0:
-                    print position_arr
+                    print '-result slove arr---'
+                    print  position_arr
+                    print time.clock() - st_time
                     exit(0)
                 continue
-            else:
-                cal(piece_arr, t+1, nmap)
+            cal(piece_arr, t+1, nmap)
 
 
 if __name__ == '__main__':
+    #st_time = time.clock()
     cal(ginfo['gpiecs'], 0, ginfo['gmap'])
+    #print time.clock() - st_time
