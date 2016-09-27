@@ -104,12 +104,33 @@ def cal(piece_arr, t, nmap):
                 re = check(resultMap)
                 if re == 0:
                     print '-result slove arr---'
-                    print  position_arr
+                    print position_arr
                     print time.clock() - st_time
                     exit(0)
                 continue
             cal(piece_arr, t+1, nmap)
 
+
+def caltt(piece_arr, t, nmap):
+    nginfo = copy.deepcopy(ginfo)
+    piece_arr = nginfo['gpiecs']
+    row = nginfo['row']
+    column = nginfo['column']
+    postions = getMaxPosition(piece_arr[t], row, column)
+    x, y = postions
+    for i in xrange(0, x+1):
+        for j in xrange(0, y+1):
+            position_arr[t] = str(i) + ',' + str(j)
+            if t+1 >= len(piece_arr):
+                resultMap = addMaps(nmap, position_arr, piece_arr, row, column, nginfo['modu'])
+                re = check(resultMap)
+                if re == 0:
+                    print '-result slove arr---'
+                    print position_arr
+                    print time.clock() - st_time
+                    exit(0)
+                continue
+            cal(piece_arr, t+1, nmap)
 
 if __name__ == '__main__':
     #st_time = time.clock()
