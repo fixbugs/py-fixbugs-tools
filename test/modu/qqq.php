@@ -1,11 +1,12 @@
 <?php
 //$string = ' {"level":17,"modu":"3","map":["11122","21102","10000","01112","11200"],"pieces":["..XX,.XX.,XX..,.X..","X.X.,XXXX,.X..","XXX,.X.,.X.","X...,X.XX,XXX.","X,X,X,X,X",".X...,XXXXX,X..X.","X..,XXX","XXX,X.X,X..","XX,X."]}';
 $string = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"],"pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}';
+$string = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}';
 $array = json_decode($string,true);
 $pieces = $array['pieces'];
 $piece_array = array();
 $map = $array['map'];
-shuffle($pieces);
+//shuffle($pieces);
 foreach ($pieces as $piece){
         $temp = explode(',',$piece);
         $t = array();
@@ -21,6 +22,7 @@ $row = count($map);
 $column = strlen($map[0]);
 $modu = $array['modu'];
 $map_array = array();
+$start_time = microtime(true);;
 cal($piece_array,0,$map);
 //testAddMaps();
 
@@ -38,10 +40,11 @@ function cal($piece_array,$t,$map){
                 $resultMap = addMaps($map,$position_array,$piece_array,$row,$column);
                 $re = check($resultMap);
                 if($re ==0){
+                    global $start_time;
+                    var_dump( microtime(true)- intval($start_time) );
                     echo "<pre>";print_r($position_array);
                     $re6 = '';
                     foreach ($position_array as $p){
-
                         $re6 = $re6.str_replace(',','',$p);
                     }
                     echo $re6;
