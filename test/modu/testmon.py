@@ -97,7 +97,6 @@ def cal(piece_arr, t, nmap):
     x, y = postions
     for i in xrange(0, x+1):
         for j in xrange(0, y+1):
-            #position_arr[t] = str(i) + ',' + str(j)
             position_arr[t] = str(i) + ',' + str(j)
             if t+1 >= len(piece_arr):
                 resultMap = addMaps(nmap, position_arr, piece_arr, row, column, nginfo['modu'])
