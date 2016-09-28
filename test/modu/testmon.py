@@ -64,9 +64,15 @@ def addToMap(nmap, position, piece, row, column, modu):
     xaddr = int(xaddr)
     yaddr = int(yaddr)
     modu = int(modu)
+    print modu/2
     for x in xrange(0, len(piece)):
         for y in xrange(0, len(piece[x])):
-            nmap[xaddr+x][yaddr+y] = (nmap[xaddr+x][yaddr+y] + int(piece[x][y])) % modu
+            print int(piece[x][y]) | nmap[xaddr+x][yaddr+y]
+            nmap[xaddr+x][yaddr+y] = (int(piece[x][y]) | nmap[xaddr+x][yaddr+y]) >> (modu/2)
+            print nmap
+           # nmap[xaddr+x][yaddr+y] = (nmap[xaddr+x][yaddr+y] + int(piece[x][y])) % modu
+    print nmap
+    exit(0)
     return nmap
 
 
@@ -81,7 +87,9 @@ def check(nmap):
     result = 0
     for ml in nmap:
         for j in ml:
-            result += j
+#            result = result | j
+            if j != 0:
+                return 1
     return result
 
 
@@ -112,27 +120,34 @@ def cal(piece_arr, t, nmap):
 
 
 def caltt(piece_arr, t, nmap):
-    nginfo = copy.deepcopy(ginfo)
+    nginfo = ginfo
     piece_arr = nginfo['gpiecs']
     row = nginfo['row']
     column = nginfo['column']
+    modu = nginfo['modu']
     postions = getMaxPosition(piece_arr[t], row, column)
     x, y = postions
     for i in xrange(0, x+1):
         for j in xrange(0, y+1):
             position_arr[t] = str(i) + ',' + str(j)
             if t+1 >= len(piece_arr):
-                resultMap = addMaps(nmap, position_arr, piece_arr, row, column, nginfo['modu'])
+                lastMap = nmap.copy.deepcopy(nmap)
+                resultMap = addToMap(nmap, postions[t], piece_arr[t], row, column, modu)  # new piece
                 re = check(resultMap)
                 if re == 0:
                     print '-result slove arr---'
                     print position_arr
                     print time.clock() - st_time
                     exit(0)
+                else:
+                    nmap = lastMap
                 continue
+            else:
+                nmap = addToMap(nmap, position_arr[t], piece_arr[t], row, column, modu)  # old piece
             cal(piece_arr, t+1, nmap)
 
 if __name__ == '__main__':
     #st_time = time.clock()
-    cal(ginfo['gpiecs'], 0, ginfo['gmap'])
+    caltt(ginfo['gpiecs'], 0, ginfo['gmap'])
+    #cal(ginfo['gpiecs'], 0, ginfo['gmap'])
     #print time.clock() - st_time
