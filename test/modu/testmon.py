@@ -137,8 +137,12 @@ def caltt(piece_arr, t, nmap):
                     nmap = lastMap
                 continue
             else:
-                nmap = addToMap(nmap, position_arr[t], piece_arr[t], row, column, modu)  # old piece
+                nmap = addToMap(nmap, position_arr[t], piece_arr[t], row, column, modu)  # old piec
             cal(piece_arr, t+1, nmap)
+
+
+def getLastMapCountNeed(lastMap, modu):
+    return 1
 
 if __name__ == '__main__':
     #st_time = time.clock()
