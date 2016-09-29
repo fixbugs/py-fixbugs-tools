@@ -12,7 +12,7 @@ def jsonret(jstr):
     return simplejson.loads(jstr)
 
 mstr = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
-mstr = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
+#mstr = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
 
 
 def gameBaseMapChange(mapinfo):
@@ -66,13 +66,7 @@ def addToMap(nmap, position, piece, row, column, modu):
     modu = int(modu)
     for x in xrange(0, len(piece)):
         for y in xrange(0, len(piece[x])):
-            #print int(piece[x][y]) | nmap[xaddr+x][yaddr+y]
-            #nmap[xaddr+x][yaddr+y] = int(piece[x][y]) ^ nmap[xaddr+x][yaddr+y] >> (modu/2)
-            #nmap[xaddr+x][yaddr+y] = (int(piece[x][y]) | nmap[xaddr+x][yaddr+y]) >> (modu/2)
-            #print nmap
             nmap[xaddr+x][yaddr+y] = (nmap[xaddr+x][yaddr+y] + int(piece[x][y])) % modu
-    #print nmap
-    #exit(0)
     return nmap
 
 
