@@ -3,7 +3,7 @@
 $string = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"],"pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}';
 //$string = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}';
 //$string = '{"level":12,"modu":"2","map":["0000","0000","0001","0100"],"pieces":["X","X"]}';
-//$string = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}';
+$string = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}';
 $array = json_decode($string,true);
 $pieces = $array['pieces'];
 $piece_array = array();
@@ -39,14 +39,14 @@ function cal($piece_array,$t,$map){
         for($j = 0;$j<=$y;$j++){
             global $total_count;
             $total_count += 1;
-            if($total_count%1000000 == 0){
+            if($total_count % 10000000 == 0){
                 global $start_time;
                 var_dump($total_count);
                 var_dump(microtime(true) - intval($start_time));
             }
             $position_array[$t] = $i.",".$j;
             if($t+1 >= count($piece_array)){
-                $resultMap = addToMap($lastMap,$position_array[$t],$piece_array[$t],$row,$column);
+                $resultMap = addToMap($lastMap, $position_array[$t], $piece_array[$t], $row, $column);
                 $re = check($resultMap);
                 if($re ==0){
                     var_dump("-----------end-------------");
@@ -67,7 +67,7 @@ function cal($piece_array,$t,$map){
             }else{
                 $map = addToMap($lastMap,$position_array[$t],$piece_array[$t],$row,$column);
             }
-            cal($piece_array,$t+1,$map);
+            cal($piece_array, $t+1, $map);
         }
     }
 }
@@ -77,7 +77,7 @@ function cal($piece_array,$t,$map){
 function initMap($n,$m){
     $result = array();
     for($i=0;$i<$n;$i++){
-        $result[] =   str_repeat('0',$m);
+        $result[] = str_repeat('0',$m);
     }
     return $result;
 }
