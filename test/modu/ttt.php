@@ -2,7 +2,8 @@
 //$string = ' {"level":17,"modu":"3","map":["11122","21102","10000","01112","11200"],"pieces":["..XX,.XX.,XX..,.X..","X.X.,XXXX,.X..","XXX,.X.,.X.","X...,X.XX,XXX.","X,X,X,X,X",".X...,XXXXX,X..X.","X..,XXX","XXX,X.X,X..","XX,X."]}';
 $string = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"],"pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}';
 //$string = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}';
-$string = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}';
+//$string = '{"level":12,"modu":"2","map":["0000","0000","0001","0100"],"pieces":["X","X"]}';
+//$string = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}';
 $array = json_decode($string,true);
 $pieces = $array['pieces'];
 $piece_array = array();
@@ -18,7 +19,7 @@ foreach ($pieces as $piece){
         }
         $piece_array[] = $t;
 }
-$postion_array = array();
+$position_array = array();
 $row = count($map);
 $column = strlen($map[0]);
 $modu = $array['modu'];
@@ -33,26 +34,24 @@ function cal($piece_array,$t,$map){
     global $position_array,$row,$column;
     $positions = getMaxPosition($piece_array[$t],$row,$column);
     list($x,$y) = $positions;
-
+    $lastMap = $map;
     for($i = 0;$i<=$x;$i++){
         for($j = 0;$j<=$y;$j++){
             global $total_count;
             $total_count += 1;
-            if($total_count%10000000 == 0){
+            if($total_count%1000000 == 0){
                 global $start_time;
                 var_dump($total_count);
                 var_dump(microtime(true) - intval($start_time));
             }
             $position_array[$t] = $i.",".$j;
             if($t+1 >= count($piece_array)){
-                //开始计算
-                $resultMap = addMaps($map,$position_array,$piece_array,$row,$column);
+                $resultMap = addToMap($lastMap,$position_array[$t],$piece_array[$t],$row,$column);
                 $re = check($resultMap);
                 if($re ==0){
+                    var_dump("-----------end-------------");
                     global $start_time;
                     global $pieces;
-                    var_dump($pieces);
-                    var_dump($piece_array);
                     var_dump( microtime(true)- intval($start_time) );
                     echo "<pre>";print_r($position_array);
                     $re6 = '';
@@ -61,11 +60,14 @@ function cal($piece_array,$t,$map){
                     }
                     echo $re6;
                     exit;
+                }else{
+                    $map = $lastMap;
                 }
                 continue;
+            }else{
+                $map = addToMap($lastMap,$position_array[$t],$piece_array[$t],$row,$column);
             }
             cal($piece_array,$t+1,$map);
-
         }
     }
 }
@@ -99,8 +101,10 @@ function getMaxPosition($piece,$row,$column){
 function check($map){
     $result = 0;
     foreach ($map as $item) {
-        $result+=$item;
-    }
+        if($item != 0){
+            return 1;
+        }
+     }
     return $result;
 }
 function addMaps($map,$postions,$piece_array,$row=3,$column=3){
