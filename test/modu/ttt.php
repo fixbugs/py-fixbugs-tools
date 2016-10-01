@@ -37,15 +37,15 @@ function cal($piece_array,$t,$map){
     $lastMap = $map;
     for($i = 0;$i<=$x;$i++){
         for($j = 0;$j<=$y;$j++){
-            global $total_count;
-            $total_count += 1;
-            if($total_count % 10000000 == 0){
-                global $start_time;
-                var_dump($total_count);
-                var_dump(microtime(true) - intval($start_time));
-            }
             $position_array[$t] = $i.",".$j;
             if($t+1 >= count($piece_array)){
+                global $total_count;
+                $total_count += 1;
+                if($total_count % 10000000 == 0){
+                    global $start_time;
+                    var_dump($total_count);
+                    var_dump(microtime(true) - intval($start_time));
+                }
                 $resultMap = addToMap($lastMap, $position_array[$t], $piece_array[$t], $row, $column);
                 $re = check($resultMap);
                 if($re ==0){
