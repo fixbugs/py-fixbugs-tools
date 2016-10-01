@@ -36,6 +36,7 @@ mstr_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","23
 
 mstr = mstr_19
 
+
 def modu_list_get(piec, row_len, col_len):
     result_list = list()
     if ',' in piec:
