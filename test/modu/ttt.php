@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Shanghai');
 //$string = ' {"level":17,"modu":"3","map":["11122","21102","10000","01112","11200"],"pieces":["..XX,.XX.,XX..,.X..","X.X.,XXXX,.X..","XXX,.X.,.X.","X...,X.XX,XXX.","X,X,X,X,X",".X...,XXXXX,X..X.","X..,XXX","XXX,X.X,X..","XX,X."]}';
 $string = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"],"pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}';
 //$string = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}';
@@ -45,9 +46,8 @@ function cal($piece_array,$t,$map){
                 global $total_count;
                 $total_count += 1;
                 if($total_count % 10000000 == 0){
-                    global $start_time;
                     var_dump($total_count);
-                    var_dump(microtime(true) - intval($start_time));
+                    var_dump(date('y-m-d h:i:s', time()));
                 }
                 $resultMap = addToMap($lastMap, $position_array[$t], $piece_array[$t], $row, $column);
                 $re = check($resultMap);
@@ -55,6 +55,7 @@ function cal($piece_array,$t,$map){
                     var_dump("-----------end-------------");
                     global $start_time;
                     global $pieces;
+                    var_dump(date('y-m-d h:i:s', time()));
                     var_dump( microtime(true)- intval($start_time) );
                     echo "<pre>";print_r($position_array);
                     $re6 = '';
