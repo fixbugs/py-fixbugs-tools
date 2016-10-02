@@ -63,6 +63,7 @@ function cal($piece_array,$t,$map){
                         $re6 = $re6.str_replace(',','',$p);
                     }
                     echo $re6;
+                    echo "</pre>";
                     exit;
                 }else{
                     $map = $lastMap;
