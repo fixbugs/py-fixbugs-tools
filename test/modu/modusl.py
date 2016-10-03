@@ -17,6 +17,7 @@ def jsonret(jstr):
 #209952000000 => 000001014040120120201022 175951673
 #3627970560 =>
 
+mstr_test = '{"level":12,"modu":"2","map":["0000","0000","0001","0100"],"pieces":["X","X"]}'
 mstr_11 = '{"level":11,"modu":"2","map":["1111","1001","1100"],"pieces":["X,X","X,X","XXX,XX.",".X.,XXX","XX,X.,X.","XXXX,.X..",".X,XX,.X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
 mstr_13 = '{"level":13,"modu":"3","map":["0210","0200","1011","2102"],"pieces":["X.,XX,.X",".X,.X,XX",".X,.X,.X,XX","XXXX,.X..",".X,XX,.X,.X","XX,.X","XXX,..X","XX"]}'
@@ -34,7 +35,7 @@ mstr_24 = '{"level":24,"modu":"2","map":["01010","10100","01101","11101","00111"
 mstr_25 = '{"level":25,"modu":"3","map":["1222","0200","1012","2222","2121"],"pieces":[".X.,.XX,XXX","X.,XX,X.,X.","XXX,..X",".X,XX,X.,XX","XXXX","X.,X.,XX,X.,X.","X..,XXX",".X,XX",".X,XX,X.","X.,X.,X.,XX,.X","X..,X..,XXX",".X,XX,.X"]}'
 mstr_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
 
-mstr = mstr_19
+mstr = mstr_test
 
 
 def modu_list_get(piec, row_len, col_len):
