@@ -13,6 +13,7 @@ var_dump($array);
 $pieces = $array['pieces'];
 $piece_array = array();
 $map = $array['map'];
+$is_rsort = 0;
 //shuffle($pieces);
 foreach ($pieces as $piece){
         $temp = explode(',',$piece);
@@ -23,6 +24,9 @@ foreach ($pieces as $piece){
             $t[] = $item;
         }
         $piece_array[] = $t;
+}
+if($is_rsort){
+    rsort($piece_array);
 }
 $position_array = array();
 $row = count($map);
@@ -60,6 +64,10 @@ function cal($piece_array,$t,$map){
                     var_dump( microtime(true)- intval($start_time) );
                     echo "<pre>";print_r($position_array);
                     $re6 = '';
+                    global $is_rsort;
+                    if($is_rsort){
+                        rsort($position_array);
+                    }
                     foreach ($position_array as $p){
                         $re6 = $re6.str_replace(',','',$p);
                     }
