@@ -84,10 +84,10 @@ function cal($piece_array,$t,$map){
                 continue;
             }else{
                 $map = addToMap($lastMap,$position_array[$t],$piece_array[$t],$row,$column);
-                // $checkNext = checkMapNeedContinue($map, $t);
-                // if(!$checkNext){
-                //     continue;
-                // }
+                $checkNext = checkMapNeedContinue($map, $t);
+                if(!$checkNext){
+                    continue;
+                }
             }
             cal($piece_array, $t+1, $map);
         }
