@@ -16,6 +16,8 @@ $map = $array['map'];
 //如果值为1则逆序暴力破解，否则正序破解
 $is_rsort = 0;
 //shuffle($pieces);
+$sp = 0;
+$piece_count_array = array();
 foreach ($pieces as $piece){
         $temp = explode(',',$piece);
         $t = array();
@@ -25,6 +27,10 @@ foreach ($pieces as $piece){
             $t[] = $item;
         }
         $piece_array[] = $t;
+}
+foreach($pieces as $piece){
+    $piece_count_array[] = lastPieceCounts($sp);
+    $sp += 1;
 }
 $position_array = array();
 $row = count($map);
@@ -78,6 +84,10 @@ function cal($piece_array,$t,$map){
                 continue;
             }else{
                 $map = addToMap($lastMap,$position_array[$t],$piece_array[$t],$row,$column);
+                // $checkNext = checkMapNeedContinue($map, $t);
+                // if(!$checkNext){
+                //     continue;
+                // }
             }
             cal($piece_array, $t+1, $map);
         }
@@ -148,6 +158,56 @@ function addToMap($map,$position,$piece,$row=3,$column =3){
     }
     return $map;
 }
+
+function checkMapNeedContinue($map, $nowPosition){
+    global $piece_count_array;
+    $mapNeedCounts = getMapNeedCounts($map);
+    $lastPiecesMaxCounts = $piece_count_array[$nowPosition];
+    if($mapNeedCounts > $lastPiecesMaxCounts){
+        // var_dump($map);
+        // var_dump($mapNeedCounts);
+        // var_dump($nowPosition);
+        // var_dump($lastPiecesMaxCounts);
+        // var_dump($piece_count_array);
+        // die('mapneedbigger');
+        return false;
+    }
+    return true;
+}
+
+function getMapNeedCounts($map){
+    global $row, $column, $modu;
+    $needCounts = 0;
+    for($i=0; $i<=$row;$i++){
+        for($j=0;$j<=$column;$j++){
+            $needCounts += ($modu - $map[$i][$j]) % $modu;
+        }
+    }
+    return $needCounts;
+}
+
+function lastPieceCounts($nowPosition){
+    global $piece_array;
+    $maxL = count($piece_array);
+    $lastMaxCounts = 0;
+    for($i=$nowPosition+1;$i<=$maxL;$i++){
+        $lastMaxCounts += getPieceMaxCounts($piece_array[$i]);
+    }
+    return $lastMaxCounts;
+}
+
+function getPieceMaxCounts($piece){
+    $x = count($piece);
+    $y = strlen($piece[0]);
+    $pieceMaxCounts = 0;
+    for($i=0;$i<=$x;$i++){
+        for($j=0;$j<=$y;$j++){
+            $pieceMaxCounts += intval($piece[$i][$j]);
+        }
+    }
+    return $pieceMaxCounts;
+}
+
 function getMaxPosition($piece,$row,$column){
     $x = $row-count($piece);
     $y = $column-strlen($piece[0]);
