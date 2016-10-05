@@ -9,7 +9,7 @@ $string_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230",
 $string_18 = '{"level":18,"modu":"2","map":["1010","0011","0101","1101","1110"],"pieces":["XX,.X",".X.,.X.,XXX","X.,XX,X.",".X..,XX..,.XXX,.XX.",".X.,XXX",".X..,XX..,XXXX,.X..",".X,.X,XX","X..,X..,XXX,XX.,X..","X.,X.,XX","X.,XX,.X"]}';
 $string_19 = '{"level":19,"modu":"3","map":["0022","2102","1112","1111","2210"],"pieces":[".X,.X,XX,XX","XX,X.,X.","X.,XX","X..,XXX,.X.,.X.","XX,X.","XXX,..X","X.,X.,XX,.X,.X","XXXX","XX,X.","..X.,..X.,XXXX,...X"]}';
 $string_27 = '{"level":27,"modu":"3","map":["21211","20220","20012","22002","22000"],"pieces":["XX.,X..,XXX","X..,XXX","XXX,X.X","..XX,..X.,XXX.","X..,XXX,X..",".X.,XXX,XX.",".X.,.XX,XX.,.X.","X,X,X,X","X,X,X","XX,XX","XXXX,..X.",".X,XX,X.",".XX,XX."]}';
-$string = $string_26;
+$string = $string_27;
 $array = json_decode($string,true);
 var_dump($array);
 $pieces = $array['pieces'];
@@ -18,6 +18,8 @@ if($is_order_pieces){
     $old_pieces = $pieces;
     $pieces = orderPieces($pieces);
 }
+// stringResultGet(array());
+// die("tttttt");
 $piece_array = array();
 $map = $array['map'];
 //如果值为1则逆序暴力破解，否则正序破解
@@ -85,6 +87,7 @@ function cal($piece_array,$t,$map){
                     }
                     echo $re6;
                     echo "</pre>";
+                    var_dump(stringResultGet($position_array));
                     exit;
                 }else{
                     $map = $lastMap;
@@ -259,4 +262,26 @@ function orderPieces($pieces){
     //var_dump($pieces);
     //var_dump($newPieces);
     return $newPieces;
+}
+
+function stringResultGet($position_array){
+    global $pieces, $old_pieces;
+    $keyArr = array();
+    foreach($old_pieces as $p){
+        $tmpKeys = array_keys($pieces, $p);
+        if(count($tmpKeys) == 1){
+            $keyArr[] = $tmpKeys[0];
+        }else{
+            foreach($tmpKeys as $tk){
+                if(!array_keys($keyArr, $tk)){
+                    $keyArr[] = $tk;
+                }
+            }
+        }
+    }
+    $result = '';
+    foreach($keyArr as $kp){
+        $result = $result.str_replace(',','',$position_array[$kp]);
+    }
+    return $result;
 }
