@@ -5,12 +5,19 @@ $string_15 = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","020
 $string_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}';
 $string_test = '{"level":12,"modu":"2","map":["0000","0000","0001","0110"],"pieces":["X","XX"]}';
 $string_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}';
+//26 102110301130201001000012
 $string_18 = '{"level":18,"modu":"2","map":["1010","0011","0101","1101","1110"],"pieces":["XX,.X",".X.,.X.,XXX","X.,XX,X.",".X..,XX..,.XXX,.XX.",".X.,XXX",".X..,XX..,XXXX,.X..",".X,.X,XX","X..,X..,XXX,XX.,X..","X.,X.,XX","X.,XX,.X"]}';
 $string_19 = '{"level":19,"modu":"3","map":["0022","2102","1112","1111","2210"],"pieces":[".X,.X,XX,XX","XX,X.,X.","X.,XX","X..,XXX,.X.,.X.","XX,X.","XXX,..X","X.,X.,XX,.X,.X","XXXX","XX,X.","..X.,..X.,XXXX,...X"]}';
+$string_27 = '{"level":27,"modu":"3","map":["21211","20220","20012","22002","22000"],"pieces":["XX.,X..,XXX","X..,XXX","XXX,X.X","..XX,..X.,XXX.","X..,XXX,X..",".X.,XXX,XX.",".X.,.XX,XX.,.X.","X,X,X,X","X,X,X","XX,XX","XXXX,..X.",".X,XX,X.",".XX,XX."]}';
 $string = $string_26;
 $array = json_decode($string,true);
 var_dump($array);
 $pieces = $array['pieces'];
+$is_order_pieces = 1;
+if($is_order_pieces){
+    $old_pieces = $pieces;
+    $pieces = orderPieces($pieces);
+}
 $piece_array = array();
 $map = $array['map'];
 //如果值为1则逆序暴力破解，否则正序破解
@@ -67,9 +74,10 @@ function cal($piece_array,$t,$map){
                 if($re ==0){
                     var_dump("-----------end-------------");
                     global $start_time;
-                    //global $pieces;
+                    global $pieces;
                     var_dump(date('y-m-d h:i:s', time()));
                     var_dump( microtime(true)- intval($start_time) );
+                    var_dump($pieces);
                     echo "<pre>";print_r($position_array);
                     $re6 = '';
                     foreach ($position_array as $p){
@@ -236,4 +244,19 @@ function testAddMaps(){
     $piece_array = array(array("1"));
     $tem = addMaps($map,$postions,$piece_array);
     echo "<pre>";print_r($tem);exit;
+}
+
+function orderPieces($pieces){
+    $lenArray = array();
+    foreach($pieces as $p){
+        $lenArray[] = strlen($p);
+    }
+    arsort($lenArray);
+    $newPieces = array();
+    foreach($lenArray as $k=>$v){
+        $newPieces[] = $pieces[$k];
+    }
+    //var_dump($pieces);
+    //var_dump($newPieces);
+    return $newPieces;
 }
