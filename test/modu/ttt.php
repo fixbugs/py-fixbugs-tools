@@ -67,7 +67,7 @@ function cal($piece_array,$t,$map){
                 if($re ==0){
                     var_dump("-----------end-------------");
                     global $start_time;
-                    global $pieces;
+                    //global $pieces;
                     var_dump(date('y-m-d h:i:s', time()));
                     var_dump( microtime(true)- intval($start_time) );
                     echo "<pre>";print_r($position_array);
