@@ -248,7 +248,7 @@ def get_min_zero_modu_add(piec, now_map, modu):
             now_zero_num = slove_zero_num_get(now_map, piec, xyaddr, modu)
             if now_zero_num <= last_zero_num:
                 result['slove'] = xyaddr
-    result['slove_map'] = gmodu = gameResultGet(now_map, piec, result['slove'], modu)
+    result['slove_map'] = gameResultGet(now_map, piec, result['slove'], modu)
     return result
 
 
