@@ -22,8 +22,8 @@ if($is_order_pieces){
     $old_pieces = $pieces;
     $pieces = orderPieces($pieces);
 }
-// stringResultGet(array());
-// die("tttttt");
+var_dump($pieces);
+var_dump("--------split line pieces------------");
 $piece_array = array();
 $map = $array['map'];
 //如果值为1则逆序暴力破解，否则正序破解
@@ -103,6 +103,10 @@ function cal($piece_array,$t,$map){
                 if(!$checkNext){
                     continue;
                 }
+                // if(intval($checkNext) == 4){
+                //     var_dump($position_array);
+                //     die("sppspp");
+                // }
             }
             cal($piece_array, $t+1, $map);
         }
@@ -126,6 +130,12 @@ function calRsort($piece_array,$t,$map){
                     var_dump(date('y-m-d h:i:s', time()));
                 }
                 $resultMap = addToMap($lastMap, $position_array[$t], $piece_array[$t], $row, $column);
+                // $checkNext = checkMapNeedContinue($resultMap, $t);
+                // if($checkNext == 4){
+                //     var_dump($position_array);
+                //     var_dump($piece_array);
+                //     exit(0);
+                // }
                 $re = check($resultMap);
                 if($re ==0){
                     var_dump("-----------end-------------");
@@ -151,6 +161,11 @@ function calRsort($piece_array,$t,$map){
                 $checkNext = checkMapNeedContinue($map, $t);
                 if(!$checkNext){
                     continue;
+                }
+                if($checkNext == 4){
+                    var_dump($position_array);
+                    var_dump($piece_array);
+                    exit(0);
                 }
             }
             calRsort($piece_array, $t+1, $map);
@@ -182,6 +197,10 @@ function addToMap($map,$position,$piece,$row=3,$column =3){
 function checkMapNeedContinue($map, $nowPosition){
     global $piece_count_array;
     $mapNeedCounts = getMapNeedCounts($map);
+    // if($mapNeedCounts<=4){
+    //     var_dump($map);
+    //     return 4;
+    // }
     $lastPiecesMaxCounts = $piece_count_array[$nowPosition];
     if($mapNeedCounts > $lastPiecesMaxCounts){
         // var_dump($map);
