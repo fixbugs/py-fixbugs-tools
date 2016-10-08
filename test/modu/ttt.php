@@ -359,8 +359,10 @@ function endFourPiecesString(){
     for($i = $maxL-4;$i<$maxL;$i++){
         $newPieceArray[] = $piece_array[$i];
     }
+    $st_time = time();
     mapcal($newPieceArray, 0);
     var_dump(count($last_four_result) );
+    var_dump(time()-$st_time);
     die("sfjslkdjflk");
 }
 
@@ -384,7 +386,7 @@ function mapcal($piece_array, $t=0, $position_array=array(), $resultArray=array(
                 $key = md5(json_encode($resultMap));
                 $last_four_result[$key] = $resultString;
                 $tmp[$key] = $resultString;
-                getMerge($last_four_result, $tmp);
+                getMerge($last_four_result,$key ,$tmp);
             }
             mapcal($piece_array, $t+1, $position_array, array_merge($tmp,$resultArray));
         }
@@ -392,6 +394,7 @@ function mapcal($piece_array, $t=0, $position_array=array(), $resultArray=array(
 
 }
 
-function getMerge(&$B, $tmp){
-    $B = array_merge($B, $tmp);
+function getMerge(&$B,$key ,$tmp){
+    //$B = array_merge($B, $tmp);
+    $b[$key] = $tmp;
 }
