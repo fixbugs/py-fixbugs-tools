@@ -45,6 +45,7 @@ foreach($pieces as $piece){
     $piece_count_array[] = lastPieceCounts($sp);
     $sp += 1;
 }
+var_dump($piece_count_array);
 $position_array = array();
 $row = count($map);
 $column = strlen($map[0]);
@@ -52,6 +53,7 @@ $modu = $array['modu'];
 $map_array = array();
 $start_time = microtime(true);
 $total_count = 0;
+
 if($is_rsort){
     calRsort($piece_array,0,$map);
 }else{
@@ -217,8 +219,8 @@ function checkMapNeedContinue($map, $nowPosition){
 function getMapNeedCounts($map){
     global $row, $column, $modu;
     $needCounts = 0;
-    for($i=0; $i<=$row;$i++){
-        for($j=0;$j<=$column;$j++){
+    for($i=0; $i<$row;$i++){
+        for($j=0;$j<$column;$j++){
             $needCounts += ($modu - $map[$i][$j]) % $modu;
         }
     }
@@ -229,7 +231,7 @@ function lastPieceCounts($nowPosition){
     global $piece_array;
     $maxL = count($piece_array);
     $lastMaxCounts = 0;
-    for($i=$nowPosition+1;$i<=$maxL;$i++){
+    for($i=$nowPosition+1;$i<$maxL;$i++){
         $lastMaxCounts += getPieceMaxCounts($piece_array[$i]);
     }
     return $lastMaxCounts;
@@ -239,8 +241,8 @@ function getPieceMaxCounts($piece){
     $x = count($piece);
     $y = strlen($piece[0]);
     $pieceMaxCounts = 0;
-    for($i=0;$i<=$x;$i++){
-        for($j=0;$j<=$y;$j++){
+    for($i=0;$i<$x;$i++){
+        for($j=0;$j<$y;$j++){
             $pieceMaxCounts += intval($piece[$i][$j]);
         }
     }
@@ -312,4 +314,16 @@ function stringResultGet($position_array){
         $result = $result.str_replace(',','',$position_array[$kp]);
     }
     return $result;
+}
+
+function endResultString($map){
+    $row = count($map);
+    $col = strlen($map[0]);
+    $endMap = array();
+    foreach ($map as $m){
+        $endMap[] = str_repeat('0',$col);
+
+    }
+    $endMapMd5 = md5(json_encode($endMap));
+    return $endMapMd5;
 }
