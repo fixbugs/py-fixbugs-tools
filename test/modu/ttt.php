@@ -13,7 +13,7 @@ $string_28 = '{"level":28,"modu":"2","map":["001110","001101","010100","011000",
 $string_29 = '{"level":29,"modu":"3","map":["202220","202112","220000","200201","211221","212001","021211"],"pieces":["XXXXX,XXXX.,XX...","..X.,.XX.,XXXX,X...","...X,..XX,.XX.,XX..",".X..,.XX.,XXX.,XXXX,.X..","XXX,..X,.XX","XXX,.XX,..X","X...,XXXX,XX..,.X..,.X..","...X,..XX,.XXX,..X.,XXX.",".X...,.X...,.XX..,XXXXX",".X..,XXXX,.XX.,..XX,...X",".X.,.XX,.X.,XX.,XX.","X.,XX,.X,.X",".X.,.XX,.X.,XX.,XXX"]}';
 //29 11220021313300013122103301
 $string_30 = '{"level":30,"modu":"2","map":["111000","000100","010101","110001","011010","100010","001111","111111"],"pieces":[".XXX,.XXX,.X..,XX..,XXX.","...XX,XX.X.,.XXXX,.XXX.","..X,.XX,XX.,.XX","..XX,..X.,.XXX,XXXX,..X.",".X,XX,XX,X.,XX","..X..,.XX..,.XXX.,XXXX.,...XX",".X,XX,.X,.X","X.X.,XXX.,..XX","...X.,..XX.,XXXXX","XXXX,...X","XXX,XX.,.XX,..X","XXXX.,..XXX,.XXXX,...X.","XX.,.XX,.X.","..X.,.XXX,XXX.,X.X.,X.X."]}';
-$string = $string_30;
+$string = $string_26;
 $array = json_decode($string,true);
 var_dump($array);
 $pieces = $array['pieces'];
@@ -53,6 +53,7 @@ $modu = $array['modu'];
 $map_array = array();
 $start_time = microtime(true);
 $total_count = 0;
+$end_result_map_string = endResultString($map);
 
 if($is_rsort){
     calRsort($piece_array,0,$map);
@@ -255,13 +256,25 @@ function getMaxPosition($piece,$row,$column){
     return array($x,$y);
 }
 function check($map){
-    $result = 0;
-    foreach ($map as $item) {
-        if($item != 0){
-            return 1;
+    global $end_result_map_string;
+    $nowMapMd5 = md5(json_encode($map));
+    if($end_result_map_string == $nowMapMd5){
+        $result = 0;
+        foreach ($map as $item) {
+            if($item != 0){
+                return 1;
+            }
         }
-     }
-    return $result;
+        return $result;
+    }
+    return 1;
+    // $result = 0;
+    // foreach ($map as $item) {
+    //     if($item != 0){
+    //         return 1;
+    //     }
+    //  }
+    // return $result;
 }
 function addMaps($map,$postions,$piece_array,$row=3,$column=3){
     $tmp = $map;
@@ -317,13 +330,17 @@ function stringResultGet($position_array){
 }
 
 function endResultString($map){
+    $endMap = endResultMap($map);
+    $endMapMd5 = md5(json_encode($endMap));
+    return $endMapMd5;
+}
+
+function endResultMap($map){
     $row = count($map);
     $col = strlen($map[0]);
     $endMap = array();
     foreach ($map as $m){
         $endMap[] = str_repeat('0',$col);
-
     }
-    $endMapMd5 = md5(json_encode($endMap));
-    return $endMapMd5;
+    return $endMap;
 }
