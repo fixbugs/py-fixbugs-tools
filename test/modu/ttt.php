@@ -55,6 +55,13 @@ $start_time = microtime(true);
 $total_count = 0;
 $end_result_map_string = endResultString($map);
 
+$start_end_map = endResultMap($map);
+
+$last_four_result = array();
+
+endFourPiecesString();
+die('test');
+
 if($is_rsort){
     calRsort($piece_array,0,$map);
 }else{
@@ -343,4 +350,48 @@ function endResultMap($map){
         $endMap[] = str_repeat('0',$col);
     }
     return $endMap;
+}
+
+function endFourPiecesString(){
+    global $piece_array, $last_four_result;
+    $maxL = count($piece_array);
+    $newPieceArray = array();
+    for($i = $maxL-4;$i<$maxL;$i++){
+        $newPieceArray[] = $piece_array[$i];
+    }
+    mapcal($newPieceArray, 0);
+    var_dump(count($last_four_result) );
+    die("sfjslkdjflk");
+}
+
+function mapcal($piece_array, $t=0, $position_array=array(), $resultArray=array()){
+    if($t == count($piece_array)){
+        return true;
+    }
+    global $start_end_map, $row, $column, $last_four_result;
+    $positions = getMaxPosition($piece_array[$t],$row,$column);
+    list($x,$y) = $positions;
+    $tmp = array();
+    for($i = 0;$i<=$x;$i++){
+        for($j = 0;$j<=$y;$j++){
+            $position_array[$t] = $i.",".$j;
+            if($t+1>=count($piece_array)){
+                $resultMap = addMaps($start_end_map, $position_array, $piece_array,$row,$column);
+                $resultString = '';
+                foreach ($position_array as $p){
+                    $resultString = $resultString.str_replace(',','',$p);
+                }
+                $key = md5(json_encode($resultMap));
+                $last_four_result[$key] = $resultString;
+                $tmp[$key] = $resultString;
+                getMerge($last_four_result, $tmp);
+            }
+            mapcal($piece_array, $t+1, $position_array, array_merge($tmp,$resultArray));
+        }
+    }
+
+}
+
+function getMerge(&$B, $tmp){
+    $B = array_merge($B, $tmp);
 }
