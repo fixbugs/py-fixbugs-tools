@@ -35,8 +35,8 @@ mstr_24 = '{"level":24,"modu":"2","map":["01010","10100","01101","11101","00111"
 mstr_25 = '{"level":25,"modu":"3","map":["1222","0200","1012","2222","2121"],"pieces":[".X.,.XX,XXX","X.,XX,X.,X.","XXX,..X",".X,XX,X.,XX","XXXX","X.,X.,XX,X.,X.","X..,XXX",".X,XX",".X,XX,X.","X.,X.,X.,XX,.X","X..,X..,XXX",".X,XX,.X"]}'
 mstr_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
 mstr_30 = '{"level":30,"modu":"2","map":["111000","000100","010101","110001","011010","100010","001111","111111"],"pieces":[".XXX,.XXX,.X..,XX..,XXX.","...XX,XX.X.,.XXXX,.XXX.","..X,.XX,XX.,.XX","..XX,..X.,.XXX,XXXX,..X.",".X,XX,XX,X.,XX","..X..,.XX..,.XXX.,XXXX.,...XX",".X,XX,.X,.X","X.X.,XXX.,..XX","...X.,..XX.,XXXXX","XXXX,...X","XXX,XX.,.XX,..X","XXXX.,..XXX,.XXXX,...X.","XX.,.XX,.X.","..X.,.XXX,XXX.,X.X.,X.X."]}'
-
-mstr = mstr_26
+mstr_28 = '{"level":28,"modu":"2","map":["001110","001101","010100","011000","111000"],"pieces":["XXX,.X.,XX.,.X.","XX..,XX..,.XXX","XXXX,.X..","X..,X.X,XXX,X..",".X,XX,.X,.X","X....,XXXXX,.X...","X.,XX,X.","XXXX",".X.,XX.,.XX","XX.,XXX",".XXX,XX..","X,X,X,X","..X..,XXXXX"]}'
+mstr = mstr_28
 
 
 def modu_list_get(piec, row_len, col_len):
@@ -278,6 +278,8 @@ def slove():
 
 
 if __name__ == '__main__':
+    print checkGameOutNew('00000100100020220003011211')
+    exit(0)
 #    print 'aa'
 #    print slove()
     print 'main start'

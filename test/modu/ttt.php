@@ -13,7 +13,7 @@ $string_28 = '{"level":28,"modu":"2","map":["001110","001101","010100","011000",
 $string_29 = '{"level":29,"modu":"3","map":["202220","202112","220000","200201","211221","212001","021211"],"pieces":["XXXXX,XXXX.,XX...","..X.,.XX.,XXXX,X...","...X,..XX,.XX.,XX..",".X..,.XX.,XXX.,XXXX,.X..","XXX,..X,.XX","XXX,.XX,..X","X...,XXXX,XX..,.X..,.X..","...X,..XX,.XXX,..X.,XXX.",".X...,.X...,.XX..,XXXXX",".X..,XXXX,.XX.,..XX,...X",".X.,.XX,.X.,XX.,XX.","X.,XX,.X,.X",".X.,.XX,.X.,XX.,XXX"]}';
 //29 11220021313300013122103301
 $string_30 = '{"level":30,"modu":"2","map":["111000","000100","010101","110001","011010","100010","001111","111111"],"pieces":[".XXX,.XXX,.X..,XX..,XXX.","...XX,XX.X.,.XXXX,.XXX.","..X,.XX,XX.,.XX","..XX,..X.,.XXX,XXXX,..X.",".X,XX,XX,X.,XX","..X..,.XX..,.XXX.,XXXX.,...XX",".X,XX,.X,.X","X.X.,XXX.,..XX","...X.,..XX.,XXXXX","XXXX,...X","XXX,XX.,.XX,..X","XXXX.,..XXX,.XXXX,...X.","XX.,.XX,.X.","..X.,.XXX,XXX.,X.X.,X.X."]}';
-$string = $string_26;
+$string = $string_28;
 $array = json_decode($string,true);
 var_dump($array);
 $pieces = $array['pieces'];
@@ -60,7 +60,6 @@ $start_end_map = endResultMap($map);
 $last_four_result = array();
 
 endFourPiecesString();
-die('test');
 
 if($is_rsort){
     calRsort($piece_array,0,$map);
@@ -113,10 +112,19 @@ function cal($piece_array,$t,$map){
                 if(!$checkNext){
                     continue;
                 }
-                // if(intval($checkNext) == 4){
-                //     var_dump($position_array);
-                //     die("sppspp");
-                // }
+                if($t+1 == count($piece_array)-4){
+                    global $last_four_result;
+                    $key = md5(json_encode($map));
+                    if(isset($last_four_result[$key])){
+                        $sloveString = $last_four_result[$key];
+                        for($k=0;$k<strlen($sloveString); $k+=2){
+                            $position_array[$t+1] = $sloveString[$k].",".$sloveString[$k+1];
+                            $t++;
+                        }
+                        var_dump(stringResultGet($position_array));
+                        die("end game for slove");
+                    }
+                }
             }
             cal($piece_array, $t+1, $map);
         }
@@ -362,8 +370,6 @@ function endFourPiecesString(){
     $st_time = time();
     mapcal($newPieceArray, 0);
     var_dump(count($last_four_result) );
-    var_dump(time()-$st_time);
-    die("sfjslkdjflk");
 }
 
 function mapcal($piece_array, $t=0, $position_array=array(), $resultArray=array()){
@@ -383,7 +389,10 @@ function mapcal($piece_array, $t=0, $position_array=array(), $resultArray=array(
                 foreach ($position_array as $p){
                     $resultString = $resultString.str_replace(',','',$p);
                 }
-                $key = md5(json_encode($resultMap));
+                //$resultString = json_encode($resultString);
+                //mapMudo($resultMap);
+                //$key = md5(json_encode($resultMap));
+                $key = mapMudoMd5($resultMap);
                 $last_four_result[$key] = $resultString;
                 $tmp[$key] = $resultString;
                 getMerge($last_four_result,$key ,$tmp);
@@ -397,4 +406,20 @@ function mapcal($piece_array, $t=0, $position_array=array(), $resultArray=array(
 function getMerge(&$B,$key ,$tmp){
     //$B = array_merge($B, $tmp);
     $b[$key] = $tmp;
+}
+
+function mapMudo($lMap){
+    global $modu, $row, $column;
+
+    for($i=0;$i<$row;$i++){
+        for($j=0;$j<$column;$j++){
+            $lMap[$i][$j] = ($modu-$lMap[$i][$j]) % $modu;
+        }
+    }
+    return $lMap;
+}
+
+function mapMudoMd5($lMap){
+    $lMap = mapMudo($lMap);
+    return md5(json_encode($lMap));
 }

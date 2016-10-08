@@ -14,8 +14,9 @@ def jsonret(jstr):
 mstr_test = '{"level":12,"modu":"2","map":["0000","0000","0001","0100"],"pieces":["X","X"]}'
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
 mstr_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
+mstr_28 = '{"level":28,"modu":"2","map":["001110","001101","010100","011000","111000"],"pieces":["XXX,.X.,XX.,.X.","XX..,XX..,.XXX","XXXX,.X..","X..,X.X,XXX,X..",".X,XX,.X,.X","X....,XXXXX,.X...","X.,XX,X.","XXXX",".X.,XX.,.XX","XX.,XXX",".XXX,XX..","X,X,X,X","..X..,XXXXX"]}'
 #kuda 使用gpu并行计算，增广矩阵
-mstr = mstr_12
+mstr = mstr_28
 
 
 def gameBaseMapChange(mapinfo):
@@ -69,7 +70,7 @@ def addToMap(nmap, position, piece, row, column, modu):
     modu = int(modu)
     for x in xrange(0, len(piece)):
         for y in xrange(0, len(piece[x])):
-            nmap[xaddr+x][yaddr+y] = (nmap[xaddr+x][yaddr+y] + int(piece[x][y])) % modu
+            nmap[xaddr+x][yaddr+y] = (int(nmap[xaddr+x][yaddr+y]) + int(piece[x][y])) % modu
     return nmap
 
 
@@ -147,7 +148,19 @@ def caltt(piece_arr, t, nmap):
 def getLastMapCountNeed(lastMap, modu):
     return 1
 
+
+def checkEndResult(sloveString):
+    sLen = len(sloveString)
+    positions = list()
+    for i in range(0, sLen, 2):
+        positions.append(str(sloveString[i]) + "," + str(sloveString[i+1] ) )
+    print positions
+    mapInfo = gameBaseMapChange(ginfo['map'])
+    print addMaps(mapInfo, positions, ginfo['gpiecs'], ginfo['row'], ginfo['column'], ginfo['modu'])
+
 if __name__ == '__main__':
+    checkEndResult('00000100100020220003011211')
+    exit(0)
     #st_time = time.clock()
     caltt(ginfo['gpiecs'], 0, ginfo['gmap'])
     #cal(ginfo['gpiecs'], 0, ginfo['gmap'])
