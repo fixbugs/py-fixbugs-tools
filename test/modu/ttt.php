@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit','512M');
 date_default_timezone_set('Asia/Shanghai');
 $string_17 = ' {"level":17,"modu":"3","map":["11122","21102","10000","01112","11200"],"pieces":["..XX,.XX.,XX..,.X..","X.X.,XXXX,.X..","XXX,.X.,.X.","X...,X.XX,XXX.","X,X,X,X,X",".X...,XXXXX,X..X.","X..,XXX","XXX,X.X,X..","XX,X."]}';
 $string_15 = '{"level":15,"modu":"3","map":["00220","20111","21101","10200","02022"],"pieces":[".X,XX","XXXX,X...","XX.,.XX,..X,..X,..X","XXX..,..XX.,...XX","...X,XXXX,..X.","XX,X.,X.","XX,.X,.X","XXX,.X.","X.,XX"]}';
@@ -17,6 +18,7 @@ $string_30 = '{"level":30,"modu":"2","map":["111000","000100","010101","110001",
 $string_31 = '{"level":31,"modu":"4","map":["20230","01213","32230","23213","00220"],"pieces":["XX,X.",".X,.X,.X,.X,XX","X..,X..,XXX,X..","XXX,X..","X.X,XXX",".X..,XXXX,.X..",".X.,.X.,XX.,.XX,.X.",".XX,XX.",".XXXX,XX...","X.,X.,XX",".X,XX","X..,XXX","XXXX,..X.","..X,.XX,XXX"]}';
 //31 0001111020000001100020013121
 $string_32 = '{"level":32,"modu":"2","map":["1111110","0111001","0011100","0101111","0100100","0000011"],"pieces":["..X.,.XXX,.X..,XX..",".X..,.XX.,XXXX,XXX.,.XX.",".X,.X,.X,XX,.X","..X.,..XX,XXX.,.XX.,.XX.",".X..,XX..,.X..,.XXX","XXXX.,..XXX","..X..,XXXXX,X.XXX,X..X.",".X..,XXX.,..XX,...X","..X.,..X.,XXX.,..XX,XXXX",".X...,XXX..,XXXX.,..XXX","..X,..X,..X,.XX,XX.","..XX,XXX.","XXXXX,....X","XXXX,.XXX,..XX,..X."]}';
+//32 2313151302002223132104421103
 $string_33 = '{"level":33,"modu":"3","map":["002220","022000","110002","112011","120121","010120","021100","201122","200100"],"pieces":["...XX,..XXX,XXX.X,....X,....X",".X.,.X.,XXX","..X.,..X.,.XXX,XX..","..X.,.XX.,.XXX,XXX.,..X.",".X..,.XXX,XX..,.X..,.X..","XX.,.X.,.XX,.XX","...X,XXXX,X...",".XXX,.XXX,XXXX,X..X","...X,.X.X,XXXX,XXXX,.XX.","X.X..,XXX..,XXXXX,.XX..,..X..",".XXX,XXX.,X.X.,XX..,.X..","XX.,.X.,.XX,..X",".X.,.X.,.X.,.X.,.XX,XX.","XXX,X..",".X...,.X...,.XXXX,XXX.X"]}';
 $string = $string_33;
 $array = json_decode($string,true);
