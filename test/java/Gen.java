@@ -33,18 +33,21 @@ public class Gen{
 		int seed = 10;
 		Gen rand = new Gen();
 		for (;seed<=999999999; seed++){
-			try {  
+			try {
 		       rand.srand(seed);
 				int[] arr = new int[100];
 				for(int i=0;i<100;i++){
 					arr[i]=i;
-				} 
-				System.out.println(arr[rand.next()%100]);
-		    } catch (Throwable e) {  
+				}
+				//System.out.println(arr[rand.next()%100]);
+        if (rand.next()%100<0){
+            System.out.println(seed);
+        }
+		    } catch (Throwable e) {
 		        System.out.println(seed);
 		        System.exit(0);
 		    }
-			
+
 		}
 	}
 }
