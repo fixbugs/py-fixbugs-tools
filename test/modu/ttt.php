@@ -15,7 +15,10 @@ $string_29 = '{"level":29,"modu":"3","map":["202220","202112","220000","200201",
 $string_30 = '{"level":30,"modu":"2","map":["111000","000100","010101","110001","011010","100010","001111","111111"],"pieces":[".XXX,.XXX,.X..,XX..,XXX.","...XX,XX.X.,.XXXX,.XXX.","..X,.XX,XX.,.XX","..XX,..X.,.XXX,XXXX,..X.",".X,XX,XX,X.,XX","..X..,.XX..,.XXX.,XXXX.,...XX",".X,XX,.X,.X","X.X.,XXX.,..XX","...X.,..XX.,XXXXX","XXXX,...X","XXX,XX.,.XX,..X","XXXX.,..XXX,.XXXX,...X.","XX.,.XX,.X.","..X.,.XXX,XXX.,X.X.,X.X."]}';
 //30 0110302121001102506230002300
 $string_31 = '{"level":31,"modu":"4","map":["20230","01213","32230","23213","00220"],"pieces":["XX,X.",".X,.X,.X,.X,XX","X..,X..,XXX,X..","XXX,X..","X.X,XXX",".X..,XXXX,.X..",".X.,.X.,XX.,.XX,.X.",".XX,XX.",".XXXX,XX...","X.,X.,XX",".X,XX","X..,XXX","XXXX,..X.","..X,.XX,XXX"]}';
-$string = $string_31;
+//31 0001111020000001100020013121
+$string_32 = '{"level":32,"modu":"2","map":["1111110","0111001","0011100","0101111","0100100","0000011"],"pieces":["..X.,.XXX,.X..,XX..",".X..,.XX.,XXXX,XXX.,.XX.",".X,.X,.X,XX,.X","..X.,..XX,XXX.,.XX.,.XX.",".X..,XX..,.X..,.XXX","XXXX.,..XXX","..X..,XXXXX,X.XXX,X..X.",".X..,XXX.,..XX,...X","..X.,..X.,XXX.,..XX,XXXX",".X...,XXX..,XXXX.,..XXX","..X,..X,..X,.XX,XX.","..XX,XXX.","XXXXX,....X","XXXX,.XXX,..XX,..X."]}';
+$string_33 = '{"level":33,"modu":"3","map":["002220","022000","110002","112011","120121","010120","021100","201122","200100"],"pieces":["...XX,..XXX,XXX.X,....X,....X",".X.,.X.,XXX","..X.,..X.,.XXX,XX..","..X.,.XX.,.XXX,XXX.,..X.",".X..,.XXX,XX..,.X..,.X..","XX.,.X.,.XX,.XX","...X,XXXX,X...",".XXX,.XXX,XXXX,X..X","...X,.X.X,XXXX,XXXX,.XX.","X.X..,XXX..,XXXXX,.XX..,..X..",".XXX,XXX.,X.X.,XX..,.X..","XX.,.X.,.XX,..X",".X.,.X.,.X.,.X.,.XX,XX.","XXX,X..",".X...,.X...,.XXXX,XXX.X"]}';
+$string = $string_33;
 $array = json_decode($string,true);
 var_dump($array);
 $pieces = $array['pieces'];
@@ -181,11 +184,6 @@ function calRsort($piece_array,$t,$map){
                 $checkNext = checkMapNeedContinue($map, $t);
                 if(!$checkNext){
                     continue;
-                }
-                if($checkNext == 4){
-                    var_dump($position_array);
-                    var_dump($piece_array);
-                    exit(0);
                 }
             }
             calRsort($piece_array, $t+1, $map);
