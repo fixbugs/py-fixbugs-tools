@@ -65,6 +65,7 @@ $end_result_map_string = endResultString($map);
 $start_end_map = endResultMap($map);
 
 $last_four_result = array();
+$end_piece_pos = 4;
 
 endFourPiecesString();
 
@@ -77,7 +78,7 @@ if($is_rsort){
 
 
 function cal($piece_array,$t,$map){
-    global $position_array,$row,$column;
+    global $position_array,$row,$column,$end_piece_pos;
     $positions = getMaxPosition($piece_array[$t],$row,$column);
     list($x,$y) = $positions;
     $lastMap = $map;
@@ -119,7 +120,7 @@ function cal($piece_array,$t,$map){
                 if(!$checkNext){
                     continue;
                 }
-                if($t+1 == count($piece_array)-4){
+                if($t+1 == count($piece_array)-$end_piece_pos){
                     global $last_four_result;
                     $key = md5(json_encode($map));
                     if(isset($last_four_result[$key])){
@@ -186,6 +187,19 @@ function calRsort($piece_array,$t,$map){
                 $checkNext = checkMapNeedContinue($map, $t);
                 if(!$checkNext){
                     continue;
+                }
+                if($t+1 == count($piece_array)-$end_piece_pos){
+                    global $last_four_result;
+                    $key = md5(json_encode($map));
+                    if(isset($last_four_result[$key])){
+                        $sloveString = $last_four_result[$key];
+                        for($k=0;$k<strlen($sloveString); $k+=2){
+                            $position_array[$t+1] = $sloveString[$k].",".$sloveString[$k+1];
+                            $t++;
+                        }
+                        var_dump(stringResultGet($position_array));
+                        die("end game for slove");
+                    }
                 }
             }
             calRsort($piece_array, $t+1, $map);
@@ -363,10 +377,10 @@ function endResultMap($map){
 }
 
 function endFourPiecesString(){
-    global $piece_array, $last_four_result;
+    global $piece_array, $last_four_result, $end_piece_pos;
     $maxL = count($piece_array);
     $newPieceArray = array();
-    for($i = $maxL-4;$i<$maxL;$i++){
+    for($i = $maxL-$end_piece_pos;$i<$maxL;$i++){
         $newPieceArray[] = $piece_array[$i];
     }
     $st_time = time();
