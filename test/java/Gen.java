@@ -40,9 +40,10 @@ public class Gen{
 					arr[i]=i;
 				}
 				//System.out.println(arr[rand.next()%100]);
-        if (rand.next()%100<0){
-            System.out.println(seed);
-        }
+                                int a = arr[rand.next()%100];
+        // if (rand.next()%100<0){
+        //     System.out.println(seed);
+        // }
 		    } catch (Throwable e) {
 		        System.out.println(seed);
 		        System.exit(0);
