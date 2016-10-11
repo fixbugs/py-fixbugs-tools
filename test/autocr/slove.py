@@ -53,6 +53,52 @@ def getProbablyNext(lastX, lastY, lastMap, x, y):
     return result
 
 
+def mapStepAdd(nowMap, way, startX, startY):
+    maxX = len(nowMap)
+    maxY = len(nowMap[0])
+    if way == 'l':
+        endX = startX
+        for i in xrange(startY, -1, -1):
+            if nowMap[startX][i] == 0:
+                nowMap[startX][i] = 1
+                endY = i
+            else:
+                break
+    elif way == 'r':
+        endX = startX
+        for i in xrange(startY, maxY):
+            if nowMap[startX][i] == 0:
+                nowMap[startX][i] = 1
+                endY = i
+            else:
+                break
+    elif way == 'u':
+        endY = startY
+        for i in xrange(startX, -1, -1):
+            if nowMap[i][startY] == 0:
+                nowMap[i][startY] = 1
+                endX = i
+            else:
+                break
+    elif way == 'd':
+        endY = startY
+        for i in xrange(startX, maxX):
+            if nowMap[i][startY] == 0:
+                nowMap[i][startY] = 1
+                endX = i
+            else:
+                break
+    result = dict()
+    result['map'] = nowMap
+    result['endX'] = endX
+    result['endY'] = endY
+    return result
+
+
 if __name__ == '__main__':
     mainInfo = levelInfoGet(levelStr)
     print getProbablyNext(5, 1, mainInfo['map'], mainInfo['x'], mainInfo['y'])
+    nmap = mapStepAdd(mainInfo['map'], 'd', 5, 1)
+    print nmap
+    print nmap['map']
+    print getProbablyNext(nmap['endX'], nmap['endY'], nmap['map'], mainInfo['x'], mainInfo['y'])
