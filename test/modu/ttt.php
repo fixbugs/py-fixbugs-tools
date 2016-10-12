@@ -68,13 +68,110 @@ $last_four_result = array();
 $end_piece_pos = 4;
 
 endFourPiecesString();
+$startX = 3;
+$startY = 0;
 
 if($is_rsort){
     calRsort($piece_array,0,$map);
 }else{
-    cal($piece_array,0,$map);
+    if($startX>-1 && $startY>-1){
+        cal_sp($piece_array, 0, $map,$startX, $startY);
+    }else{
+        cal($piece_array,0,$map);
+    }
 }
 //testAddMaps();
+
+function cal_sp($piece_array,$t,$map,$firstx=-1,$firsty=-1){
+    global $position_array,$row,$column,$end_piece_pos;
+    $lastMap = $map;
+    if($firstx>-1 && $firsty>-1){
+        $positions = getMaxPosition($piece_array[$t],$row,$column);
+        var_dump("---max,x,y---st---");
+        list($max_x, $max_y) = $positions;
+        var_dump("max_x:".$max_x);
+        var_dump("max_y:".$max_y);
+        var_dump("---max,x,y---end---");
+        $position_array[$t] = $firstx.",".$firsty;
+        $map = addToMap($lastMap,$position_array[$t],$piece_array[$t],$row,$column);
+        $checkNext = checkMapNeedContinue($map, $t);
+        if(!$checkNext){
+            dir('end for fir not need continue');
+        }
+        if($t+1 == count($piece_array)-$end_piece_pos){
+            global $last_four_result;
+            $key = md5(json_encode($map));
+            if(isset($last_four_result[$key])){
+                $sloveString = $last_four_result[$key];
+                for($k=0;$k<strlen($sloveString); $k+=2){
+                    $position_array[$t+1] = $sloveString[$k].",".$sloveString[$k+1];
+                    $t++;
+                }
+                var_dump(stringResultGet($position_array));
+                die("end game for slove");
+            }
+        }
+        cal_sp($piece_array, $t+1, $map);
+        return;
+    }
+    $positions = getMaxPosition($piece_array[$t],$row,$column);
+    list($x,$y) = $positions;
+    for($i = 0;$i<=$x;$i++){
+        for($j = 0;$j<=$y;$j++){
+            $position_array[$t] = $i.",".$j;
+            if($t+1 >= count($piece_array)){
+                global $total_count;
+                $total_count += 1;
+                if($total_count % 10000000 == 0){
+                    var_dump($total_count);
+                    var_dump(date('y-m-d h:i:s', time()));
+                }
+                $resultMap = addToMap($lastMap, $position_array[$t], $piece_array[$t], $row, $column);
+                $re = check($resultMap);
+                if($re ==0){
+                    var_dump("-----------end-------------");
+                    global $start_time;
+                    global $pieces;
+                    var_dump(date('y-m-d h:i:s', time()));
+                    var_dump( microtime(true)- intval($start_time) );
+                    var_dump($pieces);
+                    echo "<pre>";print_r($position_array);
+                    $re6 = '';
+                    foreach ($position_array as $p){
+                        $re6 = $re6.str_replace(',','',$p);
+                    }
+                    echo $re6;
+                    echo "</pre>";
+                    var_dump(stringResultGet($position_array));
+                    exit;
+                }else{
+                    $map = $lastMap;
+                }
+                continue;
+            }else{
+                $map = addToMap($lastMap,$position_array[$t],$piece_array[$t],$row,$column);
+                $checkNext = checkMapNeedContinue($map, $t);
+                if(!$checkNext){
+                    continue;
+                }
+                if($t+1 == count($piece_array)-$end_piece_pos){
+                    global $last_four_result;
+                    $key = md5(json_encode($map));
+                    if(isset($last_four_result[$key])){
+                        $sloveString = $last_four_result[$key];
+                        for($k=0;$k<strlen($sloveString); $k+=2){
+                            $position_array[$t+1] = $sloveString[$k].",".$sloveString[$k+1];
+                            $t++;
+                        }
+                        var_dump(stringResultGet($position_array));
+                        die("end game for slove");
+                    }
+                }
+            }
+            cal_sp($piece_array, $t+1, $map);
+        }
+    }
+}
 
 
 function cal($piece_array,$t,$map){
@@ -206,6 +303,7 @@ function calRsort($piece_array,$t,$map){
         }
     }
 }
+
 
 
 function initMap($n,$m){
