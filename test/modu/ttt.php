@@ -67,9 +67,23 @@ $start_end_map = endResultMap($map);
 $last_four_result = array();
 $end_piece_pos = 4;
 
+if(isset($argv[1]) && isset($argv[2]) ){
+    $startX = $argv[1];
+    $startY = $argv[2];
+}else{
+    $startX = -1;
+    $startY = -1;
+}
+
 endFourPiecesString();
-$startX = 3;
-$startY = 0;
+
+// if($argv[1] && $argv[2]){
+//     $startX = $argv[1];
+//     $startY = $argv[2];
+// }else{
+//     $startX = -1;
+//     $startY = -1;
+// }
 
 if($is_rsort){
     calRsort($piece_array,0,$map);
