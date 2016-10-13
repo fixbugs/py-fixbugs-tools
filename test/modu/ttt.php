@@ -23,7 +23,9 @@ $string_33 = '{"level":33,"modu":"3","map":["002220","022000","110002","112011",
 //33 315242412140105022200141125131
 $string_34 = '{"level":34,"modu":"2","map":["101011","110111","100011","111111","101111"],"pieces":[".XXX,XX..","...XX,XXXX.","XXX,X..",".X.,.X.,.X.,XXX,..X","..X,.XX,XXX","XXX,.X.","..X,.XX,.X.,XX.","X.,XX,X.","XX,X.","XXX","...X,XXXX,...X","X.,XX","X..,X.X,XXX","..X,..X,.XX,XX.",".X,.X,XX"]}';
 $string_35 = '{"level":35,"modu":"3","map":["21210000","20221020","22021012","01211000","21221010","20011121"],"pieces":["....X,...XX,.XXX.,XXX..,X....","X..,X..,XX.,XXX,..X","..X.X,XXXXX,.XXXX,.XX..,.X...",".X...,.X...,.XXX.,.XXX.,XXXXX","XXX,X.X","XX...,.XXXX,...XX,...X.",".XX..,XXX..,..XX.,...XX","XX,X.","..X..,..X..,XXXXX",".XXX.,.XXXX,XXX..,XX...,X....",".XXX,XX..,.XX.,.X..,.X..","..X.,..X.,.XXX,XXXX,X...","...X.,..XXX,XXXX.","X.X.,XXX.,.XXX,.XXX","XX..,.XXX,.XX.,..XX,...X"]}';
-$string = $string_35;
+//35 121510022100134132110010321114
+$string_36 = '{"level":36,"modu":"4","map":["003030","023113","320323","321222","210230","121233","110233","323200"],"pieces":["....X,XXXXX,X..XX","...XX,...X.,XXXX.,.X.X.",".X.,.X.,XX.,XXX,X..","XXXXX,XX...,X....","X.,X.,XX","..XX.,..XX.,XXXXX,.X...,.X...","XX.,.XX","XX.,XXX,.XX,XX.,.XX","..XX.,X.X..,X.XX.,XXXXX,X...X","X.,XX,.X,XX,X.","..X.,XXXX",".X,XX",".X..,XX..,.XX.,XXX.,X.XX","XXX,.X.","...X.,...X.,..XXX,XXX.X","..XXX,..XXX,.XXXX,XXXX."]}';
+$string = $string_36;
 $array = json_decode($string,true);
 var_dump($array);
 $pieces = $array['pieces'];
