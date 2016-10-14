@@ -15,8 +15,9 @@ mstr_test = '{"level":12,"modu":"2","map":["0000","0000","0001","0100"],"pieces"
 mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":["..X,XXX","X.,XX","..X,.XX,XX.,.X.","X...,X...,XXXX","XX.,.X.,.XX,..X","X,X",".X,XX","..X,XXX"]}'
 mstr_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
 mstr_28 = '{"level":28,"modu":"2","map":["001110","001101","010100","011000","111000"],"pieces":["XXX,.X.,XX.,.X.","XX..,XX..,.XXX","XXXX,.X..","X..,X.X,XXX,X..",".X,XX,.X,.X","X....,XXXXX,.X...","X.,XX,X.","XXXX",".X.,XX.,.XX","XX.,XXX",".XXX,XX..","X,X,X,X","..X..,XXXXX"]}'
+mstr_37 = '{"level":37,"modu":"3","map":["200011","020020","220001","221002","021220"],"pieces":["XX,.X","XX.,.X.,.XX,..X,..X",".X,XX,XX,.X","XX.,.X.,.XX","..X.,XXXX,.X..,.X..","XX,XX",".X,XX,X.","XXX.,..XX","X..X,XXXX,X...",".X.,XXX,X..",".X.,XXX,.X.","X,X,X",".X,XX,X.","X..,XXX,X..,X..",".X.,XXX","..X,..X,.XX,XX."]}'
 #kuda 使用gpu并行计算，增广矩阵
-mstr = mstr_28
+mstr = mstr_37
 
 
 def gameBaseMapChange(mapinfo):
@@ -77,6 +78,9 @@ def addToMap(nmap, position, piece, row, column, modu):
 def addMaps(nmap, postions, piece_array, row, column, modu):
     tmp = copy.deepcopy(nmap)
     for i in xrange(len(postions)):
+        print i, '--------------'
+        print postions[i]
+        print piece_array[i]
         tmp = addToMap(tmp, postions[i], piece_array[i], row, column, modu)
     return tmp
 
@@ -159,7 +163,10 @@ def checkEndResult(sloveString):
     print addMaps(mapInfo, positions, ginfo['gpiecs'], ginfo['row'], ginfo['column'], ginfo['modu'])
 
 if __name__ == '__main__':
-    checkEndResult('00000100100020220003011211')
+    #checkEndResult('00000100100020220003011211')
+    #checkEndResult('10020311002202043022022005000300')
+    checkEndResult('34031110003401122202020305003101')
+    #checkEndResult('13010421000111233121220305000002')
     exit(0)
     #st_time = time.clock()
     caltt(ginfo['gpiecs'], 0, ginfo['gmap'])
