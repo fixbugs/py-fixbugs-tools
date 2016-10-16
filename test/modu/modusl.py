@@ -36,7 +36,9 @@ mstr_25 = '{"level":25,"modu":"3","map":["1222","0200","1012","2222","2121"],"pi
 mstr_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
 mstr_30 = '{"level":30,"modu":"2","map":["111000","000100","010101","110001","011010","100010","001111","111111"],"pieces":[".XXX,.XXX,.X..,XX..,XXX.","...XX,XX.X.,.XXXX,.XXX.","..X,.XX,XX.,.XX","..XX,..X.,.XXX,XXXX,..X.",".X,XX,XX,X.,XX","..X..,.XX..,.XXX.,XXXX.,...XX",".X,XX,.X,.X","X.X.,XXX.,..XX","...X.,..XX.,XXXXX","XXXX,...X","XXX,XX.,.XX,..X","XXXX.,..XXX,.XXXX,...X.","XX.,.XX,.X.","..X.,.XXX,XXX.,X.X.,X.X."]}'
 mstr_28 = '{"level":28,"modu":"2","map":["001110","001101","010100","011000","111000"],"pieces":["XXX,.X.,XX.,.X.","XX..,XX..,.XXX","XXXX,.X..","X..,X.X,XXX,X..",".X,XX,.X,.X","X....,XXXXX,.X...","X.,XX,X.","XXXX",".X.,XX.,.XX","XX.,XXX",".XXX,XX..","X,X,X,X","..X..,XXXXX"]}'
-mstr = mstr_28
+mstr_39 = '{"level":39,"modu":"3","map":["2202000","0010210","2021100","1212022","1110010","2122202","2011202","1222120"],"pieces":[".X,XX,X.","....X,.XXXX,.XXXX,XXXXX",".X....,.X....,XXX...,XXX...,..XXX.,..XXXX","XX,XX","XXXX,.X..,XX..,.XX.,.X..",".X,XX,XX","...X.,..XXX,XXXXX,X.XXX,X....","..X,XXX,.X.,.XX","X,X,X","XX..X,.XXXX,....X","...XX,..XXX,XXXXX,XXXXX",".X.X.,XXXXX,X....","XX,.X","..X.,XXXX","X..X.,XXXXX,..XXX,..XXX,...XX",".XX,.XX,XXX,.X.","XXX.,XXX.,X.XX,X..."]}'
+mstr_40 = '{"level":40,"modu":"2","map":["100110","101000","011100","110010","001000"],"pieces":["X,X,X,X",".X.,XXX",".X,XX,X.","XXXXX","XX,.X","XX,X.,X.",".XX,XXX","XX,XX","XX.,.X.,.XX","XX,.X,.X,.X","..X,XXX,.X.","XX,XX,.X","....X,XXXXX",".X,XX","..X,XXX,X..","XX.,.XX,..X,..X","X.,XX,X.,X."]}'
+mstr = mstr_39
 
 
 def modu_list_get(piec, row_len, col_len):
@@ -278,8 +280,9 @@ def slove():
 
 
 if __name__ == '__main__':
-    print checkGameOutNew('00000100100020220003011211')
-    exit(0)
+    #print checkGameOutNew('1212000023001101000000000003000000');
+    #print checkGameOutNew('00000100100020220003011211')
+    #exit(0)
 #    print 'aa'
 #    print slove()
     print 'main start'
