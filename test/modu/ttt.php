@@ -32,9 +32,11 @@ $string_37 = '{"level":37,"modu":"3","map":["200011","020020","220001","221002",
 $string_38 = '{"level":38,"modu":"2","map":["0100100","1010110","1100001","1111001","0000010","0100000","0001000"],"pieces":["X..X.,XXXXX,.XXX.,.XX..,.XX..","XXX.,..X.,..XX,..XX,..X.",".X,XX,X.",".XXX.,XXX..,..XXX,...X.","XXX,.X.,.X.,.X.","..X.,XXXX,..XX,.XXX,.XXX",".XX,XXX,.X.,.X.",".X.,.XX,XX.","X..,XXX","X.,X.,XX,X.",".X.,.X.,.X.,XXX,XXX",".X,XX,.X","X...,XXX.,.XXX",".X...,.XX..,XXXX.,.XX..,XXXXX",".XX,..X,XXX","X....,X....,XXXXX,...X."]}';
 //38 00001400210024000200034143221100
 $string_39 = '{"level":39,"modu":"3","map":["2202000","0010210","2021100","1212022","1110010","2122202","2011202","1222120"],"pieces":[".X,XX,X.","....X,.XXXX,.XXXX,XXXXX",".X....,.X....,XXX...,XXX...,..XXX.,..XXXX","XX,XX","XXXX,.X..,XX..,.XX.,.X..",".X,XX,XX","...X.,..XXX,XXXXX,X.XXX,X....","..X,XXX,.X.,.XX","X,X,X","XX..X,.XXXX,....X","...XX,..XXX,XXXXX,XXXXX",".X.X.,XXXXX,X....","XX,.X","..X.,XXXX","X..X.,XXXXX,..XXX,..XXX,...XX",".XX,.XX,XXX,.X.","XXX.,XXX.,X.XX,X..."]}';
+//39 2540105100011220022231225533311340
 $string_40 = '{"level":40,"modu":"2","map":["100110","101000","011100","110010","001000"],"pieces":["X,X,X,X",".X.,XXX",".X,XX,X.","XXXXX","XX,.X","XX,X.,X.",".XX,XXX","XX,XX","XX.,.X.,.XX","XX,.X,.X,.X","..X,XXX,.X.","XX,XX,.X","....X,XXXXX",".X,XX","..X,XXX,X..","XX.,.XX,..X,..X","X.,XX,X.,X."]}';
 //40 1212000023001101000000000003000000
-$string = $string_40;
+$string_41 = '{"level":41,"modu":"4","map":["23332132","20333112","23203012","11110213","21201010","32003220","00033030"],"pieces":[".X.X,XXXX,X..X,X...,X...","..XXX,X.XXX,XXXX.,XXX..",".XXX,XX..,X...,X...,X...","..X..,XXXXX,.XXXX,.XXXX,...XX","XXXX","XX,X.","X....,XXXXX,..XXX,..XXX","X....,XXXXX,X.XXX","XXX,XX.,XX.,.X.,XX.","....X,XX.XX,XXXXX,..X..,..X..","....X,...XX,XXXX.",".XXXX,XX...","X..,XXX,X..,X..,X..","XX,XX",".X...,XXXXX","....X,....X,XXXXX,....X","XXX,XX.,.X."]}';
+$string = $string_41;
 $array = json_decode($string,true);
 var_dump($array);
 $pieces = $array['pieces'];
