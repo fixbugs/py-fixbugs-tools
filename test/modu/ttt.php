@@ -272,7 +272,7 @@ function cal($piece_array,$t,$map){
 
 
 function calRsort($piece_array,$t,$map){
-    global $position_array,$row,$column;
+    global $position_array,$row,$column, $end_piece_pos;
     $positions = getMaxPosition($piece_array[$t],$row,$column);
     list($x,$y) = $positions;
     $lastMap = $map;
