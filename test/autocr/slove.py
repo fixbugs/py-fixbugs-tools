@@ -125,7 +125,7 @@ def startPosListGet(clearMap):
     return startPos
 
 def clearMap(x, y, nnmapInfo):
-    mapInfo = copy.deepcopu(nnmapInfo)
+    mapInfo = copy.deepcopy(nnmapInfo)
     resultString = ''
     nextStep = getProbablyNext(x, y, mapInfo['map'], mapInfo['x'], mapInfo['y'])
     if not nextStep:
@@ -135,7 +135,7 @@ def clearMap(x, y, nnmapInfo):
         for ns in nextStep:
             pass
     print x, y
-    print nnmap
+
 
 def main(mainInfo):
     mapMainInfo = copy.deepcopy(mainInfo)
