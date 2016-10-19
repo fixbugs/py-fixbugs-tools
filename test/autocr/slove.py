@@ -5,9 +5,13 @@
 import sys
 import time
 import copy
+import hashlib
+import json
 
 
 levelStr = 'level=13&x=7&y=8&map=00000000000000100000000000010001010000010000100100100001'
+
+endGameStr = ''
 
 
 def levelInfoGet(levelString):
@@ -94,11 +98,66 @@ def mapStepAdd(nowMap, way, startX, startY):
     result['endY'] = endY
     return result
 
+def getMd5(md5String):
+    return hashlib.md5(md5String).hexdigest()
+
+def getResultMd5(x, y):
+    endResult = list()
+    for i in xrange(0, y):
+        endResult.append([0]*x)
+    return endResult
+
+def resultEndMd5(x, y):
+    endMap = getResultMd5(x, y)
+    return getMd5(json.dumps(endMap))
+
+def getMapMd5(nmap):
+    return getMd5(json.dumps(nmap))
+
+def startPosListGet(clearMap):
+    maxRow = len(clearMap)
+    maxCol = len(clearMap[0])
+    startPos = list()
+    for x in xrange(0, maxRow):
+        for y in xrange(0, maxCol):
+            if not clearMap[x][y]:
+                startPos.append( (x, y) )
+    return startPos
+
+def clearMap(x, y, nnmapInfo):
+    mapInfo = copy.deepcopu(nnmapInfo)
+    resultString = ''
+    nextStep = getProbablyNext(x, y, mapInfo['map'], mapInfo['x'], mapInfo['y'])
+    if not nextStep:
+        #check end
+        pass
+    else:
+        for ns in nextStep:
+            pass
+    print x, y
+    print nnmap
+
+def main(mainInfo):
+    mapMainInfo = copy.deepcopy(mainInfo)
+    endGameStr = resultEndMd5(mapMainInfo['x'], mapMainInfo['y'])
+    startPositions = startPosListGet(mapMainInfo['map'])
+    for s in startPositions:
+        (tmpX, tmpY) = s
+        print clearMap(tmpX, tmpY, mapMainInfo)
+        break
+
 
 if __name__ == '__main__':
     mainInfo = levelInfoGet(levelStr)
+    print main(mainInfo)
+    print '-------------end game ----------'
+    exit(0)
+    endGameStr = resultEndMd5(mainInfo['x'], mainInfo['y'])
+    print startPosListGet(mainInfo['map'])
+    exit(0)
+    print endGameStr
     print getProbablyNext(5, 1, mainInfo['map'], mainInfo['x'], mainInfo['y'])
     nmap = mapStepAdd(mainInfo['map'], 'd', 5, 1)
-    print nmap
-    print nmap['map']
-    print getProbablyNext(nmap['endX'], nmap['endY'], nmap['map'], mainInfo['x'], mainInfo['y'])
+    #print nmap
+    #print nmap['map']
+    #print getProbablyNext(nmap['endX'], nmap['endY'], nmap['map'], mainInfo['x'], mainInfo['y'])
