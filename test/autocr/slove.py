@@ -98,8 +98,10 @@ def mapStepAdd(nowMap, way, startX, startY):
     result['endY'] = endY
     return result
 
+
 def getMd5(md5String):
     return hashlib.md5(md5String).hexdigest()
+
 
 def getResultMd5(x, y):
     endResult = list()
@@ -107,12 +109,15 @@ def getResultMd5(x, y):
         endResult.append([0]*x)
     return endResult
 
+
 def resultEndMd5(x, y):
     endMap = getResultMd5(x, y)
     return getMd5(json.dumps(endMap))
 
+
 def getMapMd5(nmap):
     return getMd5(json.dumps(nmap))
+
 
 def startPosListGet(clearMap):
     maxRow = len(clearMap)
@@ -124,15 +129,15 @@ def startPosListGet(clearMap):
                 startPos.append( (x, y) )
     return startPos
 
-def clearMap(x, y, nnmapInfo):
-    mapInfo = copy.deepcopy(nnmapInfo)
-    resultString = ''
-    nextStep = getProbablyNext(x, y, mapInfo['map'], mapInfo['x'], mapInfo['y'])
+
+def clearMap(x, y, cmap, maxX, maxY):
+    nextStep = getProbablyNext(x, y, cmap, maxX, maxY)
     if not nextStep:
         #check end
         pass
     else:
         for ns in nextStep:
+            print ns
             pass
     print x, y
 
@@ -143,7 +148,7 @@ def main(mainInfo):
     startPositions = startPosListGet(mapMainInfo['map'])
     for s in startPositions:
         (tmpX, tmpY) = s
-        print clearMap(tmpX, tmpY, mapMainInfo)
+        print clearMap(tmpX, tmpY, mapMainInfo['map'], mapMainInfo['x'], mapMainInfo['y'])
         break
 
 
