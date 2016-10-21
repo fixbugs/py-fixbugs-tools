@@ -16,8 +16,9 @@ mstr_12 = '{"level":12,"modu":"2","map":["1101","1011","0101","1111"],"pieces":[
 mstr_26 = '{"level":26,"modu":"4","map":["032200","100310","232330","210230","232333","213230"],"pieces":["XX,.X",".XX,XX.","..X.,..X.,.XXX,XXXX,X...","XXX.,..XX,..X.","..X..,..X..,.XX..,XXXXX,..XX.","...X,.XXX,XX..","XX..,.XXX,.XX.,.X..","XXX,XXX,.XX,XX.,.X.",".XX,..X,XXX,XX.,.X.","..XX.,.XXXX,.XX..,XX...",".X...,XXXXX,...XX,...XX",".XX,XX.,XX.,.X.,.X."]}'
 mstr_28 = '{"level":28,"modu":"2","map":["001110","001101","010100","011000","111000"],"pieces":["XXX,.X.,XX.,.X.","XX..,XX..,.XXX","XXXX,.X..","X..,X.X,XXX,X..",".X,XX,.X,.X","X....,XXXXX,.X...","X.,XX,X.","XXXX",".X.,XX.,.XX","XX.,XXX",".XXX,XX..","X,X,X,X","..X..,XXXXX"]}'
 mstr_37 = '{"level":37,"modu":"3","map":["200011","020020","220001","221002","021220"],"pieces":["XX,.X","XX.,.X.,.XX,..X,..X",".X,XX,XX,.X","XX.,.X.,.XX","..X.,XXXX,.X..,.X..","XX,XX",".X,XX,X.","XXX.,..XX","X..X,XXXX,X...",".X.,XXX,X..",".X.,XXX,.X.","X,X,X",".X,XX,X.","X..,XXX,X..,X..",".X.,XXX","..X,..X,.XX,XX."]}'
+mstr_sp = '{"level":"sppp","modu":"2","map":["10011010","11011100","01000111","11111011","10011110","01111110"],"pieces":["XX,XX","X.XX.,XXXXX,XXX.X,XXX..,X....","..X,..X,X.X,XXX","..XXX,.XXX.,XXX..,.XXX.",".X...,.X...,XX...,XXXXX,...X.","X...,XXXX,..X.",".X,.X,XX,X.","X.XXX,XXXX.,XXX..,XXX..,X....","X.X,XXX,X.X",".XX...,XXXXXX,XXXX..","..X..,.XX..,.XXX.,XXXXX,..X..","...X.,XXXX.,.XXX.,.XXXX,..XXX","XX..,X...,XXX.,XXXX,.XXX","X..,XXX,..X","XXXX"]}'
 #kuda 使用gpu并行计算，增广矩阵
-mstr = mstr_37
+mstr = mstr_sp
 
 
 def gameBaseMapChange(mapinfo):

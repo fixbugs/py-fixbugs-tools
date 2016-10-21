@@ -38,7 +38,8 @@ mstr_30 = '{"level":30,"modu":"2","map":["111000","000100","010101","110001","01
 mstr_28 = '{"level":28,"modu":"2","map":["001110","001101","010100","011000","111000"],"pieces":["XXX,.X.,XX.,.X.","XX..,XX..,.XXX","XXXX,.X..","X..,X.X,XXX,X..",".X,XX,.X,.X","X....,XXXXX,.X...","X.,XX,X.","XXXX",".X.,XX.,.XX","XX.,XXX",".XXX,XX..","X,X,X,X","..X..,XXXXX"]}'
 mstr_39 = '{"level":39,"modu":"3","map":["2202000","0010210","2021100","1212022","1110010","2122202","2011202","1222120"],"pieces":[".X,XX,X.","....X,.XXXX,.XXXX,XXXXX",".X....,.X....,XXX...,XXX...,..XXX.,..XXXX","XX,XX","XXXX,.X..,XX..,.XX.,.X..",".X,XX,XX","...X.,..XXX,XXXXX,X.XXX,X....","..X,XXX,.X.,.XX","X,X,X","XX..X,.XXXX,....X","...XX,..XXX,XXXXX,XXXXX",".X.X.,XXXXX,X....","XX,.X","..X.,XXXX","X..X.,XXXXX,..XXX,..XXX,...XX",".XX,.XX,XXX,.X.","XXX.,XXX.,X.XX,X..."]}'
 mstr_40 = '{"level":40,"modu":"2","map":["100110","101000","011100","110010","001000"],"pieces":["X,X,X,X",".X.,XXX",".X,XX,X.","XXXXX","XX,.X","XX,X.,X.",".XX,XXX","XX,XX","XX.,.X.,.XX","XX,.X,.X,.X","..X,XXX,.X.","XX,XX,.X","....X,XXXXX",".X,XX","..X,XXX,X..","XX.,.XX,..X,..X","X.,XX,X.,X."]}'
-mstr = mstr_39
+mstr_sp = '{"level":"sppp","modu":"2","map":["10011010","11011100","01000111","11111011","10011110","01111110"],"pieces":["XX,XX","X.XX.,XXXXX,XXX.X,XXX..,X....","..X,..X,X.X,XXX","..XXX,.XXX.,XXX..,.XXX.",".X...,.X...,XX...,XXXXX,...X.","X...,XXXX,..X.",".X,.X,XX,X.","X.XXX,XXXX.,XXX..,XXX..,X....","X.X,XXX,X.X",".XX...,XXXXXX,XXXX..","..X..,.XX..,.XXX.,XXXXX,..X..","...X.,XXXX.,.XXX.,.XXXX,..XXX","XX..,X...,XXX.,XXXX,.XXX","X..,XXX,..X","XXXX"]}'
+mstr = mstr_sp
 
 
 def modu_list_get(piec, row_len, col_len):
