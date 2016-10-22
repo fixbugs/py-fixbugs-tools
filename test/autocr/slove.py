@@ -56,10 +56,14 @@ def getProbablyNext(lastX, lastY, lastMap, x, y):
         result.append('d')
     return result
 
+MAXX = 7
+MAXY = 7
 
 def mapStepAdd(nowMap, way, startX, startY):
     maxX = len(nowMap)
     maxY = len(nowMap[0])
+    endX = 0
+    endY = 0
     if way == 'l':
         endX = startX
         for i in xrange(startY, -1, -1):
@@ -67,7 +71,11 @@ def mapStepAdd(nowMap, way, startX, startY):
                 nowMap[startX][i] = 1
                 endY = i
             else:
+                if i < MAXY - 1:
+                    nowMap[startX][i+1] = 0
                 break
+        if endY == 0:
+            nowMap[startX][0] = 0
     elif way == 'r':
         endX = startX
         for i in xrange(startY, maxY):
@@ -75,7 +83,10 @@ def mapStepAdd(nowMap, way, startX, startY):
                 nowMap[startX][i] = 1
                 endY = i
             else:
+                nowMap[startX][i-1] = 0
                 break
+        if endY == MAXY:
+            nowMap[startX][MAXY] = 0
     elif way == 'u':
         endY = startY
         for i in xrange(startX, -1, -1):
@@ -83,7 +94,11 @@ def mapStepAdd(nowMap, way, startX, startY):
                 nowMap[i][startY] = 1
                 endX = i
             else:
+                if i < MAXX - 1:
+                    nowMap[i+1][startY]= 0
                 break
+        if endX == 0:
+            nowMap[0][startY] = 0
     elif way == 'd':
         endY = startY
         for i in xrange(startX, maxX):
@@ -91,7 +106,10 @@ def mapStepAdd(nowMap, way, startX, startY):
                 nowMap[i][startY] = 1
                 endX = i
             else:
+                nowMap[i-1][startY] = 0
                 break
+        if endX == MAXX:
+            nowMap[MAXX][startY]= 0
     result = dict()
     result['map'] = nowMap
     result['endX'] = endX
@@ -106,7 +124,7 @@ def getMd5(md5String):
 def getResultMd5(x, y):
     endResult = list()
     for i in xrange(0, y):
-        endResult.append([0]*x)
+        endResult.append([1]*x)
     return endResult
 
 
@@ -117,6 +135,12 @@ def resultEndMd5(x, y):
 
 def getMapMd5(nmap):
     return getMd5(json.dumps(nmap))
+
+
+def mapPrint(lmap):
+    ml = len(lmap)
+    for i in xrange(0, ml):
+        print ''.join( str(lmap[i]) )
 
 
 def startPosListGet(clearMap):
@@ -130,16 +154,35 @@ def startPosListGet(clearMap):
     return startPos
 
 
-def clearMap(x, y, cmap, maxX, maxY):
+def clearMap(x, y, cmap, maxX, maxY, lastResult=list()):
+    # print "==================="
+    # mapPrint(cmap)
+    # print "==================="
     nextStep = getProbablyNext(x, y, cmap, maxX, maxY)
     if not nextStep:
         #check end
+        print '============!!!!!!!!!!!!+===================='
+        if getMapMd5(cmap) == resultEndMd5(maxX, maxY):
+            print lastResult
+            print '==========get result==============='
+            exit(0)
+        print '-----end----------'
+        #end priint lastResult
         pass
     else:
+        lastMap = copy.deepcopy(cmap)
+        if len(lastResult) == 0:
+            if len(nextStep)==2 or len(nextStep) == 4:
+                if 'l' in nextStep and 'r' in nextStep:
+                    return 3333
+                if 'd' in nextStep and 'u' in nextStep:
+                    return 3333
         for ns in nextStep:
-            print ns
-            pass
-    print x, y
+            newMapInfo = mapStepAdd(lastMap, ns, x, y)
+            tmp = copy.deepcopy(lastResult)
+            tmp.append(ns)
+            clearMap(newMapInfo['endX'], newMapInfo['endY'], newMapInfo['map'], maxX, maxY, tmp)
+        return 1
 
 
 def main(mainInfo):
@@ -147,13 +190,15 @@ def main(mainInfo):
     endGameStr = resultEndMd5(mapMainInfo['x'], mapMainInfo['y'])
     startPositions = startPosListGet(mapMainInfo['map'])
     for s in startPositions:
+        print s
         (tmpX, tmpY) = s
         print clearMap(tmpX, tmpY, mapMainInfo['map'], mapMainInfo['x'], mapMainInfo['y'])
-        break
+
 
 
 if __name__ == '__main__':
     mainInfo = levelInfoGet(levelStr)
+    print mainInfo
     print main(mainInfo)
     print '-------------end game ----------'
     exit(0)
