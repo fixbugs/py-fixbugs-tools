@@ -37,6 +37,7 @@ def gameBaseInfoDecode(ginfo):
     m_pieces = ginfo['pieces']
     #m_pieces_change = list()
     piece_array = list()
+    print m_pieces
     for piec in m_pieces:
         tmp_list = piec.split(',')
         t = list()
@@ -79,7 +80,7 @@ def addToMap(nmap, position, piece, row, column, modu):
 def addMaps(nmap, postions, piece_array, row, column, modu):
     tmp = copy.deepcopy(nmap)
     for i in xrange(len(postions)):
-        print i, '--------------'
+        print '--------------'
         print postions[i]
         print piece_array[i]
         tmp = addToMap(tmp, postions[i], piece_array[i], row, column, modu)
@@ -166,7 +167,7 @@ def checkEndResult(sloveString):
 if __name__ == '__main__':
     #checkEndResult('00000100100020220003011211')
     #checkEndResult('10020311002202043022022005000300')
-    checkEndResult('34031110003401122202020305003101')
+    checkEndResult('201010200001200004010200131523')
     #checkEndResult('13010421000111233121220305000002')
     exit(0)
     #st_time = time.clock()
