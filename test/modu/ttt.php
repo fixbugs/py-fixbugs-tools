@@ -42,7 +42,11 @@ $string_42 = '{"level":42,"modu":"2","map":["10011010","11011100","01110111","11
 $string_sp_42 = '{"level":"sppp","modu":"2","map":["10011010","11011100","01000111","11111011","10011110","01111110"],"pieces":["XX,XX","X.XX.,XXXXX,XXX.X,XXX..,X....","..X,..X,X.X,XXX","..XXX,.XXX.,XXX..,.XXX.",".X...,.X...,XX...,XXXXX,...X.","X...,XXXX,..X.",".X,.X,XX,X.","X.XXX,XXXX.,XXX..,XXX..,X....","X.X,XXX,X.X",".XX...,XXXXXX,XXXX..","..X..,.XX..,.XXX.,XXXXX,..X..","...X.,XXXX.,.XXX.,.XXXX,..XXX","XX..,X...,XXX.,XXXX,.XXX","X..,XXX,..X","XXXX"]}';
 //201010200001200004010200131523
 $string_43 = '{"level":43,"modu":"3","map":["000220","212222","010100","112212","110022","022122"],"pieces":[".XXX,XX..,.X..","..XX,XXX.,.XX.","XXXX,.X..,.X..","XXX,X.X,X..","X.,X.,XX,X.",".X,XX","XXX,X..,X..","XXXX,.XX.,.X..","X..,XXX,XX.,.X.",".X,XX",".XX,.X.,.X.,XX.,X..","X.X..,XXXXX","X.,X.,X.,XX",".X...,XXXXX,X....","..X,XXX,.X.,.X.","XX.,XXX,X..","XX..,.XXX,XX..","XXX"]}';
-$string = $string_43;
+//43 100112302040001100011221120000330053
+$string_44 = '{"level":44,"modu":"2","map":["00110100","10110010","10101110","10110000","10110100","00110000","10101000","10001000"],"pieces":["..X..,.XXX.,XXXXX,XXXXX,X.XX.",".X.X.,XXXX.,.XXXX,XXXX.,X.XX.","XX...,.XX..,.XXX.,..XXX,....X",".X,.X,XX","X.XX,XXX.,XXXX,XXX.",".XXX.,.X.XX,.XXX.,XXXX.,XXX..","XXX,.X.","X.,XX,.X",".XXX.,XXX..,XXXXX,.X..X","XX...,.XXXX,.X..X",".X.,XXX,.X.","..X,XXX,X..","X.X.,XXX.,X.XX","X...,XXXX,.XX.","X..,X..,XX.,XXX,.XX,..X","X...X,XXXXX,..XXX,..XX.","....X,..XXX,..X..,XXX..,.XX..","XX...,XXXXX,XXXX.,..X..,..XX."]}';
+//44 000000201300000102405350424100110000
+$string_45 = '{"level":45,"modu":"3","map":["00222202","01102001","02010000","21022101","22102001","02102000","21200210","22000110","21102000","00222200"],"pieces":["...X,...X,X..X,XXXX,XX.X",".XX.,XXXX,..X.,..XX,..X.","...X.,XXXXX,XX..X,....X",".XXX,.XXX,.XX.,.X..,XX..","....X,...XX,XXXXX,XXXX.,XXXX.",".XXX.,XXXXX,XXXX.,..XXX","XX.,.X.,.XX","..X.,.XXX,XXXX,X.XX,..X.",".XXX,XX.X,...X","XX...,XXXXX,XXXXX,XXXX.,...X.","...XX,XXXXX,XXXX.,.XXX.,..X..",".X.X.,.XXX.,XXXXX,XXXXX,..X..","XX...,.X...,XXX..,.XXXX","...X,..XX,XXXX,.X..",".X..,XX..,.XX.,XXXX,XX..",".X..,XXXX,X.XX,XXX.,XX..","...XX,XXXXX,..XX.,..XX.",".X...,XXXX.,XXXXX,.XXXX,...XX","XXX..,.X...,XXX..,.XXXX,.X..."]}';
+$string = $string_45;
 $array = json_decode($string,true);
 var_dump($array);
 $pieces = $array['pieces'];
