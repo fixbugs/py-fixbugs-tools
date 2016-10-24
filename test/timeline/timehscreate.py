@@ -35,7 +35,7 @@ if sys.version_info[0] == 3:
 
 random.seed(10)
 limit = 10000000
-#limit = 1000
+limit = 1000
 vertex_list = numpy.ndarray(limit + 1)
 vertex_list = map(lambda ele: [], vertex_list)
 
@@ -66,6 +66,18 @@ def notify_message(vertex_index, message_str):
         times_count += 1
         notified_vertex_index = times_count * vertex_index
 
+###test
+# notify_message(2, 'hello')
+# notify_message(2, 'iloveyou')
+# notify_message(2, 'heyjuice')
+# verbose_time_line(10)
+# notify_message(2, 'yoyoyo')
+# notify_message(5, 'checknow')
+# verbose_time_line(10)
+# verbose_time_line(6)
+# print global_digest_list
+# exit(0)
+###test
 
 for i in range(limit):
     r = random.randint(1, limit)
