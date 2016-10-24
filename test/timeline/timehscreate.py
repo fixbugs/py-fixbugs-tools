@@ -8,23 +8,24 @@ import numpy
 import string
 
 
-# def getFileContent(file_path):
-#     import os
-#     if not os.path.exists(file_path):
-#         return False
-#     result = []
-#     try:
-#         f = open(file_path, 'r')
-#         result = f.readlines()
-#     finally:
-#         f.close()
-#     return result
+def getFileContent(file_path):
+    import os
+    if not os.path.exists(file_path):
+        return False
+    result = []
+    try:
+        f = open(file_path, 'r')
+        result = f.readlines()
+    finally:
+        f.close()
+    return result
 
-# cont = getFileContent('time_line_res.txt')
-# print len(cont)
-# for t in cont:
-#     print hashlib.md5(t).hexdigest()
-# exit(0)
+cont = getFileContent('time_line_res.txt')
+print len(cont)
+for t in cont:
+    tm = t[1:]
+    print hashlib.md5(tm).hexdigest()
+exit(0)
 
 global_digest_list = list()
 if sys.version_info[0] == 3:
@@ -35,7 +36,7 @@ if sys.version_info[0] == 3:
 
 random.seed(10)
 limit = 10000000
-limit = 1000
+#limit = 1000
 vertex_list = numpy.ndarray(limit + 1)
 vertex_list = map(lambda ele: [], vertex_list)
 
