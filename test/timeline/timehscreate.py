@@ -6,6 +6,7 @@ import sys
 import hashlib
 import numpy
 import string
+import math
 
 
 # def getFileContent(file_path):
@@ -34,11 +35,31 @@ if sys.version_info[0] == 3:
     print ("But this script needs to be executed with Python2.X\n")
     exit()
 
+
+def isPrime(n):
+    return not [i for i in range(2, int(math.sqrt(n)) + 1) if n%i == 0]
+
+
+def primesqrt(n):
+    result = list()
+    result.append(2)
+    result.append(3)
+    for i in xrange(5, n+1, 2):
+        for j in xrange(2, int(math.sqrt(i))+2):
+        #for j in range(2,(i>>4)+1):
+            if i % j == 0:
+                break
+        else:
+            result.append(i)
+    return result
+
 random.seed(10)
 limit = 10000000
-#limit = 1000
 vertex_list = numpy.ndarray(limit + 1)
 vertex_list = map(lambda ele: [], vertex_list)
+
+prime_list = primesqrt(limit)
+print len(prime_list)
 
 
 def compute_md5(str_list):
@@ -60,6 +81,8 @@ def verbose_time_line(vertex_index):
 
 
 def notify_message(vertex_index, message_str):
+    #first add letter num into vertex_list
+    #then exec next code
     times_count = 2
     notified_vertex_index = times_count * vertex_index
     while notified_vertex_index < limit + 1:
