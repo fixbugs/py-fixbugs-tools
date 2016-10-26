@@ -59,7 +59,11 @@ vertex_list = numpy.ndarray(limit + 1)
 vertex_list = map(lambda ele: [], vertex_list)
 
 prime_list = primesqrt(limit)
+prime_dict = dict()
+for p in prime_list:
+    prime_dict[p] = p
 print len(prime_list)
+print len(prime_dict)
 
 
 def compute_md5(str_list):
@@ -83,6 +87,9 @@ def verbose_time_line(vertex_index):
 def notify_message(vertex_index, message_str):
     #first add letter num into vertex_list
     #then exec next code
+    if vertex_index in prime_dict:
+        for i in xrange(0, vertex_index):
+            vertex_list[i].append(message_str)
     times_count = 2
     notified_vertex_index = times_count * vertex_index
     while notified_vertex_index < limit + 1:
