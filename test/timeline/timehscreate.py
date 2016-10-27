@@ -62,7 +62,6 @@ prime_list = primesqrt(limit)
 prime_dict = dict()
 for p in prime_list:
     prime_dict[p] = p
-print len(prime_list)
 prime_list = None
 print len(prime_dict)
 
