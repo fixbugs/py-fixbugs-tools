@@ -22,11 +22,11 @@ $removeArray = array(
     'XX...,.X...,XXX..,.XXXX' => '6,1',
     '....X,...XX,XXXXX,XXXX.,XXXX.' => '4,0',
     '.X...,XXXX.,XXXXX,.XXXX,...XX' => '4,0',
-    '.XXX.,XXXXX,XXXX.,..XXX' => '4,2',
-    '...X,...X,X..X,XXXX,XX.X' => '3,3',
-    '.XX.,XXXX,..X.,..XX,..X.' => '3,3',
-    '...X,..XX,XXXX,.X..' => '4,0',
-    'XXX..,.X...,XXX..,.XXXX,.X...' => '3,0',
+    // '.XXX.,XXXXX,XXXX.,..XXX' => '4,2',
+    // '...X,...X,X..X,XXXX,XX.X' => '3,3',
+    // '.XX.,XXXX,..X.,..XX,..X.' => '3,3',
+    // '...X,..XX,XXXX,.X..' => '4,0',
+    // 'XXX..,.X...,XXX..,.XXXX,.X...' => '3,0',
 );
 $newMap = $map;
 $spPieces = array();
