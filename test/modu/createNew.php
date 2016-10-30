@@ -22,6 +22,10 @@ $removeArray = array(
     'XX...,.X...,XXX..,.XXXX' => '6,1',
     '....X,...XX,XXXXX,XXXX.,XXXX.' => '4,0',
     '.X...,XXXX.,XXXXX,.XXXX,...XX' => '4,0',
+    '...X,...X,X..X,XXXX,XX.X' => '0,4',
+    //may cannot
+    'XX...,XXXXX,XXXXX,XXXX.,...X.' => '0,2',
+    '...XX,XXXXX,XXXX.,.XXX.,..X..' => '0,1',
 );
 $newMap = $map;
 $spPieces = array();
@@ -41,6 +45,9 @@ $newMap = addToMap($newMap, $v, $pieceT, $row, $column);
 $mapLen = count($newMap);
 $lastL = 0;
 for($i=$mapLen-1; $i>-1;$i --){
+    if($i<3){
+        continue;
+    }
     if ($newMap[$i]==0){
         $lastL += 1;
     }else{
