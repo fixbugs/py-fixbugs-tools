@@ -26,6 +26,10 @@ $removeArray = array(
     //may cannot
     'XX...,XXXXX,XXXXX,XXXX.,...X.' => '0,2',
     '...XX,XXXXX,XXXX.,.XXX.,..X..' => '0,1',
+    //    '.XXX,XX.X,...X' => '0,1',
+    //    '.XX.,XXXX,..X.,..XX,..X.' => '3,3',
+    //3'...X,..XX,XXXX,.X..' => '4,0',
+    //'XXX..,.X...,XXX..,.XXXX,.X...' => '3,0',
 );
 $newMap = $map;
 $spPieces = array();
