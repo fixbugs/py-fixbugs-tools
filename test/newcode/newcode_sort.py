@@ -1,6 +1,26 @@
 #!/usr/bin/env python
 #coding=utf8
 
+def sub_sort(array,low,high):
+    key = array[low]
+    while low < high:
+        while low < high and array[high].id >= key.id:
+            high -= 1
+        while low < high and array[high].id < key.id:
+            array[low] = array[high]
+            low += 1
+            array[high] = array[low]
+    array[low] = key
+    return low
+
+
+def quick_sort(array,low,high):
+     if low < high:
+        key_index = sub_sort(array,low,high)
+        quick_sort(array, low, key_index)
+        quick_sort(array, key_index+1, high)
+
+
 def compare(a, b):
     if a>b:
         return False
@@ -28,6 +48,22 @@ def merge(left,right):
     result+=right[j:]
     return result
 
+
+class Answer:
+    def solve(self, items):
+        size = len(items)
+#        quick_sort(items,0,size-1)
+#        return items
+        newl = [0]*(size*5)
+        for i in xrange(0, size):
+            newl[int(items[i].id)] = items[i]
+        res = list()
+        for n in newl:
+            if n != 0:
+                res.append(n)
+        return res
+        #return mergesort(items)
+
 class Item:
     def __init__(self, id, position):
         self.id = id
@@ -43,15 +79,9 @@ if __name__ == '__main__':
     ll.append(a)
     ll.append(b)
     ll.append(c)
-    size = len(ll)
-    newl = [0]*(size*10+1)
-    for i in range(size):
-        newl[int(ll[i].id)] = ll[i]
-        res = list()
-        for n in newl:
-            if n != 0 :
-                res.append(n)
-    print ll
-    print res
+    ans = Answer()
+    print len(ll)
+    print "=======end==========="
+    print ans.solve(ll)
     # print "================"
     # print mergesort(ll)
