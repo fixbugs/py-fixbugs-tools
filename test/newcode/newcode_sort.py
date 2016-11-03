@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 #coding=utf8
 
+import sys
+sys.setrecursionlimit(1000000)
+
 def sub_sort(array,low,high):
     key = array[low]
     while low < high:
-        while low < high and array[high].id >= key.id:
+        tmp_com_ret = compare(array[high].id, key.id)
+        while low < high and not tmp_com_ret:
             high -= 1
-        while low < high and array[high].id < key.id:
+        while low < high and tmp_com_ret:
             array[low] = array[high]
             low += 1
             array[high] = array[low]
@@ -48,12 +52,26 @@ def merge(left,right):
     result+=right[j:]
     return result
 
+def countingSort(alist,k):
+    n=len(alist)
+    b=[0 for i in xrange(n)]
+    c=[0 for i in xrange(k+1)]
+    for i in alist:
+        c[i.id]+=1
+    len_c = len(c)
+    for i in xrange(1,len_c):
+        c[i] = c[i-1] + c[i]
+#        c[i]=c[i-1]+c[i]
+    for i in alist:
+        b[c[i.id]-1]= i
+#       b[c[i]-1]=i
+        c[i.id] -= 1
+    return b
 
 class Answer:
     def solve(self, items):
         size = len(items)
-#        quick_sort(items,0,size-1)
-#        return items
+        return countingSort(items,1000)
         newl = [0]*(size*5)
         for i in xrange(0, size):
             newl[int(items[i].id)] = items[i]
@@ -71,7 +89,7 @@ class Item:
 
 if __name__ == '__main__':
     ll = []
-    for i in xrange(5,10000):
+    for i in xrange(11,100):
         ll.append(Item(i,i))
     a = Item(10,2)
     b = Item(2,3)
