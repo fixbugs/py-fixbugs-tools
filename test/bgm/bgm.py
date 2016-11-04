@@ -27,9 +27,13 @@ def getdata(url, data):
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4'
     }
-    req = urllib2.Request(url=url, headers=headers)
-    soc = urllib2.urlopen(req, post_data)
+    print url
+    req = urllib2.Request(url=url, data=post_data)
+    print "=========="
+    soc = urllib2.urlopen(req)
+    print "============="
     con = soc.read()
+    print con
     soc.close()
     return simplejson.loads(con)
 
