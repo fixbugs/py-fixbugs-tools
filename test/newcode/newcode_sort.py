@@ -19,9 +19,9 @@ def sub_sort(array, low, high):
     return low
 
 
-def quick_sort(array,low,high):
-     if low < high:
-        key_index = sub_sort(array,low,high)
+def quick_sort(array, low, high):
+    if low < high:
+        key_index = sub_sort(array, low, high)
         quick_sort(array, low, key_index)
         quick_sort(array, key_index+1, high)
 
@@ -33,12 +33,12 @@ def compare(a, b):
 
 
 def mergesort(seq):
-      if len(seq) <= 1:
-          return seq
-      mid = int(len(seq)/2)
-      left = mergesort(seq[:mid])
-      right = mergesort(seq[mid:])
-      return merge(left, right)
+    if len(seq) <= 1:
+        return seq
+    mid = int(len(seq)/2)
+    left = mergesort(seq[:mid])
+    right = mergesort(seq[mid:])
+    return merge(left, right)
 
 
 def merge(left, right):
@@ -56,18 +56,18 @@ def merge(left, right):
     return result
 
 
-def countingSort(alist,k):
-    n=len(alist)
-    b=[0 for i in xrange(n)]
-    c=[0 for i in xrange(k+1)]
+def countingSort(alist, k):
+    n = len(alist)
+    b = [0 for i in xrange(n)]
+    c = [0 for i in xrange(k+1)]
     for i in alist:
-        c[i.id]+=1
+        c[i.id] += 1
     len_c = len(c)
-    for i in xrange(1,len_c):
+    for i in xrange(1, len_c):
         c[i] = c[i-1] + c[i]
 #        c[i]=c[i-1]+c[i]
     for i in alist:
-        b[c[i.id]-1]= i
+        b[c[i.id]-1] = i
 #       b[c[i]-1]=i
         c[i.id] -= 1
     return b
