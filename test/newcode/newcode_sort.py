@@ -4,7 +4,8 @@
 import sys
 sys.setrecursionlimit(1000000)
 
-def sub_sort(array,low,high):
+
+def sub_sort(array, low, high):
     key = array[low]
     while low < high:
         tmp_com_ret = compare(array[high].id, key.id)
@@ -26,31 +27,34 @@ def quick_sort(array,low,high):
 
 
 def compare(a, b):
-    if a>b:
+    if a > b:
         return False
     return True
 
+
 def mergesort(seq):
-      if len(seq)<=1:
+      if len(seq) <= 1:
           return seq
       mid = int(len(seq)/2)
       left = mergesort(seq[:mid])
       right = mergesort(seq[mid:])
-      return merge(left,right)
+      return merge(left, right)
 
-def merge(left,right):
-    result=[]
-    i,j=0,0
-    while i<len(left) and j<len(right):
+
+def merge(left, right):
+    result = []
+    i, j = 0, 0
+    while i < len(left) and j < len(right):
         if compare(left[i].id, right[j].id):
             result.append(left[i])
-            i+=1
+            i += 1
         else:
             result.append(right[j])
-            j+=1
-    result+=left[i:]
-    result+=right[j:]
+            j += 1
+    result += left[i:]
+    result += right[j:]
     return result
+
 
 def countingSort(alist,k):
     n=len(alist)
@@ -68,10 +72,11 @@ def countingSort(alist,k):
         c[i.id] -= 1
     return b
 
+
 class Answer:
     def solve(self, items):
         size = len(items)
-        return countingSort(items,1000)
+        return countingSort(items, 1000)
         newl = [0]*(size*5)
         for i in xrange(0, size):
             newl[int(items[i].id)] = items[i]
@@ -82,6 +87,7 @@ class Answer:
         return res
         #return mergesort(items)
 
+
 class Item:
     def __init__(self, id, position):
         self.id = id
@@ -89,11 +95,11 @@ class Item:
 
 if __name__ == '__main__':
     ll = []
-    for i in xrange(11,100):
-        ll.append(Item(i,i))
-    a = Item(10,2)
-    b = Item(2,3)
-    c = Item(5,7)
+    for i in xrange(11, 100):
+        ll.append(Item(i, i))
+    a = Item(10, 2)
+    b = Item(2, 3)
+    c = Item(5, 7)
     ll.append(a)
     ll.append(b)
     ll.append(c)
