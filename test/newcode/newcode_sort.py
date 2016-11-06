@@ -75,17 +75,8 @@ def countingSort(alist, k):
 
 class Answer:
     def solve(self, items):
-        size = len(items)
+#        size = len(items)
         return countingSort(items, 1000)
-        newl = [0]*(size*5)
-        for i in xrange(0, size):
-            newl[int(items[i].id)] = items[i]
-        res = list()
-        for n in newl:
-            if n != 0:
-                res.append(n)
-        return res
-        #return mergesort(items)
 
 
 class Item:
