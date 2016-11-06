@@ -73,11 +73,53 @@ def countingSort(alist, k):
     return b
 
 
-class Answer:
+class Answer():
     def solve(self, items):
-#        size = len(items)
-        return countingSort(items, 1000)
+        return self.spsort(items, 1000)
 
+    def spsort(self, items, buckCount):
+        buckList = list()
+        for i in xrange(0, buckCount):
+            tmp = list()
+            buckList.append(tmp)
+        total = 1000000
+        perCount = total/buckCount
+        for i in items:
+            bnum = int(i.id/perCount)
+            buckList[bnum].append(i)
+        res = list()
+        for b in buckList:
+            if not b:
+                continue
+            res.extend(self.mergesort(b))
+        return res
+
+    def mergesort(self, seq):
+        if len(seq) <= 1:
+            return seq
+        mid = int(len(seq)/2)
+        left = self.mergesort(seq[:mid])
+        right = self.mergesort(seq[mid:])
+        return self.merge(left, right)
+
+    def merge(self, left, right):
+        result = []
+        i, j = 0, 0
+        while i < len(left) and j < len(right):
+            if self.compare(left[i].id, right[j].id):
+                result.append(left[i])
+                i += 1
+            else:
+                result.append(right[j])
+                j += 1
+        result += left[i:]
+        result += right[j:]
+        return result
+
+    def compare(self, a, b):
+        if a > b:
+            return False
+        return True
 
 class Item:
     def __init__(self, id, position):
@@ -97,6 +139,7 @@ if __name__ == '__main__':
     ans = Answer()
     print len(ll)
     print "=======end==========="
-    print ans.solve(ll)
+    for a in ans.solve(ll):
+        print a.id
     # print "================"
     # print mergesort(ll)
