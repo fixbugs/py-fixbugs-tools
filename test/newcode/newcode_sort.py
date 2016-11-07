@@ -121,6 +121,7 @@ class Answer():
             return False
         return True
 
+
 class Item:
     def __init__(self, id, position):
         self.id = id
