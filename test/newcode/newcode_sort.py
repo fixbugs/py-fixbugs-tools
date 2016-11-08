@@ -5,30 +5,47 @@ import sys
 sys.setrecursionlimit(1000000)
 
 
-def sub_sort(array, low, high):
-    key = array[low]
-    while low < high:
-        tmp_com_ret = compare(array[high].id, key.id)
-#        tmp_com_ret = True if array[high]>=key else False
-#        tmp_com_ret = compare(array[high], key)
-        while low < high and tmp_com_ret:
-            high -= 1
-        tmp_com_ret = compare(array[high].id, key.id)
-#        tmp_com_ret = False if array[high]<key else True
-#        tmp_com_ret = compare(array[high], key)
-        while low < high and not tmp_com_ret:
-            array[low] = array[high]
-            low += 1
-            array[high] = array[low]
-    array[low] = key
-    return low
+# def sub_sort(array, low, high):
+#     key = array[low]
+#     while low < high:
+#         tmp_com_ret = compare(array[high].id, key.id)
+#         while low < high and tmp_com_ret:
+#             high -= 1
+#         tmp_com_ret = compare(array[high].id, key.id)
+#         while low < high and not tmp_com_ret:
+#             array[low] = array[high]
+#             low += 1
+#             array[high] = array[low]
+#     array[low] = key
+#     return low
 
 
-def quick_sort(array, low, high):
-    if low < high:
-        key_index = sub_sort(array, low, high)
-        quick_sort(array, low, key_index)
-        quick_sort(array, key_index+1, high)
+# def quick_sort(array, low, high):
+#     if low < high:
+#         key_index = sub_sort(array, low, high)
+#         quick_sort(array, low, key_index)
+#         quick_sort(array, key_index+1, high)
+
+def quick_sort(lists, left, right):
+    # 快速排序
+    if left >= right:
+        return lists
+    key = lists[left]
+    low = left
+    high = right
+    while left < right:
+        tmp_com_ret = compare(lists[high].id, key.id)
+        while left < right and not tmp_com_ret:
+            right -= 1
+        lists[left] = lists[right]
+        tmp_com_ret = compare(lists[high].id, key.id)
+        while left < right and tmp_com_ret:
+            left += 1
+        lists[right] = lists[left]
+    lists[right] = key
+    quick_sort(lists, low, left - 1)
+    quick_sort(lists, left + 1, high)
+    return lists
 
 
 def compare(a, b):
@@ -80,7 +97,27 @@ def countingSort(alist, k):
 
 class Answer():
     def solve(self, items):
-        return self.spsort(items, 10)
+        return self.spsort(items, 100)
+
+    def shellSort(self, seq):
+        count = len(seq)
+        step = 2
+        group = count/step
+        while group >0:
+            for i in range(0, group):
+                j = i + group
+                while j < count:
+                    k = j - group
+                    key = seq[j]
+                    while k >= 0:
+                        if not self.compare(seq[k].id, key.id):
+#                        if seq[k].id > key.id:
+                            seq[k + group] = seq[k]
+                            seq[k] = key
+                        k -= group
+                    j += group
+            group /= step
+        return seq
 
     def spsort(self, items, buckCount):
         buckList = list()
@@ -96,8 +133,7 @@ class Answer():
         for b in buckList:
             if not b:
                 continue
-            self.quick_sort(b, 0, len(b)-1)
-            res.extend(b[::-1])
+            res.extend(self.shellSort(b))
         return res
 
     def sub_sort(self, array, low, high):
@@ -168,15 +204,17 @@ if __name__ == '__main__':
     a = Item(10, 2)
     b = Item(2, 3)
     c = Item(5, 7)
+    d = Item(1,33)
     ll.append(a)
     ll.append(b)
     ll.append(c)
-#    quick_sort(ll, 0, len(ll)-1)
-#    for nl in ll:
-#        print nl.id
-#    exit(0)
+    ll.append(d)
+    quick_sort(ll, 0, len(ll)-1)
+    for nl in ll:
+        print nl.id
+    exit(0)
     ans = Answer()
-    print len(ll)
+ #   print ans.shellSort(ll)
     print "=======end==========="
     for a in ans.solve(ll):
         print a.id
