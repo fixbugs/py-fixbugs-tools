@@ -9,9 +9,14 @@ def sub_sort(array, low, high):
     key = array[low]
     while low < high:
         tmp_com_ret = compare(array[high].id, key.id)
-        while low < high and not tmp_com_ret:
-            high -= 1
+#        tmp_com_ret = True if array[high]>=key else False
+#        tmp_com_ret = compare(array[high], key)
         while low < high and tmp_com_ret:
+            high -= 1
+        tmp_com_ret = compare(array[high].id, key.id)
+#        tmp_com_ret = False if array[high]<key else True
+#        tmp_com_ret = compare(array[high], key)
+        while low < high and not tmp_com_ret:
             array[low] = array[high]
             low += 1
             array[high] = array[low]
@@ -75,7 +80,7 @@ def countingSort(alist, k):
 
 class Answer():
     def solve(self, items):
-        return self.spsort(items, 1000)
+        return self.spsort(items, 10)
 
     def spsort(self, items, buckCount):
         buckList = list()
@@ -91,8 +96,33 @@ class Answer():
         for b in buckList:
             if not b:
                 continue
-            res.extend(self.mergesort(b))
+            self.quick_sort(b, 0, len(b)-1)
+            res.extend(b[::-1])
         return res
+
+    def sub_sort(self, array, low, high):
+        key = array[low]
+        while low < high:
+            tmp_com_ret = self.compare(array[high].id, key.id)
+#        tmp_com_ret = True if array[high]>=key else False
+#        tmp_com_ret = compare(array[high], key)
+            while low < high and tmp_com_ret:
+                high -= 1
+            tmp_com_ret = self.compare(array[high].id, key.id)
+#        tmp_com_ret = False if array[high]<key else True
+#        tmp_com_ret = compare(array[high], key)
+            while low < high and not tmp_com_ret:
+                array[low] = array[high]
+                low += 1
+                array[high] = array[low]
+            array[low] = key
+        return low
+
+    def quick_sort(self, array, low, high):
+        if low < high:
+            key_index = self.sub_sort(array, low, high)
+            self.quick_sort(array, low, key_index)
+            self.quick_sort(array, key_index+1, high)
 
     def mergesort(self, seq):
         if len(seq) <= 1:
@@ -128,15 +158,23 @@ class Item:
         self.position = position
 
 if __name__ == '__main__':
+    # tt = [45,3,44,2,99]
+    # quick_sort(tt, 0, len(tt)-1)
+    # print tt[::-1]
+    # exit(0)
     ll = []
-    for i in xrange(11, 100):
-        ll.append(Item(i, i))
+#    for i in xrange(11, 100):
+#        ll.append(Item(i, i))
     a = Item(10, 2)
     b = Item(2, 3)
     c = Item(5, 7)
     ll.append(a)
     ll.append(b)
     ll.append(c)
+#    quick_sort(ll, 0, len(ll)-1)
+#    for nl in ll:
+#        print nl.id
+#    exit(0)
     ans = Answer()
     print len(ll)
     print "=======end==========="
