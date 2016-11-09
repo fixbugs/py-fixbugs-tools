@@ -103,7 +103,7 @@ class Answer():
         count = len(seq)
         step = 2
         group = count/step
-        while group >0:
+        while group > 0:
             for i in range(0, group):
                 j = i + group
                 while j < count:
@@ -135,30 +135,6 @@ class Answer():
                 continue
             res.extend(self.shellSort(b))
         return res
-
-    def sub_sort(self, array, low, high):
-        key = array[low]
-        while low < high:
-            tmp_com_ret = self.compare(array[high].id, key.id)
-#        tmp_com_ret = True if array[high]>=key else False
-#        tmp_com_ret = compare(array[high], key)
-            while low < high and tmp_com_ret:
-                high -= 1
-            tmp_com_ret = self.compare(array[high].id, key.id)
-#        tmp_com_ret = False if array[high]<key else True
-#        tmp_com_ret = compare(array[high], key)
-            while low < high and not tmp_com_ret:
-                array[low] = array[high]
-                low += 1
-                array[high] = array[low]
-            array[low] = key
-        return low
-
-    def quick_sort(self, array, low, high):
-        if low < high:
-            key_index = self.sub_sort(array, low, high)
-            self.quick_sort(array, low, key_index)
-            self.quick_sort(array, key_index+1, high)
 
     def mergesort(self, seq):
         if len(seq) <= 1:
