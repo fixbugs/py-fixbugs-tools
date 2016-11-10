@@ -26,6 +26,30 @@ sys.setrecursionlimit(1000000)
 #         quick_sort(array, low, key_index)
 #         quick_sort(array, key_index+1, high)
 
+def fixDown(a, k, n):  # 自顶向下堆化，从k开始堆化
+    N = n - 1
+    while 2 * k <= N:
+        j = 2*k
+        if j < N and a[j] < a[j+1]:  # 选出左右孩子节点中更大的那个
+            j += 1
+        if a[k] < a[j]:
+            a[k], a[j] = a[j], a[k]
+            k = j
+        else:
+            break
+
+
+def heapSort(l):
+    n = len(l)-1
+    for i in range(n//2, 0, -1):
+        fixDown(l, i, len(l))
+    while n > 1:
+        l[1], l[n] = l[n], l[1]
+        fixDown(l, 1, n)
+        n -= 1
+    return l[1:
+
+
 def quick_sort(lists, left, right):
     # 快速排序
     if left >= right:
