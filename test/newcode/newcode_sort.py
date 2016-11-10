@@ -180,7 +180,7 @@ if __name__ == '__main__':
     a = Item(10, 2)
     b = Item(2, 3)
     c = Item(5, 7)
-    d = Item(1,33)
+    d = Item(1, 33)
     ll.append(a)
     ll.append(b)
     ll.append(c)
