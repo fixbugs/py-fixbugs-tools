@@ -47,7 +47,7 @@ def heapSort(l):
         l[1], l[n] = l[n], l[1]
         fixDown(l, 1, n)
         n -= 1
-    return l[1:
+    return l[1:]
 
 
 def quick_sort(lists, left, right):
