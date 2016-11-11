@@ -26,13 +26,56 @@ sys.setrecursionlimit(1000000)
 #         quick_sort(array, low, key_index)
 #         quick_sort(array, key_index+1, high)
 
+#沿左,右子节点较大者依次往下调整
+def heapify( array, i, n):
+    j = i * 2 + 1
+    while j < n:
+        if j + 1 < n and compare(array[j].id, array[j+1].id):
+        #if j + 1 < n and array[j] < array[j + 1]:
+            j += 1
+        if not compare(array[i].id, array[j].id):
+        #if array[i] > array[j]:
+            break
+        array[i], array[j] = array[j], array[i]
+        i = j
+        j = i * 2 + 1
+
+
+def build_heap(array):
+    size = len(array)
+    for i in range( size // 2 - 1, -1, -1):
+        heapify( array, i, size)
+
+
+def heap_sort(array):
+    size = len(array)
+    build_heap(array)
+    for i in range( size - 1, 0, -1):
+        array[0], array[i] = array[i], array[0]
+        heapify(array, 0, i)
+
+
+# def heapify( array, i, n):
+#     j = i * 2 + 1
+#     while j < n:
+#         #if j + 1 < n and compare(array[j].id, array[j+1].id):
+#         if j + 1 < n and array[j] < array[j + 1]:
+#             j += 1
+#         #if not compare(array[i].id, array[j].id):
+#         if array[i] > array[j]:
+#             break
+#         array[i], array[j] = array[j], array[i]
+#         i = j
+#         j = i * 2 + 1
+
+
 def fixDown(a, k, n):  # 自顶向下堆化，从k开始堆化
     N = n - 1
     while 2 * k <= N:
         j = 2*k
-        if j < N and a[j] < a[j+1]:  # 选出左右孩子节点中更大的那个
+        if j < N and compare(a[j].id, a[j+1].id):
             j += 1
-        if a[k] < a[j]:
+        if compare(a[k].id, a[j].id):
             a[k], a[j] = a[j], a[k]
             k = j
         else:
@@ -40,14 +83,16 @@ def fixDown(a, k, n):  # 自顶向下堆化，从k开始堆化
 
 
 def heapSort(l):
-    n = len(l)-1
+    n = len(l) - 1
     for i in range(n//2, 0, -1):
         fixDown(l, i, len(l))
     while n > 1:
         l[1], l[n] = l[n], l[1]
         fixDown(l, 1, n)
         n -= 1
-    return l[1:]
+    res = l[1:]
+    #res.append(l[0])
+    return res
 
 
 def quick_sort(lists, left, right):
@@ -195,13 +240,15 @@ class Item:
 
 if __name__ == '__main__':
     # tt = [45,3,44,2,99]
+    # heap_sort(tt)
+    # print tt
     # print heapSort(tt)
     # quick_sort(tt, 0, len(tt)-1)
     # print tt[::-1]
     #exit(0)
     ll = []
-#    for i in xrange(11, 100):
-#        ll.append(Item(i, i))
+    for i in xrange(11, 100):
+        ll.append(Item(i, i))
     a = Item(10, 2)
     b = Item(2, 3)
     c = Item(5, 7)
@@ -210,7 +257,8 @@ if __name__ == '__main__':
     ll.append(b)
     ll.append(c)
     ll.append(d)
-    quick_sort(ll, 0, len(ll)-1)
+    #tt = heapSort(ll)
+    heap_sort(ll)
     for nl in ll:
         print nl.id
     exit(0)
