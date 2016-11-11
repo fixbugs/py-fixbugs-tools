@@ -195,9 +195,10 @@ class Item:
 
 if __name__ == '__main__':
     # tt = [45,3,44,2,99]
+    # print heapSort(tt)
     # quick_sort(tt, 0, len(tt)-1)
     # print tt[::-1]
-    # exit(0)
+    #exit(0)
     ll = []
 #    for i in xrange(11, 100):
 #        ll.append(Item(i, i))
