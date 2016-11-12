@@ -26,15 +26,13 @@ sys.setrecursionlimit(1000000)
 #         quick_sort(array, low, key_index)
 #         quick_sort(array, key_index+1, high)
 
-#沿左,右子节点较大者依次往下调整
-def heapify( array, i, n):
+
+def heapify(array, i, n):
     j = i * 2 + 1
     while j < n:
         if j + 1 < n and compare(array[j].id, array[j+1].id):
-        #if j + 1 < n and array[j] < array[j + 1]:
             j += 1
         if not compare(array[i].id, array[j].id):
-        #if array[i] > array[j]:
             break
         array[i], array[j] = array[j], array[i]
         i = j
@@ -166,7 +164,8 @@ def countingSort(alist, k):
 
 class Answer():
     def solve(self, items):
-        return self.spsort(items, 100)
+        self.heap_sort(items)
+        return items
 
     def shellSort(self, seq):
         count = len(seq)
@@ -232,6 +231,28 @@ class Answer():
             return False
         return True
 
+    def heapify(self, array, i, n):
+        j = i * 2 + 1
+        while j < n:
+            if j + 1 < n and self.compare(array[j].id, array[j+1].id):
+                j += 1
+            if not self.compare(array[i].id, array[j].id):
+                break
+            array[i], array[j] = array[j], array[i]
+            i = j
+            j = i * 2 + 1
+
+    def build_heap(self, array):
+        size = len(array)
+        for i in range(size // 2 - 1, -1, -1):
+            self.heapify( array, i, size)
+
+    def heap_sort(self, array):
+        size = len(array)
+        self.build_heap(array)
+        for i in range( size - 1, 0, -1):
+            array[0], array[i] = array[i], array[0]
+            self.heapify(array, 0, i)
 
 class Item:
     def __init__(self, id, position):
@@ -258,10 +279,10 @@ if __name__ == '__main__':
     ll.append(c)
     ll.append(d)
     #tt = heapSort(ll)
-    heap_sort(ll)
-    for nl in ll:
-        print nl.id
-    exit(0)
+    # heap_sort(ll)
+    # for nl in ll:
+    #     print nl.id
+    # exit(0)
     ans = Answer()
  #   print ans.shellSort(ll)
     print "=======end==========="
