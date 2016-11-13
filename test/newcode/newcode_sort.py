@@ -254,6 +254,7 @@ class Answer():
             array[0], array[i] = array[i], array[0]
             self.heapify(array, 0, i)
 
+
 class Item:
     def __init__(self, id, position):
         self.id = id
