@@ -53,20 +53,6 @@ def heap_sort(array):
         heapify(array, 0, i)
 
 
-# def heapify( array, i, n):
-#     j = i * 2 + 1
-#     while j < n:
-#         #if j + 1 < n and compare(array[j].id, array[j+1].id):
-#         if j + 1 < n and array[j] < array[j + 1]:
-#             j += 1
-#         #if not compare(array[i].id, array[j].id):
-#         if array[i] > array[j]:
-#             break
-#         array[i], array[j] = array[j], array[i]
-#         i = j
-#         j = i * 2 + 1
-
-
 def fixDown(a, k, n):  # 自顶向下堆化，从k开始堆化
     N = n - 1
     while 2 * k <= N:
