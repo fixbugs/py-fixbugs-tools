@@ -87,10 +87,8 @@ def countingSort(alist, k):
     len_c = len(c)
     for i in xrange(1, len_c):
         c[i] = c[i-1] + c[i]
-#        c[i]=c[i-1]+c[i]
     for i in alist:
         b[c[i.id]-1] = i
-#       b[c[i]-1]=i
         c[i.id] -= 1
     return b
 
