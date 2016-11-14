@@ -148,9 +148,18 @@ def countingSort(alist, k):
     return b
 
 
+def insertSort(arr):
+    for i in range(1, len(arr)):
+        j = i
+        while j > 0 and not compare(arr[j-1].id, arr[i].id):
+            j -= 1
+        arr.insert(j, arr[i])
+        arr.pop(i+1)
+
+
 class Answer():
     def solve(self, items):
-        self.heap_sort(items)
+        insertSort(items)
         return items
 
     def shellSort(self, seq):
@@ -248,6 +257,9 @@ class Item:
 
 if __name__ == '__main__':
     # tt = [45,3,44,2,99]
+    # insertSort(tt)
+    # print tt
+    # exit(0)
     # heap_sort(tt)
     # print tt
     # print heapSort(tt)
