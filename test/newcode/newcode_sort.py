@@ -26,6 +26,59 @@ sys.setrecursionlimit(1000000)
 #         quick_sort(array, low, key_index)
 #         quick_sort(array, key_index+1, high)
 
+
+def heapify(array, i, n):
+    j = i * 2 + 1
+    while j < n:
+        if j + 1 < n and compare(array[j].id, array[j+1].id):
+            j += 1
+        if not compare(array[i].id, array[j].id):
+            break
+        array[i], array[j] = array[j], array[i]
+        i = j
+        j = i * 2 + 1
+
+
+def build_heap(array):
+    size = len(array)
+    for i in range( size // 2 - 1, -1, -1):
+        heapify( array, i, size)
+
+
+def heap_sort(array):
+    size = len(array)
+    build_heap(array)
+    for i in range( size - 1, 0, -1):
+        array[0], array[i] = array[i], array[0]
+        heapify(array, 0, i)
+
+
+def fixDown(a, k, n):  # 自顶向下堆化，从k开始堆化
+    N = n - 1
+    while 2 * k <= N:
+        j = 2*k
+        if j < N and compare(a[j].id, a[j+1].id):
+            j += 1
+        if compare(a[k].id, a[j].id):
+            a[k], a[j] = a[j], a[k]
+            k = j
+        else:
+            break
+
+
+def heapSort(l):
+    n = len(l) - 1
+    for i in range(n//2, 0, -1):
+        fixDown(l, i, len(l))
+    while n > 1:
+        l[1], l[n] = l[n], l[1]
+        fixDown(l, 1, n)
+        n -= 1
+    res = l[1:]
+    #res.append(l[0])
+    return res
+
+
 def quick_sort(lists, left, right):
     # 快速排序
     if left >= right:
@@ -93,9 +146,19 @@ def countingSort(alist, k):
     return b
 
 
+def insertSort(arr):
+    for i in range(1, len(arr)):
+        j = i
+        while j > 0 and not compare(arr[j-1].id, arr[i].id):
+            j -= 1
+        arr.insert(j, arr[i])
+        arr.pop(i+1)
+
+
 class Answer():
     def solve(self, items):
-        return self.spsort(items, 100)
+        insertSort(items)
+        return items
 
     def shellSort(self, seq):
         count = len(seq)
@@ -161,6 +224,29 @@ class Answer():
             return False
         return True
 
+    def heapify(self, array, i, n):
+        j = i * 2 + 1
+        while j < n:
+            if j + 1 < n and self.compare(array[j].id, array[j+1].id):
+                j += 1
+            if not self.compare(array[i].id, array[j].id):
+                break
+            array[i], array[j] = array[j], array[i]
+            i = j
+            j = i * 2 + 1
+
+    def build_heap(self, array):
+        size = len(array)
+        for i in range(size // 2 - 1, -1, -1):
+            self.heapify( array, i, size)
+
+    def heap_sort(self, array):
+        size = len(array)
+        self.build_heap(array)
+        for i in range( size - 1, 0, -1):
+            array[0], array[i] = array[i], array[0]
+            self.heapify(array, 0, i)
+
 
 class Item:
     def __init__(self, id, position):
@@ -169,24 +255,31 @@ class Item:
 
 if __name__ == '__main__':
     # tt = [45,3,44,2,99]
+    # insertSort(tt)
+    # print tt
+    # exit(0)
+    # heap_sort(tt)
+    # print tt
+    # print heapSort(tt)
     # quick_sort(tt, 0, len(tt)-1)
     # print tt[::-1]
-    # exit(0)
+    #exit(0)
     ll = []
-#    for i in xrange(11, 100):
-#        ll.append(Item(i, i))
+    for i in xrange(11, 100):
+        ll.append(Item(i, i))
     a = Item(10, 2)
     b = Item(2, 3)
     c = Item(5, 7)
-    d = Item(1,33)
+    d = Item(1, 33)
     ll.append(a)
     ll.append(b)
     ll.append(c)
     ll.append(d)
-    quick_sort(ll, 0, len(ll)-1)
-    for nl in ll:
-        print nl.id
-    exit(0)
+    #tt = heapSort(ll)
+    # heap_sort(ll)
+    # for nl in ll:
+    #     print nl.id
+    # exit(0)
     ans = Answer()
  #   print ans.shellSort(ll)
     print "=======end==========="
