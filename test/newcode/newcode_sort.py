@@ -157,8 +157,16 @@ def insertSort(arr):
 
 class Answer():
     def solve(self, items):
-        insertSort(items)
+        self.insertSort(items)
         return items
+
+    def insertSort(self, arr):
+        for i in range(1, len(arr)):
+            j = i
+            while j > 0 and not self.compare(arr[j-1].id, arr[i].id):
+                j -= 1
+            arr.insert(j, arr[i])
+            arr.pop(i+1)
 
     def shellSort(self, seq):
         count = len(seq)
