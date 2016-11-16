@@ -111,6 +111,8 @@ def notify_message(vertex_index, message_str):
 ###test
 
 for i in range(limit):
+    if i % 100000:
+        print i,"---now----"
     r = random.randint(1, limit)
     if i % 3 == 0:
         message_str = ''.join(random.sample(string.ascii_letters, 4))
