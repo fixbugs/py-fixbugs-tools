@@ -37,7 +37,7 @@ if sys.version_info[0] == 3:
 
 
 def isPrime(n):
-    return not [i for i in range(2, int(math.sqrt(n)) + 1) if n%i == 0]
+    return not [i for i in range(2, int(math.sqrt(n)) + 1) if n % i == 0]
 
 
 def primesqrt(n):
@@ -112,7 +112,7 @@ def notify_message(vertex_index, message_str):
 
 for i in range(limit):
     if i % 100000 == 0:
-        print i,"---now----"
+        print i, "---now----"
     r = random.randint(1, limit)
     if i % 3 == 0:
         message_str = ''.join(random.sample(string.ascii_letters, 4))
