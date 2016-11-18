@@ -374,18 +374,8 @@ function addToMap($map,$position,$piece,$row=3,$column =3){
 function checkMapNeedContinue($map, $nowPosition){
     global $piece_count_array;
     $mapNeedCounts = getMapNeedCounts($map);
-    // if($mapNeedCounts<=4){
-    //     var_dump($map);
-    //     return 4;
-    // }
     $lastPiecesMaxCounts = $piece_count_array[$nowPosition];
     if($mapNeedCounts > $lastPiecesMaxCounts){
-        // var_dump($map);
-        // var_dump($mapNeedCounts);
-        // var_dump($nowPosition);
-        // var_dump($lastPiecesMaxCounts);
-        // var_dump($piece_count_array);
-        // die('mapneedbigger');
         return false;
     }
     return true;
