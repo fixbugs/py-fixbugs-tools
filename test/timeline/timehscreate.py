@@ -85,6 +85,8 @@ def verbose_time_line(vertex_index):
 
 
 def notify_message(vertex_index, message_str):
+    #add to x top first
+    #add to prime queue
     #first add letter num into vertex_list
     #then exec next code
     if vertex_index in prime_dict:
