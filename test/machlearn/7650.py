@@ -37,7 +37,8 @@ def getFileContent(file_path):
 
 trainarr = getFileContent('7650d/train.txt')
 testarr = getFileContent('7650d/test.txt')
-
+# first get train maxirt for reuslt
+# piece for all result
 U, s, Vh = linalg.svd(trainarr)
 print s
 #print testarr
