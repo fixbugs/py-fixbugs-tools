@@ -2,7 +2,11 @@
 #coding=utf8
 
 import numpy as np
-from scipy import linalg
+#from scipy import linalg
+from scipy.sparse.linalg import svds
+from scipy import sparse
+import matplotlib.pyplot as plt
+
 
 # a = np.random.randn(9, 6) + 1.j*np.random.randn(9, 6)
 # print a
@@ -55,6 +59,40 @@ def getTrainMaxi(trainarr):
     return totalArr
 
 
+def vector_to_diagonal(vector):
+    """
+    将向量放在对角矩阵的对角线上
+    :param vector:
+    :return:
+    """
+    if (isinstance(vector, np.ndarray) and vector.ndim == 1) or \
+            isinstance(vector, list):
+        length = len(vector)
+        diag_matrix = np.zeros((length, length))
+        np.fill_diagonal(diag_matrix, vector)
+        return diag_matrix
+    return None
+
+RATE_MATRIX = np.array(
+    [[5, 5, 3, 0, 5, 5],
+     [5, 0, 4, 0, 4, 4],
+     [0, 3, 0, 5, 4, 5],
+     [5, 4, 3, 3, 5, 5]]
+)
+
+RATE_MATRIX = RATE_MATRIX.astype('float')
+U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=2, maxiter=200)
+S = vector_to_diagonal(S)
+
+print '用户的主题分布：'
+print U
+print '奇异值：'
+print S
+print '物品的主题分布：'
+print VT
+print '重建评分矩阵，并过滤掉已经评分的物品：'
+print np.dot(np.dot(U, S), VT) * (RATE_MATRIX < 1e-6)
+exit(0)
 # trainarr = []
 # tmp = [1, 2, 5]
 # trainarr.append(tmp)
