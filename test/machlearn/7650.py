@@ -63,10 +63,15 @@ def getTrainMaxi(trainarr):
 # trainarr.append([2,3,1])
 trainarr = getFileContent('7650d/train.txt')
 trainres = getTrainMaxi(trainarr)
-print trainres
+#print trainres
 #testarr = getFileContent('7650d/test.txt')
 # first get train maxirt for reuslt
 # piece for all result
 U, s, Vh = linalg.svd(trainres)
+print U
+print "============"
+print Vh
+print "============="
 print s
+#print s
 #print testarr
