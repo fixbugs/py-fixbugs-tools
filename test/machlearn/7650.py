@@ -73,13 +73,16 @@ def vector_to_diagonal(vector):
         return diag_matrix
     return None
 
-RATE_MATRIX = np.array(
-    [[5, 5, 3, 0, 5, 5],
-     [5, 0, 4, 0, 4, 4],
-     [0, 3, 0, 5, 4, 5],
-     [5, 4, 3, 3, 5, 5]]
-)
-
+trainarr = getFileContent('7650d/train.txt')
+trainres = getTrainMaxi(trainarr)
+#RATE_MATRIX = trainres
+# RATE_MATRIX = np.array(
+#     [[5, 5, 3, 0, 5, 5],
+#      [5, 0, 4, 0, 4, 4],
+#      [0, 3, 0, 5, 4, 5],
+#      [5, 4, 3, 3, 5, 5]]
+# )
+RATE_MATRIX = np.array(trainres)
 RATE_MATRIX = RATE_MATRIX.astype('float')
 U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=2, maxiter=200)
 S = vector_to_diagonal(S)
@@ -105,11 +108,11 @@ trainres = getTrainMaxi(trainarr)
 #testarr = getFileContent('7650d/test.txt')
 # first get train maxirt for reuslt
 # piece for all result
-U, s, Vh = linalg.svd(trainres)
-print U
-print "============"
-print Vh
-print "============="
-print s
+# U, s, Vh = linalg.svd(trainres)
+# print U
+# print "============"
+# print Vh
+# print "============="
+# print s
 #print s
 #print testarr
