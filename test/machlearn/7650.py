@@ -73,8 +73,24 @@ def vector_to_diagonal(vector):
         return diag_matrix
     return None
 
+
+def hdsp(trains, testarr):
+    for t in testarr:
+        if t[0] not in uidArr:
+            uidArr.append(t[0])
+        if t[1] not in movieArr:
+            movieArr.append(t[1])
+        Uindex = int(uidArr.index(t[0]))
+        Mindex = int(movieArr.index(t[1]))
+        trains[Uindex][Mindex] = 0
+
 trainarr = getFileContent('7650d/train.txt')
 trainres = getTrainMaxi(trainarr)
+print trainres
+testarr = getFileContent('7650d/test.txt')
+hdsp(trainres, testarr)
+print trainres
+exit(0)
 #RATE_MATRIX = trainres
 # RATE_MATRIX = np.array(
 #     [[5, 5, 3, 0, 5, 5],
@@ -94,7 +110,23 @@ print S
 print '物品的主题分布：'
 print VT
 print '重建评分矩阵，并过滤掉已经评分的物品：'
-print np.dot(np.dot(U, S), VT) * (RATE_MATRIX < 1e-6)
+lastEnd = np.dot(np.dot(U, S), VT)
+print lastEnd
+
+testarr = getFileContent('7650d/test.txt')
+total_sum = 0
+total_arr = []
+for t in testarr:
+    us = int(t[0])
+    mos = int(t[1])
+    uindex = uidArr.index(us)
+    mindex = movieArr.index(mos)
+    sres = int(lastEnd[uindex][mindex])
+    total_arr.append(sres)
+    total_sum += sres
+    print sres
+print "totalnum:", total_sum
+print "totalstring:", ''.join(total_arr)
 exit(0)
 # trainarr = []
 # tmp = [1, 2, 5]

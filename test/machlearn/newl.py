@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+#coding=utf8
+
+
 import numpy as np
 from scipy.sparse.linalg import svds
 from scipy import sparse
@@ -15,27 +19,22 @@ B=np.array(
     [[1,2,3,4,5],[6,7,8,9,10]]
 )
 
-R=np.dot(A,B).astype('float') 
+R=np.dot(A,B).astype('float')
 
-U, S, VT = svds(sparse.csr_matrix(R),  k=2, maxiter=200)  
+U, S, VT = svds(sparse.csr_matrix(R),  k=2, maxiter=200)
 
 S = np.array([[S[0],0],[0,S[1]]]);
 
-print '用户的主题分布：'  
-print U  
-print '奇异值：'  
-print S 
-print '物品的主题分布：'  
-print VT  
+print '用户的主题分布：'
+print U
+print '奇异值：'
+print S
+print '物品的主题分布：'
+print VT
 print '重建矩阵'
 print np.dot(np.dot(U, S), VT)
 print '原始矩阵'
 print np.dot(A,B)
-
-
-
-
-
 
 #U, S, VT = svds(sparse.csr_matrix(R),  k=2, maxiter=200) 
 
