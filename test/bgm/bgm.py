@@ -65,6 +65,7 @@ def newGetData(url, data):
     r = requests.post(url, data=json.dumps(payload), headers=headers)
     print r
 
+
 def main():
     url = 'http://www.qlcoder.com/task/52/solve'
     for a in xrange(39505, 43200):
