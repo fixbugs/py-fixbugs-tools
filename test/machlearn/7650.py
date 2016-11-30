@@ -74,23 +74,38 @@ def vector_to_diagonal(vector):
     return None
 
 
-def hdsp(trains, testarr):
-    for t in testarr:
+def getTestMaxi(trainarr):
+    #uidArr = []
+    totalArr = np.zeros((500, 11000))
+    totalArr = np.ndarray.tolist(totalArr)
+    #movieArr = []
+    for t in trainarr:
         if t[0] not in uidArr:
             uidArr.append(t[0])
         if t[1] not in movieArr:
             movieArr.append(t[1])
         Uindex = int(uidArr.index(t[0]))
         Mindex = int(movieArr.index(t[1]))
-        trains[Uindex][Mindex] = 0
+        totalArr[Uindex][Mindex] = int(t[2])
+    return totalArr
+
+
+# def hdsp(trains, testarr):
+#     for t in testarr:
+#         if t[0] not in uidArr:
+#             uidArr.append(t[0])
+#         if t[1] not in movieArr:
+#             movieArr.append(t[1])
+#         Uindex = int(uidArr.index(t[0]))
+#         Mindex = int(movieArr.index(t[1]))
+#         trains[Uindex][Mindex] = 0
 
 trainarr = getFileContent('7650d/train.txt')
 trainres = getTrainMaxi(trainarr)
-print trainres
-testarr = getFileContent('7650d/test.txt')
-hdsp(trainres, testarr)
-print trainres
-exit(0)
+#print trainres
+# testarr = getFileContent('7650d/test.txt')
+# print trainres
+# exit(0)
 #RATE_MATRIX = trainres
 # RATE_MATRIX = np.array(
 #     [[5, 5, 3, 0, 5, 5],
@@ -111,7 +126,8 @@ print '物品的主题分布：'
 print VT
 print '重建评分矩阵，并过滤掉已经评分的物品：'
 lastEnd = np.dot(np.dot(U, S), VT)
-print lastEnd
+#print lastEnd
+exit(0)
 
 testarr = getFileContent('7650d/test.txt')
 total_sum = 0
