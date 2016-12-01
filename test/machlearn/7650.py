@@ -125,7 +125,8 @@ print S
 print '物品的主题分布：'
 print VT
 print '重建评分矩阵，并过滤掉已经评分的物品：'
-lastEnd = np.dot(np.dot(U, S), VT)
+lastEnd = np.dot(np.dot(U, S), VT)*(RATE_MATRIX < 1e-6)
+print lastEnd[0][0]
 #print lastEnd
 exit(0)
 
