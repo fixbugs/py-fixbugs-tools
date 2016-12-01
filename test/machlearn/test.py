@@ -2,7 +2,6 @@
 #coding=utf8
 
 
-
 def getFileContent(file_path):
     import os
     if not os.path.exists(file_path):
@@ -38,13 +37,13 @@ def getTrainMaxi(trainarr):
     return totalArr
 
 
-trainarr = getFileContent('/tmp/qlc/train.txt')
+trainarr = getFileContent('7650d/train.txt')
 trainres = getTrainMaxi(trainarr)
 
 #print trainres
 
 count = 0
-testarr = getFileContent('/tmp/qlc/test.txt')
+testarr = getFileContent('7650d/test.txt')
 print len(testarr)
 print "--------------------"
 for t in testarr:

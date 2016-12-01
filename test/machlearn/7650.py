@@ -115,7 +115,7 @@ trainres = getTrainMaxi(trainarr)
 # )
 RATE_MATRIX = np.array(trainres)
 RATE_MATRIX = RATE_MATRIX.astype('float')
-U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=2, maxiter=200)
+U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=28, maxiter=200)
 S = vector_to_diagonal(S)
 
 print '用户的主题分布：'
@@ -126,22 +126,34 @@ print '物品的主题分布：'
 print VT
 print '重建评分矩阵，并过滤掉已经评分的物品：'
 lastEnd = np.dot(np.dot(U, S), VT)*(RATE_MATRIX < 1e-6)
+print type(lastEnd)
 print lastEnd[0][0]
 #print lastEnd
-exit(0)
+#exit(0)
 
 testarr = getFileContent('7650d/test.txt')
 total_sum = 0
 total_arr = []
 for t in testarr:
-    us = int(t[0])
-    mos = int(t[1])
+    us = t[0]
+    mos = t[1]
     uindex = uidArr.index(us)
+    if mos not in movieArr:
+        sres = 1
+        total_sum += sres
+        total_arr.append(str(sres))
+        continue
     mindex = movieArr.index(mos)
     sres = int(lastEnd[uindex][mindex])
-    total_arr.append(sres)
+    if sres == 0:
+        sres = int(RATE_MATRIX[uindex][mindex])
+    if sres == 0:
+        sres = 1
+    if sres == '-':
+        sres = 1
+    total_arr.append(str(sres))
     total_sum += sres
-    print sres
+    #print sres
 print "totalnum:", total_sum
 print "totalstring:", ''.join(total_arr)
 exit(0)
