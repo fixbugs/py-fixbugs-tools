@@ -46,6 +46,10 @@ for j in dr_files:
     tt_path = j
     now_hash = getImhash(tt_path)
     if now_hash in sp_pic_hash_arr:
-        total += j
+        total += count
+        continue
+    for shash in sp_pic_hash_arr:
+        if abs(now_hash - shash) <= 100:
+            total += count
 
 print "end",total
