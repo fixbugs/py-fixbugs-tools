@@ -37,12 +37,29 @@ for i in sp_files:
 
 dr_files = GetFileList(DR_PATH)
 dr_pic_hash_arr = []
+
+for j in dr_files:
+    tmp_path = j
+    dr_pic_hash_arr.append(getImhash(tmp_path))
+    pass
+
+result = dict()
+for sourceHash in sp_pic_hash_arr:
+    tmpl = []
+    for targetHash in dr_pic_hash_arr:
+        if abs(sourceHash - targetHash) <= 38:
+            tmpl.append(targetHash)
+            pass
+        pass
+    result[sourceHash] = tmpl
+
+print result
+exit(0)
+
 total = 0
 count = 0
-#for j in range(1,5693):
 for j in dr_files:
     count += 1
-    #tt_path = DR_PATH + str(i)
     tt_path = j
     now_hash = getImhash(tt_path)
     if now_hash in sp_pic_hash_arr:
