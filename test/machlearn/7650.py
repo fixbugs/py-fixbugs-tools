@@ -125,7 +125,7 @@ print S
 print '物品的主题分布：'
 print VT
 print '重建评分矩阵，并过滤掉已经评分的物品：'
-lastEnd = np.dot(np.dot(U, S), VT)*(RATE_MATRIX < 1e-6)
+lastEnd = np.dot(np.dot(U, S), VT) * (RATE_MATRIX < 1e-6)
 print type(lastEnd)
 print lastEnd[0][0]
 #print lastEnd
@@ -139,7 +139,7 @@ for t in testarr:
     mos = t[1]
     uindex = uidArr.index(us)
     if mos not in movieArr:
-        sres = 1
+        sres = 3
         total_sum += sres
         total_arr.append(str(sres))
         continue
