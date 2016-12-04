@@ -116,11 +116,11 @@ trainres = getTrainMaxi(trainarr)
 RATE_MATRIX = np.array(trainres)
 RATE_MATRIX = RATE_MATRIX.astype('float')
 
-from sklear.metrics.pairwise import pairwise_distances
-user_similarity = pairwise_distances(RATE_MATRIX, metric='cosine')
+# from sklear.metrics.pairwise import pairwise_distances
+# user_similarity = pairwise_distances(RATE_MATRIX, metric='cosine')
 
-print user_similarity
-exit(0)
+# print user_similarity
+# exit(0)
 U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=15, maxiter=200)
 S = vector_to_diagonal(S)
 
