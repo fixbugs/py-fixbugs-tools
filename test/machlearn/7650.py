@@ -115,7 +115,7 @@ trainres = getTrainMaxi(trainarr)
 # )
 RATE_MATRIX = np.array(trainres)
 RATE_MATRIX = RATE_MATRIX.astype('float')
-U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=28, maxiter=200)
+U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=15, maxiter=200)
 S = vector_to_diagonal(S)
 
 print '用户的主题分布：'
@@ -139,8 +139,8 @@ for t in testarr:
     mos = t[1]
     uindex = uidArr.index(us)
     if mos not in movieArr:
-        sres = 3
-        total_sum += sres
+        sres = '^'
+        #total_sum += sres
         total_arr.append(str(sres))
         continue
     mindex = movieArr.index(mos)
@@ -148,11 +148,11 @@ for t in testarr:
     if sres == 0:
         sres = int(RATE_MATRIX[uindex][mindex])
     if sres == 0:
-        sres = 1
+        sres = '*'
     if sres == '-':
         sres = 1
     total_arr.append(str(sres))
-    total_sum += sres
+    #total_sum += sres
     #print sres
 print "totalnum:", total_sum
 print "totalstring:", ''.join(total_arr)
