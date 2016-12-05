@@ -121,19 +121,27 @@ RATE_MATRIX = RATE_MATRIX.astype('float')
 
 # print user_similarity
 # exit(0)
-U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=15, maxiter=200)
-S = vector_to_diagonal(S)
+data_arr_f = RATE_MATRIX
+for i in range(200):
+    U, S, VT = svds(sparse.csr_matrix(data_arr_f),  k=10, maxiter=5)
+    S = vector_to_diagonal(S)
+    data_arr_f = RATE_MATRIX + np.dot(np.dot(U, S), VT) * (RATE_MATRIX < 1e-6)
+# U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=15, maxiter=200)
+# S = vector_to_diagonal(S)
 
-print '用户的主题分布：'
-print U
-print '奇异值：'
-print S
-print '物品的主题分布：'
-print VT
-print '重建评分矩阵，并过滤掉已经评分的物品：'
-lastEnd = np.dot(np.dot(U, S), VT) * (RATE_MATRIX < 1e-6)
-print type(lastEnd)
-print lastEnd[0][0]
+print data_arr_f
+exit(0)
+
+# print '用户的主题分布：'
+# print U
+# print '奇异值：'
+# print S
+# print '物品的主题分布：'
+# print VT
+# print '重建评分矩阵，并过滤掉已经评分的物品：'
+# lastEnd = np.dot(np.dot(U, S), VT) * (RATE_MATRIX < 1e-6)
+# print type(lastEnd)
+# print lastEnd[0][0]
 #print lastEnd
 #exit(0)
 
