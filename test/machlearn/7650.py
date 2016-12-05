@@ -130,7 +130,7 @@ for i in range(200):
 # S = vector_to_diagonal(S)
 
 print data_arr_f
-exit(0)
+#exit(0)
 
 # print '用户的主题分布：'
 # print U
@@ -153,20 +153,22 @@ for t in testarr:
     mos = t[1]
     uindex = uidArr.index(us)
     if mos not in movieArr:
-        sres = '^'
+        sres = '4'
         #total_sum += sres
         total_arr.append(str(sres))
         continue
     mindex = movieArr.index(mos)
-    sres = int(lastEnd[uindex][mindex])
-    if sres == 0:
-        sres = int(RATE_MATRIX[uindex][mindex])
-    if sres == 0:
-        sres = '*'
-    if sres == '-':
+    sres = int(data_arr_f[uindex][mindex])
+    if sres < 1:
         sres = 1
+    if sres > 5:
+        sres = 5
+    # if sres == 0:
+    #     sres = int(RATE_MATRIX[uindex][mindex])
+    # if sres == 0:
+    #     sres = '*'
     total_arr.append(str(sres))
-    #total_sum += sres
+    total_sum += sres
     #print sres
 print "totalnum:", total_sum
 print "totalstring:", ''.join(total_arr)
