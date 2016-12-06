@@ -176,7 +176,7 @@ print "totalstring:", res_str
 
 file_object = open('result.txt', 'w')
 file_object.write(res_str)
-file_object.close( )
+file_object.close()
 
 exit(0)
 # trainarr = []
