@@ -5,7 +5,7 @@ import numpy as np
 #from scipy import linalg
 from scipy.sparse.linalg import svds
 from scipy import sparse
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 # a = np.random.randn(9, 6) + 1.j*np.random.randn(9, 6)
@@ -122,8 +122,8 @@ RATE_MATRIX = RATE_MATRIX.astype('float')
 # print user_similarity
 # exit(0)
 data_arr_f = RATE_MATRIX
-for i in range(200):
-    U, S, VT = svds(sparse.csr_matrix(data_arr_f),  k=10, maxiter=5)
+for i in range(300):
+    U, S, VT = svds(sparse.csr_matrix(data_arr_f),  k=15, maxiter=5)
     S = vector_to_diagonal(S)
     data_arr_f = RATE_MATRIX + np.dot(np.dot(U, S), VT) * (RATE_MATRIX < 1e-6)
 # U, S, VT = svds(sparse.csr_matrix(RATE_MATRIX),  k=15, maxiter=200)
@@ -152,13 +152,13 @@ for t in testarr:
     us = t[0]
     mos = t[1]
     uindex = uidArr.index(us)
-    if mos not in movieArr:
+    if mos not in movieArr or us not in uidArr:
         sres = '4'
         #total_sum += sres
         total_arr.append(str(sres))
         continue
     mindex = movieArr.index(mos)
-    sres = int(data_arr_f[uindex][mindex])
+    sres = int(round(data_arr_f[uindex][mindex]))
     if sres < 1:
         sres = 1
     if sres > 5:
@@ -171,7 +171,13 @@ for t in testarr:
     total_sum += sres
     #print sres
 print "totalnum:", total_sum
-print "totalstring:", ''.join(total_arr)
+res_str = ''.join(total_arr)
+print "totalstring:", res_str
+
+file_object = open('result.txt', 'w')
+file_object.write(res_str)
+file_object.close( )
+
 exit(0)
 # trainarr = []
 # tmp = [1, 2, 5]
