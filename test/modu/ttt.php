@@ -298,12 +298,6 @@ function calRsort($piece_array,$t,$map){
                     var_dump(date('y-m-d h:i:s', time()));
                 }
                 $resultMap = addToMap($lastMap, $position_array[$t], $piece_array[$t], $row, $column);
-                // $checkNext = checkMapNeedContinue($resultMap, $t);
-                // if($checkNext == 4){
-                //     var_dump($position_array);
-                //     var_dump($piece_array);
-                //     exit(0);
-                // }
                 $re = check($resultMap);
                 if($re ==0){
                     var_dump("-----------end-------------");
@@ -432,14 +426,7 @@ function check($map){
         return $result;
     }
     return 1;
-    // $result = 0;
-    // foreach ($map as $item) {
-    //     if($item != 0){
-    //         return 1;
-    //     }
-    //  }
-    // return $result;
-}
+ }
 function addMaps($map,$postions,$piece_array,$row=3,$column=3){
     $tmp = $map;
     foreach ($postions as $key =>$postion){
