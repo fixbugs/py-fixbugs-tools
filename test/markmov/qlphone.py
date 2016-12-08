@@ -37,3 +37,14 @@ for ar in azArr:
 
 #get qlc phone num dict
 print numDict
+
+testContent = getFileContent('phonetest.txt')
+newTestC = []
+for t in testContent:
+    tlen = len(t[0])
+    tstr = ''
+    for n in range(tlen):
+        tstr += str(numDict[t[0][n]])
+    newTestC.append(tstr)
+print testContent
+print newTestC
