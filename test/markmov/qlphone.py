@@ -41,11 +41,29 @@ print numDict
 
 testContent = getFileContent('phonetest.txt')
 newTestC = []
+twoLetterDict = dict()
+spTwoLDict = dict()
+totalTestStrLen = 0
 for t in testContent:
     tlen = len(t[0])
+    totalTestStrLen += tlen
     tstr = ''
     for n in range(tlen):
         tstr += str(numDict[t[0][n]])
+        if n < tlen - 1:
+            nowTL = t[0][n] + t[0][n+1]
+            if nowTL not in twoLetterDict:
+                twoLetterDict[nowTL] = 0
+            else:
+                twoLetterDict[nowTL] += 1
     newTestC.append(tstr)
-print testContent
+#print testContent
 print newTestC
+print twoLetterDict
+print totalTestStrLen
+
+numLearnArr = [[] for i in range(100)]
+print numLearnArr
+for k, v in twoLetterDict.items():
+    print k, v
+    
