@@ -35,6 +35,7 @@ for ar in azArr:
     numDict[dictKey] = dictValue
     startNum += 1
 
+unSecArr = ['6', '3', '5', '7', '5', '3', '5', '4', '8', '6', '4', '3', '8', '6', '6', '4', '5', '2', '5', '3', '6', '6', '2', '3']
 #get qlc phone num dict
 print numDict
 
