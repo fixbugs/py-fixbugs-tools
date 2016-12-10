@@ -26,6 +26,9 @@ for z in azContent:
     letter_index = ord(z[0])-97
     azArr[letter_index][int(z[1])] += int(z[2])
 
+print azArr
+exit(0)
+
 numDict = dict()
 startNum = 97
 for ar in azArr:
@@ -58,12 +61,37 @@ for t in testContent:
                 twoLetterDict[nowTL] += 1
     newTestC.append(tstr)
 #print testContent
-print newTestC
-print twoLetterDict
-print totalTestStrLen
+#print newTestC
+#print twoLetterDict
+#print totalTestStrLen
 
 numLearnArr = [[] for i in range(100)]
-print numLearnArr
+#print numLearnArr
 for k, v in twoLetterDict.items():
-    print k, v
-    
+    tmpnumk = str(numDict[k[0]]) + str(numDict[k[1]])
+    tmp = dict()
+    tmp['perN'] = v
+    tmp['lkey'] = k
+    numLearnArr[int(tmpnumk)].append(tmp)
+
+
+def dictMaxReturn(narr):
+    if not len(narr):
+        return "narr null error"
+    maxN = 0
+    returnKey = ''
+    for n in narr:
+        tmpd = n
+        if maxN < tmpd['perN']:
+            returnKey = tmp['lkey']
+            maxN = tmp['perN']
+    print maxN
+    return returnKey
+
+print numLearnArr
+for i in range(0, len(unSecArr)):
+    if i < len(unSecArr) - 1:
+        tnowN = unSecArr[i] + unSecArr[i+1]
+        print tnowN
+        print dictMaxReturn(numLearnArr[int(tnowN)])
+    break
