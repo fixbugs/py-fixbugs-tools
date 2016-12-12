@@ -26,6 +26,10 @@ for z in azContent:
     letter_index = ord(z[0])-97
     azArr[letter_index][int(z[1])] += int(z[2])
 
+for a in range(len(azArr)):
+    for b in range(len(azArr[a])):
+        if azArr[a][b] < 5000:
+            azArr[a][b] = 0
 print azArr
 exit(0)
 
