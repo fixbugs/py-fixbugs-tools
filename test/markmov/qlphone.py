@@ -30,9 +30,8 @@ for a in range(len(azArr)):
     for b in range(len(azArr[a])):
         if azArr[a][b] < 5000:
             azArr[a][b] = 0
-print azArr
-exit(0)
 
+#need handle 3 for dict
 numDict = dict()
 startNum = 97
 for ar in azArr:
@@ -45,6 +44,7 @@ for ar in azArr:
 unSecArr = ['6', '3', '5', '7', '5', '3', '5', '4', '8', '6', '4', '3', '8', '6', '6', '4', '5', '2', '5', '3', '6', '6', '2', '3']
 #get qlc phone num dict
 print numDict
+exit(0)
 
 testContent = getFileContent('phonetest.txt')
 newTestC = []
