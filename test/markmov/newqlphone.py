@@ -34,8 +34,11 @@ def getFileContent(file_path):
 
 allWords = getFileContent(wordsPath)
 import itertools
+hasResultKey = dict()
 
 def findWord(numStr):
+    if numStr in hasResultKey:
+        return hasResultKey[numStr]
     res = list()
     for i in range(len(numStr)):
         res.append(kb_mp[numStr[i]])
@@ -45,6 +48,7 @@ def findWord(numStr):
         tword = ''.join(iw)
         if tword in allWords:
             result.append(tword)
+    hasResultKey[numStr] = result
     print numStr
     print result
     print "=============="
