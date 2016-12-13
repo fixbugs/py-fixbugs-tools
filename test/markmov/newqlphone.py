@@ -33,6 +33,10 @@ def getFileContent(file_path):
     return result
 
 allWords = getFileContent(wordsPath)
+allDict = dict()
+for aw in allWords:
+    allDict[aw] = 1
+
 import itertools
 hasResultKey = dict()
 
@@ -46,7 +50,7 @@ def findWord(numStr):
     result = list()
     for iw in itertools.product(*eval(res)):
         tword = ''.join(iw)
-        if tword in allWords:
+        if tword in allDict:
             result.append(tword)
     hasResultKey[numStr] = result
     print numStr
@@ -59,6 +63,8 @@ lastWord = list()
 for us in unSecArr:
     wordArr = us.split(str('1'))
     for w in wordArr:
+        print w
         lastWord.append(findWord(w))
 
 print lastWord
+#Steve Jobs
