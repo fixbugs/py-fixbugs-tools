@@ -24,7 +24,7 @@ azArr = np.zeros((26, 10))
 azArr = np.ndarray.tolist(azArr)
 for z in azContent:
     letter_index = ord(z[0])-97
-    if int(z[2]) < 50:
+    if int(z[2]) < 10:
         continue
     azArr[letter_index][int(z[1])] += int(z[2])
 
