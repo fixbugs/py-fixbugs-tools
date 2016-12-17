@@ -12,6 +12,7 @@ answer = open("answer.png", "wb")
 
 pos = 0
 name = wholepng[pos:pos + 8]
+
 ans += name
 pos += 8
 a = ''
@@ -29,10 +30,10 @@ while(pos < len(wholepng)):
     size = struct.unpack('I', lenth[::-1])[0]
 # '''
 # 此处请查到哪里有错之后自己改下
-    if(size == 13):
-        size = 13
-        lenth = struct.pack('I', size)
-        lenth = lenth[::-1]
+    # if(size == 13):
+    #     size = 13
+    #     lenth = struct.pack('I', size)
+    #     lenth = lenth[::-1]
 # '''
     if (size > len(wholepng) - pos):
         print('error in size')
