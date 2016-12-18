@@ -53,6 +53,7 @@ print "test more"
 ttest = strTomd('hello oreo')
 print ttest
 
-
+#x = 3120n + 2753
+#y = -17n-15
 
 #print pow(c, d, '')
