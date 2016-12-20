@@ -29,14 +29,14 @@ def getdata(url, data):
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4'
     }
-    # conn = httplib.HTTPConnection("www.qlcoder.com")
-    # conn.request(method="POST", url=url,body=post_data, headers=headers)
+    conn = httplib.HTTPConnection("www.qlcoder.com")
+    conn.request(method="POST", url=url,body=post_data, headers=headers)
 
     # print url
     # req = urllib2.Request(url,post_data)
     # print "=========="
     # soc = urllib2.urlopen(req)
-    #soc = conn.getresponse()
+    soc = conn.getresponse()
 
     print "============="
     con = soc.read()
