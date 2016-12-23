@@ -7,6 +7,8 @@ sys.path.append('gen-py')
 #sys.path.insert(0, glob.glob('../../lib/py/build/lib*')[0])
 #sys.path.insert(0, glob.glob('/html/NginxServer/py-fixbugs-tools/test/rpc/gen-py/task7698'))
 sys.path.insert(0, '/html/NginxServer/py-fixbugs-tools/test/rpc/gen-py/task7698')
+#sys.path.append
+
 
 from task import Task
 
