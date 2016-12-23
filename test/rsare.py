@@ -40,6 +40,14 @@ print '--------------------------------------'
 # print binascii.a2b_hex(as_str_hex)
 # exit(0)
 
+bs1 = long('5991810554633396517767024967580894321153')
+bs2 = long('6847944682037444681162770672798288913849')
+b = (bs1-1)*(bs2 - 1)
+y = -15775
+ls = -b*y+1
+e = ls/65537
+nd = e
+
 
 def strTomd(sstr):
     t_str = binascii.b2a_hex(sstr)
@@ -49,15 +57,16 @@ def strTomd(sstr):
 
 def decmd(hstr):
     #16 to 10
-    dhstr = long(hstr, 16)
-    print calc(dhstr, 65537, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
-
+    dhstr = hstr
+    dres = calc(dhstr, 65537, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
+    print long(dres)
+    print binascii.a2b_hex(long(dres))
 
 print "test more"
 ttest = strTomd('hello oreo')
 print ttest
 print "==========="
-print decmd(ttest)
+print decmd(nd)
 
 #x = 3120n + 2753
 #y = -17n-15
