@@ -48,6 +48,8 @@ ls = -b*y+1
 e = ls/65537
 nd = e
 
+#e = 65537
+
 
 def strTomd(sstr):
     #m^e = c (mod n)
