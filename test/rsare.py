@@ -50,23 +50,28 @@ nd = e
 
 
 def strTomd(sstr):
+    #m^e = c (mod n)
     t_str = binascii.b2a_hex(sstr)
     mmmstr = calc(int(t_str, 16), 65537, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
     return hex(mmmstr)
 
+#ed = 1 (mod F(n))
+#F(n) = (p-1)(q-1)
+#n=pq
 
 def decmd(hstr):
+    #c^d = m(mod n)
     #16 to 10
-    dhstr = hstr
-    dres = calc(dhstr, 65537, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
+    dhstr = str(hstr)
+    dres = calc(long(dhstr,16), 65537, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
     print long(dres)
-    print binascii.a2b_hex(long(dres))
+    print binascii.b2a_hex(long(dres))
 
 print "test more"
 ttest = strTomd('hello oreo')
 print ttest
 print "==========="
-print decmd(nd)
+print decmd(ttest)
 
 #x = 3120n + 2753
 #y = -17n-15
