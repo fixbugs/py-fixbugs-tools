@@ -47,33 +47,53 @@ y = -15775
 ls = -b*y+1
 e = ls/65537
 nd = e
+#newd
+print nd
+print "============aa=============="
 
 #e = 65537
 
 
 def strTomd(sstr):
     #m^e = c (mod n)
+    print "==============strtomd-----============"
     t_str = binascii.b2a_hex(sstr)
-    mmmstr = calc(int(t_str, 16), 65537, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
+    newt_str = long(t_str, 16)
+    print newt_str
+    mmmstr = calc(newt_str, 65537, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
+    print mmmstr
     return hex(mmmstr)
 
 #ed = 1 (mod F(n))
 #F(n) = (p-1)(q-1)
 #n=pq
 
+
 def decmd(hstr):
     #c^d = m(mod n)
     #16 to 10
-    dhstr = str(hstr)
-    dres = calc(long(dhstr,16), 65537, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
-    print long(dres)
-    print binascii.b2a_hex(long(dres))
+    #dhstr = str(hstr)
+    newd_str = long(hstr, 16)
+    dres = calc(newd_str, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'), long('9876455871473848869533324275271328267592369748302270589984220483284702063644673'))
+    letter_num= binascii.b2a_hex(hex(dres))
+
 
 print "test more"
 ttest = strTomd('hello oreo')
 print ttest
 print "==========="
-print decmd(ttest)
+#powr = pow(long(ttest, 16), nd, long('9876455871473848869533324275271328267592369748302270589984220483284702063644673'))
+
+ttest = '14a091645d307b8abd8632a1fb83f81e38c1b33d3286ca814a5742bec52c4b06d08'
+
+powr = pow(long(ttest, 16), nd, long('41031587223377599579245988781518671358060455361860183212406274189493280555347897'))
+
+print powr
+print hex(powr), 'get it'
+#let's gaoji
+
+
+#print decmd(ttest)
 
 #x = 3120n + 2753
 #y = -17n-15
