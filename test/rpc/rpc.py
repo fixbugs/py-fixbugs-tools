@@ -38,3 +38,4 @@ try:
 #捕获异常
 except Thrift.TException, ex:
     print "%s" % (ex.message)
+#545de5394559dcd16e2acd207bc929aa
