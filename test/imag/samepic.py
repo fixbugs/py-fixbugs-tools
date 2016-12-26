@@ -6,8 +6,10 @@ import os
 # hash = imagehash.average_hash(Image.open('lenna.png'))
 # print hash
 
+
 def getImhash(picpath):
     return imagehash.average_hash(Image.open(picpath))
+
 
 def GetFileList(dir, fileList):
     newDir = dir
@@ -18,7 +20,7 @@ def GetFileList(dir, fileList):
             #如果需要忽略某些文件夹，使用以下代码
             #if s == "xxx":
                 #continue
-            newDir=os.path.join(dir,s)
+            newDir = os.path.join(dir, s)
             GetFileList(newDir, fileList)
     return fileList
 
