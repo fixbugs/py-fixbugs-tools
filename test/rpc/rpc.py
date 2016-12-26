@@ -6,11 +6,13 @@ import glob
 sys.path.append('gen-py')
 #sys.path.insert(0, glob.glob('../../lib/py/build/lib*')[0])
 #sys.path.insert(0, glob.glob('/html/NginxServer/py-fixbugs-tools/test/rpc/gen-py/task7698'))
-sys.path.insert(0, '/html/NginxServer/py-fixbugs-tools/test/rpc/gen-py/task7698')
+#sys.path.insert(0, '/html/NginxServer/py-fixbugs-tools/test/rpc/gen-py/task7698')
+sys.path.append('/html/NginxServer/py-fixbugs-tools/test/rpc/')
 #sys.path.append
 
 
-from task import Task
+from task7698 import Task
+from task7698.ttypes import Auth
 
 from thrift import Thrift
 from thrift.transport import TSocket
@@ -26,16 +28,12 @@ try:
     protocol = TBinaryProtocol.TBinaryProtocol(transport)
     #创建客户端
     client = Task.Client(protocol)
-    client = Task.getTaskInfo()
     transport.open()
-
-    print "client - ping"
-    print "server - " + client.ping()
-
-    print "client - say"
-    msg = client.getTaskInfo()
-    print "server - " + msg
-    #关闭传输
+    aub = Auth('fixbug', 1)
+    print aub
+    msg = client.getTaskInfo(aub)
+    print msg
+        #关闭传输
     transport.close()
 #捕获异常
 except Thrift.TException, ex:
