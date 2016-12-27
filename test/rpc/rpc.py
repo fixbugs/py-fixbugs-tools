@@ -3,6 +3,7 @@
 
 import sys
 import glob
+
 sys.path.append('gen-py')
 #sys.path.insert(0, glob.glob('../../lib/py/build/lib*')[0])
 #sys.path.insert(0, glob.glob('/html/NginxServer/py-fixbugs-tools/test/rpc/gen-py/task7698'))
