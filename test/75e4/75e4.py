@@ -60,6 +60,7 @@ class ball(object):
                 ytime = abs(float((self._nowY)/self._nowSpY))
             else:
                 ytime = abs(float((MAXY - self._nowY)/self._nowSpY))
+        #need check ball touch time
         print xtime, ytime
         #get next change time
         return min(xtime, ytime)
