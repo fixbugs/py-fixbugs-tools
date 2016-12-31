@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
-import numpy as np
 import math
 
 
@@ -32,7 +30,7 @@ class ball(object):
 
     def countSpeedSQ(self):
         self._spSQ = math.sqrt(pow(abs(self._nowSpX), 2) + pow(abs(self._nowSpY), 2))
-        if self._nowSpX < 0 and self._nowSpY >0 or self._nowSpX >0 and self._nowSpY < 0:
+        if self._nowSpX < 0 and self._nowSpY > 0 or self._nowSpX > 0 and self._nowSpY < 0:
             self._spSQ = -1 * self._spSQ
 
     def getNextChangeTime(self):
@@ -62,7 +60,7 @@ class ball(object):
                 ytime = abs(float((self._nowY)/self._nowSpY))
             else:
                 ytime = abs(float((MAXY - self._nowY)/self._nowSpY))
-        print xtime,ytime
+        print xtime, ytime
         #get next change time
         return min(xtime, ytime)
 
@@ -78,4 +76,3 @@ print "============="
 tb2 = ball(80,80, -15,-16)
 print tb2.getNextChangeTime()
 print tb2._spSQ
-
