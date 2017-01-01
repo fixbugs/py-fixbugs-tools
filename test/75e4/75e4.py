@@ -65,12 +65,32 @@ class ball(object):
         #get next change time
         return min(xtime, ytime)
 
-tb = ball(10,10, 1,2)
-nt1 = tb.getNextChangeTime()
-print tb.countEnd(nt1)
-print tb._nowX
-print tb._nowY
-print tb._spSQ
+tb0 = ball(10, 10, 1, 2)
+tb1 = ball(20, 20, 3, 4)
+tb2 = ball(30, 30, 5, 6)
+tb3 = ball(40, 40, 7, 8)
+tb4 = ball(50, 50, 9, 10)
+tb5 = ball(60, 60, -11, -12)
+tb6 = ball(70, 70, -13, -14)
+tb7 = ball(80, 80, -15, -16)
+tb8 = ball(90, 90, -17, -18)
+
+for i in range(1, 18, 2):
+    tmp_obj = None
+    if i < 10:
+        tmp_obj = ball(i*10, i*10, i, i+1)
+    else:
+        tmp_obj = ball(i*10, i*10, i*(-1), (i+1) * (-1))
+    listArr.append(tmp_obj)
+
+for obj in listArr:
+    print obj.countEnd(obj.getNextChangeTime())
+
+nt1 = tb1.getNextChangeTime()
+print tb1.countEnd(nt1)
+print tb1._nowX
+print tb1._nowY
+print tb1._spSQ
 
 print "============="
 
