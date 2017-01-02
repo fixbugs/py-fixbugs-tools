@@ -33,9 +33,17 @@ class ball(object):
         if self._nowSpX < 0 and self._nowSpY > 0 or self._nowSpX > 0 and self._nowSpY < 0:
             self._spSQ = -1 * self._spSQ
 
+    def prints(self):
+        print 'print self ball START'
+        print self._nowX, self._nowY
+        print self._nowSpX, self._nowSpY
+        print self._spSQ
+        print 'print ball END'
+
     def getNextChangeTime(self):
         xtime = 0
         ytime = 0
+        self.prints()
         if self._nowSpX > 0:
             if self._nowX < MAXX/2:
                 #right
@@ -61,7 +69,7 @@ class ball(object):
             else:
                 ytime = abs(float((MAXY - self._nowY)/self._nowSpY))
         #need check ball touch time
-        print xtime, ytime
+        self.prints()
         #get next change time
         return min(xtime, ytime)
 
@@ -83,17 +91,14 @@ for i in range(1, 18, 2):
         tmp_obj = ball(i*10, i*10, i*(-1), (i+1) * (-1))
     listArr.append(tmp_obj)
 
+c = 0
 for obj in listArr:
-    print obj.countEnd(obj.getNextChangeTime())
+    if c > 5:
+        print obj.countEnd(obj.getNextChangeTime())
+        break
+    c += 1
 
-nt1 = tb1.getNextChangeTime()
-print tb1.countEnd(nt1)
-print tb1._nowX
-print tb1._nowY
-print tb1._spSQ
-
-print "============="
-
+exit(0)
 tb2 = ball(80,80, -15,-16)
 print tb2.getNextChangeTime()
 print tb2._spSQ
