@@ -58,7 +58,7 @@ class ball(object):
             else:
                 #left
                 xtime = abs(float((MAXX - self._nowX)/self._nowSpX))
-        if self._nowSpY > 0:
+        if self._nowSpY < 0:
             if self._nowY < MAXY/2:
                 ytime = float((MAXY - self._nowY)/self._nowSpY)
             else:
