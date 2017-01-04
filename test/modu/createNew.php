@@ -24,8 +24,8 @@ $removeArray = array(
     '.X...,XXXX.,XXXXX,.XXXX,...XX' => '4,0',
     '...X,...X,X..X,XXXX,XX.X' => '0,4',
     //may cannot
-    'XX...,XXXXX,XXXXX,XXXX.,...X.' => '0,2',
-    '...XX,XXXXX,XXXX.,.XXX.,..X..' => '0,1',
+    //'XX...,XXXXX,XXXXX,XXXX.,...X.' => '0,2',
+    //'...XX,XXXXX,XXXX.,.XXX.,..X..' => '0,1',
     //    '.XXX,XX.X,...X' => '0,1',
     //    '.XX.,XXXX,..X.,..XX,..X.' => '3,3',
     //3'...X,..XX,XXXX,.X..' => '4,0',
