@@ -75,7 +75,7 @@ $newArray['map'] = $endNewMap;
 $newArray['pieces'] = $lastPieces;
 //var_dump($newArray);
 var_dump(json_encode($newArray));
-die("test ok ");
+//die("test ok ");
 function addToMap($map,$position,$piece,$row=3,$column =3){
     list($x,$y) = explode(',',$position);
     global $modu;
