@@ -23,6 +23,7 @@ $removeArray = array(
     '....X,...XX,XXXXX,XXXX.,XXXX.' => '4,0',
     '.X...,XXXX.,XXXXX,.XXXX,...XX' => '4,0',
     '...X,...X,X..X,XXXX,XX.X' => '0,4',
+    //check move pieces multies
     //may cannot
     //'XX...,XXXXX,XXXXX,XXXX.,...X.' => '0,2',
     //'...XX,XXXXX,XXXX.,.XXX.,..X..' => '0,1',
