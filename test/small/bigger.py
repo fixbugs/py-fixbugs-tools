@@ -9,8 +9,6 @@ def bwt(s):
     # Sorted table
     table_sorted = table[:]
     table_sorted.sort()
-    print table_sorted
-    exit(0)
     # Get index list of ((every string in sorted table)'s next string in unsorted table)'s index in sorted table
     indexlist = []
     for t in table_sorted:
@@ -23,7 +21,7 @@ def bwt(s):
     return r, indexlist
 
 
-def ibwt(r,indexlist):
+def ibwt(r, indexlist):
     """Inverse Burrows-Wheeler transform. Not indicated by a unique byte but use index list"""
     s = ''
     x = indexlist[0]

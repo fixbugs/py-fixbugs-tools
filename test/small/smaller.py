@@ -10,6 +10,7 @@ def wheelerTransform(data):
         result += r[length - 1]
     return result
 
+
 def compress(data):
     result = ""
     count = 1
@@ -22,6 +23,7 @@ def compress(data):
         else:
             count += 1
     return result + cur + str(count)
+
 
 if __name__=='__main__':
     wt = wheelerTransform("BABABABANANABABABABABANANABABABABABANANABANANANAAHH")
