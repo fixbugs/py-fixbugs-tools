@@ -21,6 +21,18 @@ def bwt(s):
     return r, indexlist
 
 
+def bwtd(string, slice_len):
+    string_len = len(string)
+    string_slice = []
+    for index in range(len(string)):
+        s, e = index, (index+slice_len) % string_len
+        if s < e:
+            string_slice.append((string[s:e], string[s-1]))
+        else:
+            string_slice.append((string[s:] + string[:e], string[s-1]))
+    return string_slice
+
+
 def ibwt(r, indexlist):
     """Inverse Burrows-Wheeler transform. Not indicated by a unique byte but use index list"""
     s = ''
@@ -36,4 +48,5 @@ filePathIP = 'bigger.txt'
 f = open(filePathIP, 'r')
 d = f.read()
 f.close()
-print bwt(d)
+print bwtd(d, len(d))
+#print bwt(d)
