@@ -57,24 +57,24 @@ def bwt(string, slice_len):
 
 if __name__ == '__main__':
     sstr = getFileContent('war_and_piece.txt')
-    #print wheelerTransform("BABABABANANABABABABABANANABABABABABANANABANANANAAHH")
-    bwt_res = bwt(sstr[0], 100)
-    bwt_res = sorted(bwt_res)
-    bwt_res = bwt_res[0:10]
-    #print bwt_res
-    nw = list()
-    #b2 = list()
-    for b in bwt_res:
-     #   b2.append(b[1])
-        print b[0]
-        tmp = wheelerTransform(b[0])
-        nw.append(tmp)
+    # #print wheelerTransform("BABABABANANABABABABABANANABABABABABANANABANANANAAHH")
+    # bwt_res = bwt(sstr[0], 100)
+    # bwt_res = sorted(bwt_res)
+    # bwt_res = bwt_res[0:10]
+    # #print bwt_res
+    # nw = list()
+    # #b2 = list()
+    # for b in bwt_res:
+    #  #   b2.append(b[1])
+    #     print b[0]
+    #     tmp = wheelerTransform(b[0])
+    #     nw.append(tmp)
         #print tmp
-    #wt = wheelerTransform(new_str)
+    wt = wheelerTransform(sstr)
     #b2 = sorted(b2)
     #wt = wheelerTransform(''.join(b2) )
-    #print wt
-    wt = ''.join(nw)
+    print wt
+    #wt = ''.join(nw)
     print '-----wt-----------'
     print '---------md5---result------'
     print string_md5(wt)
