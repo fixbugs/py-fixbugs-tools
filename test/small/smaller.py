@@ -25,7 +25,7 @@ def compress(data):
     return result + cur + str(count)
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     wt = wheelerTransform("BABABABANANABABABABABANANABABABABABANANABANANANAAHH")
     print wt
     print compress(wt)
