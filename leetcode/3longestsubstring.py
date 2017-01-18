@@ -8,26 +8,37 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        slen = len(s)
-        lastList = list()
-        nowList = list()
-        for ns in range(0, slen):
-            if s[ns] not in nowList:
-                nowList.append(s[ns])
+        start = maxLength = 0
+        usedChar = {}
+        for i in range(len(s)):
+            if s[i] in usedChar and start <= usedChar[s[i]]:
+                start = usedChar[s[i]] + 1
             else:
-                llen = len(lastList)
-                if len(nowList) >= llen:
-                    lastList = list()
-                    lastList = nowList
-                nowList = list()
-                nowList.append(s[ns])
-        if len(nowList) >= len(lastList):
-            lastList = nowList
-        return len(lastList)
+                maxLength = max(maxLength, i - start + 1)
+            usedChar[s[i]] = i
+            print usedChar
+            print "========="
+        return maxLength
+        # slen = len(s)
+        # lastList = list()
+        # nowList = list()
+        # for ns in range(0, slen):
+        #     if s[ns] not in nowList:
+        #         nowList.append(s[ns])
+        #     else:
+        #         llen = len(lastList)
+        #         if len(nowList) >= llen:
+        #             lastList = list()
+        #             lastList = nowList
+        #         nowList = list()
+        #         nowList.append(s[ns])
+        # if len(nowList) >= len(lastList):
+        #     lastList = nowList
+        # return len(lastList)
 
 if __name__ == "__main__":
     a = Solution()
     s = "abcabcbb"
-    st = "dvdw"
+    st = "dvdwadfsafsdfd"
     #print a.lengthOfLongestSubstring(s)
     print a.lengthOfLongestSubstring(st)
