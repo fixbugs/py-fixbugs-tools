@@ -16,14 +16,18 @@ class Solution(object):
                 nowList.append(s[ns])
             else:
                 llen = len(lastList)
-                if len(nowList) > llen:
+                if len(nowList) >= llen:
+                    lastList = list()
                     lastList = nowList
-                    nowList = list()
-                else:
-                    nowList = list()
+                nowList = list()
+                nowList.append(s[ns])
+        if len(nowList) >= len(lastList):
+            lastList = nowList
         return len(lastList)
 
 if __name__ == "__main__":
     a = Solution()
     s = "abcabcbb"
-    print a.lengthOfLongestSubstring(s)
+    st = "dvdw"
+    #print a.lengthOfLongestSubstring(s)
+    print a.lengthOfLongestSubstring(st)
