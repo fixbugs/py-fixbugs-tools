@@ -16,8 +16,6 @@ class Solution(object):
             else:
                 maxLength = max(maxLength, i - start + 1)
             usedChar[s[i]] = i
-            print usedChar
-            print "========="
         return maxLength
         # slen = len(s)
         # lastList = list()
