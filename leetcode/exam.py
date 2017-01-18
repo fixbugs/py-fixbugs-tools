@@ -10,4 +10,4 @@ class Solution(object):
 if __name__ == "__main__":
     a = Solution()
     n = 26
-    print a.convertToTitle(n)
+    print a.test(n)
