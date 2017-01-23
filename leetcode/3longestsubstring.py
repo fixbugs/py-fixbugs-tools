@@ -17,22 +17,6 @@ class Solution(object):
                 maxLength = max(maxLength, i - start + 1)
             usedChar[s[i]] = i
         return maxLength
-        # slen = len(s)
-        # lastList = list()
-        # nowList = list()
-        # for ns in range(0, slen):
-        #     if s[ns] not in nowList:
-        #         nowList.append(s[ns])
-        #     else:
-        #         llen = len(lastList)
-        #         if len(nowList) >= llen:
-        #             lastList = list()
-        #             lastList = nowList
-        #         nowList = list()
-        #         nowList.append(s[ns])
-        # if len(nowList) >= len(lastList):
-        #     lastList = nowList
-        # return len(lastList)
 
 if __name__ == "__main__":
     a = Solution()
